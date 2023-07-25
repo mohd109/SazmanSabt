@@ -1,0 +1,1 @@
+tar -zcvf tehland_front.tar.gz ./build && scp tehland_front.tar.gz debian@188.121.121.81:~/

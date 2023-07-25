@@ -1,0 +1,80 @@
+{
+  "name": "TehLand",
+  "version": "1.0.0",
+  "private": false,
+  "dependencies": {
+    "@kunukn/react-collapse": "latest",
+    "@mapbox/mapbox-gl-draw": "latest",
+    "@mapbox/point-geometry": "latest",
+    "@turf/boolean-intersects": "latest",
+    "@turf/turf": "latest",
+    "@types/jest": "latest",
+    "@types/mapbox__mapbox-gl-draw": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/three": "latest",
+    "@web3-react/core": "latest",
+    "@web3-react/injected-connector": "latest",
+    "@web3-react/walletconnect-connector": "latest",
+    "@web3-react/walletlink-connector": "latest",
+    "assert": "latest",
+    "axios": "latest",
+    "classnames": "latest",
+    "crypto-browserify": "latest",
+    "crypto-js": "latest",
+    "ethers": "latest",
+    "https-browserify": "latest",
+    "json-rpc-engine": "latest",
+    "mapbox-gl": "latest",
+    "maplibre-gl": "latest",
+    "os-browserify": "latest",
+    "pako": "latest",
+    "process": "latest",
+    "react": "latest",
+    "react-app-rewired": "latest",
+    "react-device-detect": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "latest",
+    "react-scripts": "latest",
+    "sass": "latest",
+    "stream-browserify": "latest",
+    "stream-http": "latest",
+    "three": "latest",
+    "ts-md5": "latest",
+    "typescript": "latest",
+    "url": "latest",
+    "util": "latest",
+    "web-vitals": "latest",
+    "web3": "latest",
+    "yarn": "latest"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      "defaults",
+      "not ie 11"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/dat.gui": "latest",
+    "@types/node": "latest",
+    "@types/three": "latest",
+    "autoprefixer": "latest",
+    "dat.gui": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest"
+  }
+}
