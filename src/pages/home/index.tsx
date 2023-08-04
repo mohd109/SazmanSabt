@@ -28,7 +28,7 @@ import {Navigation} from "./navigation";
 import {Footer} from "../../components/layouts/footer";
 import {Header} from "../../components/layouts/header";
 import {Overview} from "../../components/home/overview";
-import { BlueEqual} from "../../components/home/blueequal";
+import {BlueEqual} from "../../components/home/blueequal";
 import {Econs} from "../../components/home/econs";
 import {Gap} from "../../components/home/gap";
 import {ArchitectureSection} from "../../components/home/ArchitectureSection";
