@@ -75,7 +75,7 @@ function MarketPlace() {
   let zoomCenter: LngLatLike = [51.32, 35.5219];
   let zoomValue = 13;
   if (isMobile) {
-    zoomCenter = [51.4582484, 35.8070157];
+    zoomCenter = [51.32, 35.5219];
     zoomValue = 15;
   }
 
