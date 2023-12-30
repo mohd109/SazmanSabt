@@ -1,0 +1,31 @@
+[package]
+name = "rahnegaravl_backend"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+actix-web = { version = "4.4.0", features = ["openssl"] }
+actix-files = "0.6.2"
+mongodb = "2.7.1"
+serde = { version = "1.0.193", features = ["derive"] }
+rand = "0.8.5"
+actix-identity = "0.6.0"
+rustls = "0.21.9"
+rustls-pemfile = "1.0.4"
+bson = "2.7.0"
+serde_json = "1.0.108"
+image = "0.24.7"
+chrono = "0.4.31"
+tokio-pg-mapper = "0.2.0"
+tokio-pg-mapper-derive = "0.2.0"
+tokio-postgres = "0.7.10"
+config = "0.13.4"
+deadpool-postgres = { version = "0.11.0", features = ["serde"] }
+derive_more = "0.99.17"
+dotenv = "0.15.0"
+reqwest = { version = "0.11.22", features = ["json"] }
+base64 = "0.21.5"
+openssl = "0.10.60"
+openssl-sys = "0.9.96"
+actix-session = { version = "0.8.0", features = ["redis-rs-session","redis-actor-session"] } 
+actix-redis =  "0.13.0"
