@@ -86,7 +86,7 @@ impl ResponseError for Error {
 }
 
 //DB and Collection names
-const DB_NAME: &str = "atlasavl";
+const DB_NAME: &str = "registry";
 const USER_COLL: &str = "users";
 const ADMIN_COLL: &str = "admins";
 const BLOG_COLL: &str = "blogs";
@@ -1929,7 +1929,7 @@ async fn main() -> std::io::Result<()> {
     }
 
     let uri = std::env::var("MONGODB_URI").unwrap_or_else(|_| {
-        "mongodb://atlasavlclient:atlasavl89GC144@127.0.0.1:27017/atlasavl?authSource=admin"
+        "mongodb://registryclient:registry89GC144@127.0.0.1:27017/registry?authSource=admin"
             .into()
     });
     let client = Client::with_uri_str(uri).await.expect("failed to connect");
@@ -1948,7 +1948,7 @@ async fn main() -> std::io::Result<()> {
     pg_config.hostaddr(localhost_v4);
     pg_config.host("/usr/local/pgsql");
     pg_config.user("postgres");
-    pg_config.dbname("atlasavl");
+    pg_config.dbname("registry");
     pg_config.password("Rahnegar1231091256");
     pg_config.port(5432);
     let mgr_config = ManagerConfig {
