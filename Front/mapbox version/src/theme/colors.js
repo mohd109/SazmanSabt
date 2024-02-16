@@ -1,5 +1,5 @@
 module.exports = {
-  'primary':'#65308E',
+  'primary':'#26A17B',
   'secondary':'#141414',
   'holder':'#8E8E8E',
 

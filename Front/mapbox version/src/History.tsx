@@ -76,7 +76,7 @@ export default function History() {
         let landItem = request.data[index].title;
         landsTable.push(<div className="flex items-stretch pt-6 text-left w-full">
         <svg width="13" height="15" viewBox="0 0 13 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5.5 0.57735C6.1188 0.220085 6.8812 0.220085 7.5 0.57735L11.9952 3.17265C12.614 3.52992 12.9952 4.19017 12.9952 4.9047V10.0953C12.9952 10.8098 12.614 11.4701 11.9952 11.8274L7.5 14.4226C6.8812 14.7799 6.1188 14.7799 5.5 14.4226L1.00481 11.8274C0.386007 11.4701 0.00480938 10.8098 0.00480938 10.0953V4.9047C0.00480938 4.19017 0.386007 3.52992 1.00481 3.17265L5.5 0.57735Z" fill="#65308E" />
+          <path d="M5.5 0.57735C6.1188 0.220085 6.8812 0.220085 7.5 0.57735L11.9952 3.17265C12.614 3.52992 12.9952 4.19017 12.9952 4.9047V10.0953C12.9952 10.8098 12.614 11.4701 11.9952 11.8274L7.5 14.4226C6.8812 14.7799 6.1188 14.7799 5.5 14.4226L1.00481 11.8274C0.386007 11.4701 0.00480938 10.8098 0.00480938 10.0953V4.9047C0.00480938 4.19017 0.386007 3.52992 1.00481 3.17265L5.5 0.57735Z" fill="#26A17B" />
         </svg>
         <div id="HistoryLandName" className="pl-5 text-left w-[88%]">
         {landItem}
@@ -106,8 +106,8 @@ export default function History() {
         <path d="M8.5 8.875L9.91421 10.2892L8.5 11.7034L7.08579 10.2892L8.5 8.875ZM16.6642 3.53921L9.91421 10.2892L7.08579 7.46079L13.8358 0.710786L16.6642 3.53921ZM7.08579 10.2892L0.335786 3.53921L3.16421 0.710786L9.91421 7.46079L7.08579 10.2892Z" fill="white" />
       </svg>
       <svg id="svgSearch" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="bg-black p-4 absolute text-white no-underline duration-300 rounded-l-md text-xs">
-        <circle cx="8" cy="8" r="7" stroke="#65308E" strokeWidth="2" />
-        <path d="M17 17L14 14" stroke="#65308E" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="8" cy="8" r="7" stroke="#26A17B" strokeWidth="2" />
+        <path d="M17 17L14 14" stroke="#26A17B" strokeWidth="2" strokeLinecap="round" />
       </svg>
 
       <a id="terms" className="bg-black p-4 absolute text-white no-underline duration-300 rounded-l-md text-xs  left-50 bottom-35">Terms of Service</a>
@@ -117,9 +117,9 @@ export default function History() {
       <div id="HistoryContainer" className="flex flex-col h-auto mx-48 pb-24 text-left text-white w-full top-[20%]">
         <div id="HR1" className="pb-8 text-left">
           <svg id="bigPerson" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="left-0">
-            <path d="M29.6593 34.5098C29.0895 32.7379 27.8341 31.1721 26.0876 30.0554C24.3412 28.9386 22.2013 28.3333 20 28.3333C17.7987 28.3333 15.6588 28.9386 13.9124 30.0554C12.1659 31.1721 10.9105 32.7379 10.3407 34.5098" stroke="#65308E" strokeWidth="2" />
-            <circle cx="20" cy="16.6667" r="5" stroke="#65308E" strokeWidth="2" strokeLinecap="round" />
-            <rect x="4.33301" y="4.33333" width="31.3333" height="31.3333" rx="3" stroke="#65308E" strokeWidth="2" />
+            <path d="M29.6593 34.5098C29.0895 32.7379 27.8341 31.1721 26.0876 30.0554C24.3412 28.9386 22.2013 28.3333 20 28.3333C17.7987 28.3333 15.6588 28.9386 13.9124 30.0554C12.1659 31.1721 10.9105 32.7379 10.3407 34.5098" stroke="#26A17B" strokeWidth="2" />
+            <circle cx="20" cy="16.6667" r="5" stroke="#26A17B" strokeWidth="2" strokeLinecap="round" />
+            <rect x="4.33301" y="4.33333" width="31.3333" height="31.3333" rx="3" stroke="#26A17B" strokeWidth="2" />
           </svg>
           <div id="personIdHistory">
             0xxxx..x
@@ -130,9 +130,9 @@ export default function History() {
             </div>
             <div>
               <svg id="attachementIcon" width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9.58333 15.3333H6.70834C4.59124 15.3333 2.875 13.6171 2.875 11.5V11.5C2.875 9.38291 4.59124 7.66666 6.70833 7.66666H9.58333" stroke="#65308E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M15.3337 11.5H7.66699" stroke="#65308E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M13.4167 15.3333H16.2917C18.4088 15.3333 20.125 13.6171 20.125 11.5V11.5C20.125 9.38291 18.4088 7.66666 16.2917 7.66666H13.4167" stroke="#65308E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M9.58333 15.3333H6.70834C4.59124 15.3333 2.875 13.6171 2.875 11.5V11.5C2.875 9.38291 4.59124 7.66666 6.70833 7.66666H9.58333" stroke="#26A17B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M15.3337 11.5H7.66699" stroke="#26A17B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M13.4167 15.3333H16.2917C18.4088 15.3333 20.125 13.6171 20.125 11.5V11.5C20.125 9.38291 18.4088 7.66666 16.2917 7.66666H13.4167" stroke="#26A17B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
 

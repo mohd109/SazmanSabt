@@ -49,7 +49,7 @@ export const CirclesInSide = (props: Props) => {
         <>
             <svg width="381" height="381" viewBox="0 0 381 381" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#filter0_d_331_185)">
-                    <circle cx="190.5" cy="190.5" r="161.5" stroke="#65308E" strokeWidth="2" shapeRendering="crispEdges"/>
+                    <circle cx="190.5" cy="190.5" r="161.5" stroke="#26A17B" strokeWidth="2" shapeRendering="crispEdges"/>
                 </g>
                 <defs>
                     <filter id="filter0_d_331_185" x="0" y="0" width="381" height="381" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">

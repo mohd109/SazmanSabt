@@ -7,6 +7,7 @@ import {
   Route, Navigate,
 } from "react-router-dom";
 import { useEffect } from 'react'
+import { MainPage } from './MainPage';
 
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
             <Route path="/history" element={<History />} />
             <Route path="/forgot" element={<ForgotPassword />} />
             <Route path="/rl" element={<RegisterAndLoginJSX />} /> */}
-            <Route path="/" element={<MarketPlace />} />
+            <Route path="/" element={<MainPage />} />
           </Routes >
         </Router>
       </div>

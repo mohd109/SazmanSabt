@@ -64,15 +64,15 @@ export default function ForgotPassword() {
         <stop offset="1" stopColor="#171717" stopOpacity="0"/>
         </linearGradient>
         <linearGradient id="paint2_linear_0_1" x1="171" y1="329.604" x2="171" y2="372.229" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#65308E"/>
+        <stop stopColor="#26A17B"/>
         <stop offset="1" stopColor="#390065"/>
         </linearGradient>
         <linearGradient id="paint3_linear_0_1" x1="170.5" y1="272.771" x2="170.5" y2="329.604" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#65308E"/>
+        <stop stopColor="#26A17B"/>
         <stop offset="1" stopColor="#390065"/>
         </linearGradient>
         <linearGradient id="paint4_linear_0_1" x1="170.642" y1="180.381" x2="170.642" y2="464.512" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#65308E"/>
+        <stop stopColor="#26A17B"/>
         <stop offset="1" stopColor="#390065" stopOpacity="0.51"/>
         </linearGradient>
         </defs>
