@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import mapboxgl, { MapMouseEvent } from "mapbox-gl"
+import maplibregl, { MapMouseEvent } from "maplibre-gl"
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
-import 'mapbox-gl/dist/mapbox-gl.css';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import { isMobile } from "react-device-detect";
 
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { LngLatLike } from "mapbox-gl";
+import { LngLatLike } from "maplibre-gl";
 import './pages/home/home.css';
 
 import "@turf/boolean-intersects"
@@ -46,7 +46,7 @@ async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
 
 let draw = new MapboxDraw({
   displayControlsDefault: false,
-  // Select which mapbox-gl-draw control buttons to add to the map.
+  // Select which maplibre-gl-draw control buttons to add to the map.
   controls: {
     polygon: false,
     trash: false,
@@ -72,11 +72,11 @@ function MarketPlace() {
     clickOnLayer = true;
   };
 
-  let zoomCenter: LngLatLike = [51.32, 35.5219];
+  let zoomCenter: LngLatLike = [48.988211,34.502381];
   let zoomValue = 13;
   if (isMobile) {
-    zoomCenter = [51.32, 35.5219];
-    zoomValue = 15;
+    zoomCenter = [48.988211,34.502381];
+    zoomValue = 13;
   }
 
   function deletePolygon() {
@@ -120,15 +120,12 @@ function MarketPlace() {
     }
   }
   useEffect(() => {
-    mapboxgl.accessToken = "pk.eyJ1Ijoic2VudGluZWwwMjYxIiwiYSI6ImNsM2d4NDJrYTBibWszYnBrZGsycnQ1ZWwifQ.6BzdRZv0MooTcRq85HmsWA";
 
     function loadMap() {
 
       return new Promise<void>(resolve => {
-        map = new mapboxgl.Map({
-          accessToken: "pk.eyJ1Ijoic2VudGluZWwwMjYxIiwiYSI6ImNsM2d4NDJrYTBibWszYnBrZGsycnQ1ZWwifQ.6BzdRZv0MooTcRq85HmsWA",
+        map = new maplibregl.Map({
           container: 'map',
-          style: 'mapbox://styles/sentinel0261/cl3gwaxej005v14rzb9qe9i62',
           center: zoomCenter,
           zoom: zoomValue,
           pitch: 0,
@@ -136,9 +133,27 @@ function MarketPlace() {
           antialias: true,
           maxZoom: 22,
           minZoom: 5,
-          // maxBounds: [[51.12178, 35.6078], [51.6321, 35.9367]]
+          style: 'http://10.1.47.63/style1.json',
+          maxBounds:[[48.988211,34.502381],[49.276238,35.004091]]
         });
+
+
+        //preparation for line animation
+
         map.on('load', _ => {
+          // map.addSource('iran', {
+          //   type: 'vector',
+          //   url: `http://0.0.0.0:3005/2017-07-03_asia_iran`
+          // });
+
+          // map.addLayer({
+          //   id: 'iran',
+          //   type: 'vector',
+          //   source: 'iran',
+          //   'source-layer': 'iran',
+            
+          // });
+
           map.addLayer(
             {
               id: "wmts-test-layer",
@@ -146,7 +161,7 @@ function MarketPlace() {
               source: {
                 type: "raster",
                 tiles: [
-                 "http://185.164.72.248:8089/services/tehran_sample/tiles/{z}/{x}/{y}.png"
+                 "http://10.1.47.63/tiles/40_156/{z}/{x}/{y}"
                 ],
                 tileSize: 256,
                 attribution:
@@ -155,6 +170,8 @@ function MarketPlace() {
         
               paint: {}
             });
+
+            
           resolve()
         });
         map.on('load', _ => {
@@ -164,7 +181,7 @@ function MarketPlace() {
     }
     loadMap().then(async _ => {
       if (notLoaded) {
-        await decompress();
+        // await decompress();
         notLoaded = false;
       }
     });

@@ -1,10 +1,6 @@
 import './App.css';
 import MarketPlace from "./MarketPlace";
 import React from 'react';
-import RegisterAndLoginJSX from "./RegisterAndLogin";
-import History from "./History";
-import {Home} from "./pages/home";
-import ForgotPassword from './ForgotPassword';
 
 import {
   HashRouter as Router, Routes,
