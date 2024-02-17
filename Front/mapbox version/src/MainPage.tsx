@@ -21,8 +21,31 @@ import { SubMenu } from './components/sidebar/SubMenu';
 import { Sidebar } from './components/sidebar/Sidebar';
 import MarketPlace from './MarketPlace';
 import { light } from './theme/fontWeight';
+import { Tree }  from 'react-arborist'
 
 type Theme = 'light' | 'dark';
+const data = [
+  { id: "1", name: "Unread" },
+  { id: "2", name: "Threads" },
+  {
+    id: "3",
+    name: "Chat Rooms",
+    children: [
+      { id: "c1", name: "General" },
+      { id: "c2", name: "Random" },
+      { id: "c3", name: "Open Source Projects" },
+    ],
+  },
+  {
+    id: "4",
+    name: "Direct Messages",
+    children: [
+      { id: "d1", name: "Alice" },
+      { id: "d2", name: "Bob" },
+      { id: "d3", name: "Charlie" },
+    ],
+  },
+];
 
 const themes = {
   light: {
@@ -69,20 +92,45 @@ const hexToRgba = (hex: string, alpha: number) => {
 
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
+function Node({ node, style, dragHandle }) {
+  /* This node instance can do many things. See the API reference. */
+  return (
+    <div style={style} ref={dragHandle}>
+      {node.isLeaf ? "🍁" : "🗀"}
+      {node.data.name}
+    </div>
+  );
+}
 
-export const MainPage: React.FC = () => {
+function MainPage() {
   const [collapsed, setCollapsed] = React.useState(false);
+  const [autoHide, setAutoHide] = React.useState(false);
   const [toggled, setToggled] = React.useState(true);
   const [broken, setBroken] = React.useState(false);
   const [rtl, setRtl] = React.useState(false);
   const [hasImage, setHasImage] = React.useState(false);
   const [theme, setTheme] = React.useState<Theme>('dark');
-
+  const hideSidebar = (e) => {
+    if(autoHide)
+    {
+      setTimeout(() => {
+        setCollapsed(true);
+      }, 1000);
+    }
+  };
+  const showSidebar = (e) => {
+    setTimeout(() => {
+      setCollapsed(false);
+    }, 100);
+  };
   // handle on RTL change event
   const handleRTLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRtl(e.target.checked);
   };
-
+    // handle on RTL change event
+    const handleAutoHideChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAutoHide(e.target.checked)
+    };
   // handle on theme change event
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTheme(e.target.checked ? 'dark' : 'light');
@@ -126,10 +174,11 @@ export const MainPage: React.FC = () => {
       fontWeight: open ? 600 : undefined,
     }),
   };
-  
+
 
   return (
-    <div className={"h-full absolute inset-0 w-full overflow-hidden"} style={{  direction: rtl ? 'rtl' : 'ltr' }}>
+    <div className={"flex h-full absolute inset-0 w-full overflow-hidden"} style={{ direction: rtl ? 'rtl' : 'ltr' }}>
+     
       <Sidebar
         collapsed={collapsed}
         toggled={toggled}
@@ -143,7 +192,7 @@ export const MainPage: React.FC = () => {
           color: themes[theme].sidebar.color,
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} onMouseLeave={hideSidebar} onMouseEnter={showSidebar}>
           <SidebarHeader rtl={rtl} style={{ marginBottom: '24px', marginTop: '16px' }} />
           <div style={{ flex: 1, marginBottom: '32px' }}>
             <div style={{ padding: '0 24px', marginBottom: '8px' }}>
@@ -170,6 +219,7 @@ export const MainPage: React.FC = () => {
                 <MenuItem> Export</MenuItem>
               </SubMenu>
               <SubMenu label="Layers" icon={<Global />}>
+              {/* <Tree initialData={data} /> */}
                 <MenuItem> Raster</MenuItem>
                 <MenuItem> Vector</MenuItem>
               </SubMenu>
@@ -211,32 +261,30 @@ export const MainPage: React.FC = () => {
                 Tasks
               </MenuItem>
               <SubMenu label="Settings" icon={<Book />}>
-              <MenuItem icon={<Book />} onClick={() => setCollapsed(!collapsed)}>
-                Toggle Names
-              </MenuItem>
-              <MenuItem icon={<Book />} onClick={() => handleRTLChange}>
-              <Switch id="rtl" checked={rtl} onChange={handleRTLChange} label="RTL" />
-              </MenuItem>
-              <MenuItem icon={<Book /> }>
-              <Switch
-                id="theme"
-                checked={theme === 'dark'}
-                onChange={handleThemeChange}
-                label="Dark theme"
-              />
-              </MenuItem>
+                <MenuItem icon={<Book />} >
+                <Switch id="rtl" checked={autoHide} onChange={handleAutoHideChange} label="Auto Hide" />
+                </MenuItem>
+                <MenuItem icon={<Book />}>
+                  <Switch id="rtl" checked={rtl} onChange={handleRTLChange} label="RTL" />
+                </MenuItem>
+                <MenuItem icon={<Book />}>
+                  <Switch id="theme" checked={theme === 'dark'} onChange={handleThemeChange} label="Dark theme"
+                  />
+                </MenuItem>
               </SubMenu>
               <MenuItem disabled icon={<Service />}>
                 Admin Section
               </MenuItem>
-              
+
             </Menu>
           </div>
           <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
       <MarketPlace />
-      
+
     </div>
   );
 };
+
+export default MainPage

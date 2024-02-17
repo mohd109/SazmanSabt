@@ -7,7 +7,7 @@ import {
   Route, Navigate,
 } from "react-router-dom";
 import { useEffect } from 'react'
-import { MainPage } from './MainPage';
+import MainPage from './MainPage';
 
 
 function App() {

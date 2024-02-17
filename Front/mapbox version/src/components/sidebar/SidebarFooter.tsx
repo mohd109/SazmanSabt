@@ -30,7 +30,6 @@ const StyledSidebarFooter = styled.div`
   border-radius: 8px;
   color: white;
   background: #26A17B;
-  /* background: #26A17B; */
 `;
 
 const StyledCollapsedSidebarFooter = styled.a`
@@ -43,8 +42,7 @@ const StyledCollapsedSidebarFooter = styled.a`
   cursor: pointer;
   border-radius: 50%;
   color: white;
-  background: linear-gradient(45deg, rgb(21 87 205) 0%, rgb(90 225 255) 100%);
-  /* background: #26A17B; */
+  background: #26A17B;
 `;
 
 const codeUrl =

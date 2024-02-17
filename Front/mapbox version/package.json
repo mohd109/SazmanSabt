@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "private": false,
   "dependencies": {
+    "react-arborist": "2.0.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@kunukn/react-collapse": "latest",
     "@mapbox/mapbox-gl-draw": "latest",
     "@mapbox/point-geometry": "latest",
@@ -37,7 +39,6 @@
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "latest",
     "react-scripts": "latest",
-    "react-sortable-tree-theme-full-node-drag": "^1.1.0",
     "sass": "latest",
     "stream-browserify": "latest",
     "stream-http": "latest",
