@@ -22,7 +22,31 @@ import { Sidebar } from './components/sidebar/Sidebar';
 import MarketPlace from './MarketPlace';
 import { light } from './theme/fontWeight';
 import { Tree }  from 'react-arborist'
+import DataTable from 'react-data-table-component';
 
+const columns = [
+	{
+		name: 'Title',
+		selector: row => row.title,
+	},
+	{
+		name: 'Year',
+		selector: row => row.year,
+	},
+];
+
+const data2 = [
+  	{
+		id: 1,
+		title: 'Beetlejuice',
+		year: '1988',
+	},
+	{
+		id: 2,
+		title: 'Ghostbusters',
+		year: '1984',
+	},
+]
 type Theme = 'light' | 'dark';
 const data = [
   { id: "1", name: "Unread" },
@@ -178,7 +202,7 @@ function MainPage() {
 
   return (
     <div className={"flex h-full absolute inset-0 w-full overflow-hidden"} style={{ direction: rtl ? 'rtl' : 'ltr' }}>
-     
+    
       <Sidebar
         collapsed={collapsed}
         toggled={toggled}
@@ -279,6 +303,49 @@ function MainPage() {
             </Menu>
           </div>
           <SidebarFooter collapsed={collapsed} />
+        </div>
+      </Sidebar>
+
+      <Sidebar
+        collapsed={collapsed}
+        toggled={toggled}
+        onBackdropClick={() => setToggled(false)}
+        onBreakPoint={setBroken}
+        image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
+        rtl={rtl}
+        breakPoint="md"
+        backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, hasImage ? 0.9 : 1)}
+        rootStyles={{
+          color: themes[theme].sidebar.color,
+        }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} onMouseLeave={hideSidebar} onMouseEnter={showSidebar}>
+          {/* <SidebarHeader rtl={rtl} style={{ marginBottom: '24px', marginTop: '16px' }} /> */}
+          <div style={{ flex: 1, marginBottom: '32px' }}>
+            <div style={{ padding: '0 24px', marginBottom: '8px' }}>
+              <Typography
+                variant="body2"
+                fontWeight={600}
+                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: '0.5px' }}
+              >
+                General
+              </Typography>
+            </div>
+            <Tree initialData={data} />
+            <DataTable
+			columns={columns}
+			data={data2}
+		/>
+            {/* <Menu menuItemStyles={menuItemStyles}>
+              <SubMenu label="Layers" icon={<Global />}>
+              </SubMenu>
+              <SubMenu label="Search" icon={<InkBottle />}>
+                <MenuItem> Spatial</MenuItem>
+                <MenuItem> Tables</MenuItem>
+              </SubMenu>
+            </Menu> */}
+          </div>
+          {/* <SidebarFooter collapsed={collapsed} /> */}
         </div>
       </Sidebar>
       <MarketPlace />
