@@ -21,56 +21,43 @@ import { SubMenu } from './components/sidebar/SubMenu';
 import { Sidebar } from './components/sidebar/Sidebar';
 import MarketPlace from './MarketPlace';
 import { light } from './theme/fontWeight';
-import { Tree }  from 'react-arborist'
+import { Tree } from 'react-arborist'
 import DataTable from 'react-data-table-component';
+import Arborist from "./components/sidebar/Arborist";
+import { Direction } from 'react-data-table-component';
 
 const columns = [
-	{
-		name: 'Title',
-		selector: row => row.title,
-	},
-	{
-		name: 'Year',
-		selector: row => row.year,
-	},
+  {
+    name: 'Title',
+    selector: row => row.title,
+  },
+  {
+    name: 'Year',
+    selector: row => row.year,
+  },
+  {
+    name: 'test',
+    selector: row => row.test,
+  },
 ];
-
 const data2 = [
-  	{
-		id: 1,
-		title: 'Beetlejuice',
-		year: '1988',
-	},
-	{
-		id: 2,
-		title: 'Ghostbusters',
-		year: '1984',
-	},
+  {
+    id: 1,
+    title: 'Beetlejuice',
+    year: '1988',
+    test: 'oh',
+  },
+  {
+    id: 2,
+    title: 'Ghostbusters',
+    year: '1984',
+    test: 'oh',
+  },
 ]
 type Theme = 'light' | 'dark';
-const data = [
-  { id: "1", name: "Unread" },
-  { id: "2", name: "Threads" },
-  {
-    id: "3",
-    name: "Chat Rooms",
-    children: [
-      { id: "c1", name: "General" },
-      { id: "c2", name: "Random" },
-      { id: "c3", name: "Open Source Projects" },
-    ],
-  },
-  {
-    id: "4",
-    name: "Direct Messages",
-    children: [
-      { id: "d1", name: "Alice" },
-      { id: "d2", name: "Bob" },
-      { id: "d3", name: "Charlie" },
-    ],
-  },
-];
+type VisibilityOfDetail = '' | 'hidden';
 
+const detailTitle = { 10: "Raster Layers", 11: "Vector Layers", 20: "Attribute Table", 21: "Properties", 22: "Statistics" };
 const themes = {
   light: {
     sidebar: {
@@ -127,16 +114,22 @@ function Node({ node, style, dragHandle }) {
 }
 
 function MainPage() {
-  const [collapsed, setCollapsed] = React.useState(false);
-  const [autoHide, setAutoHide] = React.useState(false);
+  const [collapsed, setCollapsed] = React.useState(true);
+  const [autoHide, setAutoHide] = React.useState(true);
   const [toggled, setToggled] = React.useState(true);
   const [broken, setBroken] = React.useState(false);
   const [rtl, setRtl] = React.useState(false);
   const [hasImage, setHasImage] = React.useState(false);
   const [theme, setTheme] = React.useState<Theme>('dark');
+  const [visibilityOfDetail, setVisibilityOfDetail] = React.useState("hidden");
+  const [collapsedDetail, setCollapsedDetail] = React.useState(false);
+  const [toggledDetail, setToggledDetail] = React.useState(true);
+  const [brokenDetail, setBrokenDetail] = React.useState(false);
+  const [statusDetail, setStatusDetail] = React.useState(0);
+
+
   const hideSidebar = (e) => {
-    if(autoHide)
-    {
+    if (autoHide) {
       setTimeout(() => {
         setCollapsed(true);
       }, 1000);
@@ -151,15 +144,29 @@ function MainPage() {
   const handleRTLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRtl(e.target.checked);
   };
-    // handle on RTL change event
-    const handleAutoHideChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setAutoHide(e.target.checked)
-    };
+  // handle on RTL change event
+  const handleAutoHideChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAutoHide(e.target.checked)
+  };
   // handle on theme change event
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTheme(e.target.checked ? 'dark' : 'light');
   };
+  // handle on theme change event
+  const handleVisibilityOfDetail = (statusDetailInput) => {
+    if (statusDetailInput !== 0) {
+      if(statusDetailInput===statusDetail)
+      {
+        setVisibilityOfDetail(visibilityOfDetail === 'hidden' ? '' : 'hidden');
+        setStatusDetail(statusDetailInput);
+        // setCollapsed(true);
+      }
+      else{
+        setStatusDetail(statusDetailInput);
+      }
+    }
 
+  };
   // handle on image change event
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHasImage(e.target.checked);
@@ -202,8 +209,9 @@ function MainPage() {
 
   return (
     <div className={"flex h-full absolute inset-0 w-full overflow-hidden"} style={{ direction: rtl ? 'rtl' : 'ltr' }}>
-    
       <Sidebar
+        onMouseLeave={hideSidebar}
+        onMouseEnter={showSidebar}
         collapsed={collapsed}
         toggled={toggled}
         onBackdropClick={() => setToggled(false)}
@@ -216,8 +224,8 @@ function MainPage() {
           color: themes[theme].sidebar.color,
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} onMouseLeave={hideSidebar} onMouseEnter={showSidebar}>
-          <SidebarHeader rtl={rtl} style={{ marginBottom: '24px', marginTop: '16px' }} />
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} >
+          <SidebarHeader rtl={rtl} style={{ opacity: collapsed ? 0 : 0.7, marginBottom: '24px', marginTop: '16px' }} />
           <div style={{ flex: 1, marginBottom: '32px' }}>
             <div style={{ padding: '0 24px', marginBottom: '8px' }}>
               <Typography
@@ -243,9 +251,9 @@ function MainPage() {
                 <MenuItem> Export</MenuItem>
               </SubMenu>
               <SubMenu label="Layers" icon={<Global />}>
-              {/* <Tree initialData={data} /> */}
-                <MenuItem> Raster</MenuItem>
-                <MenuItem> Vector</MenuItem>
+                {/* <Tree initialData={data} /> */}
+                <MenuItem onClick={() => handleVisibilityOfDetail(10)}> Raster</MenuItem>
+                <MenuItem onClick={() => handleVisibilityOfDetail(11)}> Vector</MenuItem>
               </SubMenu>
               <SubMenu label="Search" icon={<InkBottle />}>
                 <MenuItem> Spatial</MenuItem>
@@ -264,9 +272,9 @@ function MainPage() {
                 </SubMenu>
               </SubMenu>
               <SubMenu label="Info" icon={<ShoppingCart />}>
-                <MenuItem> Metadata/Attribute Tables</MenuItem>
-                <MenuItem> Object Properties</MenuItem>
-                <MenuItem> Area Statitics</MenuItem>
+                <MenuItem onClick={() => handleVisibilityOfDetail(20)}> Metadata/Attribute Tables</MenuItem>
+                <MenuItem onClick={() => handleVisibilityOfDetail(21)}> Object Properties</MenuItem>
+                <MenuItem onClick={() => handleVisibilityOfDetail(22)}> Area Statitics</MenuItem>
               </SubMenu>
             </Menu>
 
@@ -286,7 +294,7 @@ function MainPage() {
               </MenuItem>
               <SubMenu label="Settings" icon={<Book />}>
                 <MenuItem icon={<Book />} >
-                <Switch id="rtl" checked={autoHide} onChange={handleAutoHideChange} label="Auto Hide" />
+                  <Switch id="rtl" checked={autoHide} onChange={handleAutoHideChange} label="Auto Hide" />
                 </MenuItem>
                 <MenuItem icon={<Book />}>
                   <Switch id="rtl" checked={rtl} onChange={handleRTLChange} label="RTL" />
@@ -305,49 +313,43 @@ function MainPage() {
           <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
+      <div className={visibilityOfDetail}>
 
-      <Sidebar
-        collapsed={collapsed}
-        toggled={toggled}
-        onBackdropClick={() => setToggled(false)}
-        onBreakPoint={setBroken}
-        image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
-        rtl={rtl}
-        breakPoint="md"
-        backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, hasImage ? 0.9 : 1)}
-        rootStyles={{
-          color: themes[theme].sidebar.color,
-        }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} onMouseLeave={hideSidebar} onMouseEnter={showSidebar}>
-          {/* <SidebarHeader rtl={rtl} style={{ marginBottom: '24px', marginTop: '16px' }} /> */}
-          <div style={{ flex: 1, marginBottom: '32px' }}>
-            <div style={{ padding: '0 24px', marginBottom: '8px' }}>
-              <Typography
-                variant="body2"
-                fontWeight={600}
-                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: '0.5px' }}
-              >
-                General
-              </Typography>
+        <Sidebar
+          collapsed={collapsedDetail}
+          toggled={toggledDetail}
+          onBackdropClick={() => setToggledDetail(false)}
+          onBreakPoint={setBrokenDetail}
+          image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
+          rtl={rtl}
+          breakPoint="md"
+          backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, hasImage ? 0.9 : 1)}
+          rootStyles={{
+            color: themes[theme].sidebar.color,
+          }}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} >
+            {/* <SidebarHeader rtl={rtl} style={{ marginBottom: '24px', marginTop: '16px' }} /> */}
+            <div style={{ flex: 1, marginTop: '8px', marginBottom: '8px' }}>
+              <div style={{ padding: '0 8px', marginTop: '8px', marginBottom: '8px' }}>
+                <Typography
+                  variant="body2"
+                  fontWeight={600}
+                  style={{ letterSpacing: '0.5px' }}
+                >
+                  {detailTitle[statusDetail]}
+                </Typography>
+              </div>
+              <div className={'w-full h-full p-2 ' + (statusDetail >= 10 && statusDetail < 20 ? '' : 'hidden')}>
+                <Arborist />
+              </div>
+              <DataTable direction={rtl?Direction.RTL:Direction.LTR} dense={true} highlightOnHover={true} theme= {theme==='dark' ?'dark':'default'} className={'w-full p-2 ' + (statusDetail >= 20 && statusDetail < 30 ? '' : 'hidden')} columns={columns} data={data2} />
             </div>
-            <Tree initialData={data} />
-            <DataTable
-			columns={columns}
-			data={data2}
-		/>
-            {/* <Menu menuItemStyles={menuItemStyles}>
-              <SubMenu label="Layers" icon={<Global />}>
-              </SubMenu>
-              <SubMenu label="Search" icon={<InkBottle />}>
-                <MenuItem> Spatial</MenuItem>
-                <MenuItem> Tables</MenuItem>
-              </SubMenu>
-            </Menu> */}
+            {/* <SidebarFooter collapsed={collapsed} /> */}
           </div>
-          {/* <SidebarFooter collapsed={collapsed} /> */}
-        </div>
-      </Sidebar>
+        </Sidebar>
+      </div>
+
       <MarketPlace />
 
     </div>
