@@ -28,7 +28,7 @@ export default function ForgotPassword() {
       let email = emailInput.value;
       if (email.includes("@")) {
         body = { email: email.toString() };
-        let endPoint = 'https://teh.land/api/add_user';
+        let endPoint = 'http://main.sabt.shankayi.ir/api/add_user';
         let resp = await sendPostRequest(body, endPoint);
         console.log(resp);
       }

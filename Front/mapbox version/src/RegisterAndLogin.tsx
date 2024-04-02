@@ -60,7 +60,7 @@ export default function RegisterAndLogin() {
             }
             console.log(sha256(pass).toString());
 
-            let endPoint = 'https://teh.land/api/add_user';
+            let endPoint = 'http://main.sabt.shankayi.ir/api/add_user';
             let resp = await sendPostRequest(body, endPoint);
           }
         }

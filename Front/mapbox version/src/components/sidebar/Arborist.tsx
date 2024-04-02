@@ -8,31 +8,10 @@ import Node from "./Node";
 import { TbFolderPlus } from "react-icons/tb";
 import { AiOutlineFileAdd } from "react-icons/ai";
 
-const Arborist = () => {
+const Arborist = ({data}) => {
   const [term, setTerm] = useState("");
   const treeRef = useRef(null);
-  const data = [
-    { id: "1", name: "Raster1" },
-    { id: "2", name: "Raster2" },
-    {
-      id: "3",
-      name: "Online Basemaps",
-      children: [
-        { id: "c1", name: "Google" },
-        { id: "c2", name: "Bing" },
-        { id: "c3", name: "Open Street Map" },
-      ],
-    },
-    {
-      id: "4",
-      name: "Offline Basemaps",
-      children: [
-        { id: "d1", name: "دهه 40" },
-        { id: "d2", name: "دهه 50" },
-        { id: "d3", name: "دهه 60" },
-      ],
-    },
-  ];
+  
   const createFileFolder = (
     <>
       <button
@@ -59,7 +38,7 @@ const Arborist = () => {
       />
       <Tree
         ref={treeRef}
-        initialData={data}
+        data={data}
         width={260}
         height={1000}
         indent={24}
@@ -67,7 +46,7 @@ const Arborist = () => {
         // openByDefault={false}
         searchTerm={term}
         searchMatch={(node, term) =>
-          node.data.name.toLowerCase().includes(term.toLowerCase())
+          (node.data as any).name.toLowerCase().includes(term.toLowerCase())
         }
       >
         {Node}

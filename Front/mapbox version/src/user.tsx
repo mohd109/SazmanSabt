@@ -4,7 +4,7 @@ const DEFAULT_OPTION = { withCredentials: true };
 
 export const login = async entry => {
   const res = await axios.post(
-    `https://teh.land/api/login_user`,
+    `http://main.sabt.shankayi.ir/api/login_user`,
     entry,
     DEFAULT_OPTION
   );
@@ -12,6 +12,6 @@ export const login = async entry => {
 };
 
 export const logout = async () => {
-  const res = await axios.delete(`https://teh.land/api/logout_user`, DEFAULT_OPTION);
+  const res = await axios.delete(`http://main.sabt.shankayi.ir/api/logout_user`, DEFAULT_OPTION);
   return res;
 };

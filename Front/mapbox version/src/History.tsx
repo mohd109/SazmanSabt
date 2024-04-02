@@ -70,7 +70,7 @@ export default function History() {
       copyright.style.right = 75 + 'px';
     }
 
-    sendGetRequest("https://teh.land/api/query_lands/0x62a6ede1f2f7d71af29255f5").then(request => {
+    sendGetRequest("http://main.sabt.shankayi.ir/api/query_lands/0x62a6ede1f2f7d71af29255f5").then(request => {
       let landsTable: any[]=[]
       for (let index = 0; index < request.data.length; index++) {
         let landItem = request.data[index].title;

@@ -7,6 +7,9 @@ import packageJson from '../../../package.json';
 interface SidebarFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   collapsed?: boolean;
+  user_name: string;
+  access_level:number;
+  profile_url:string;
 }
 
 const StyledButton = styled.a`
@@ -45,10 +48,7 @@ const StyledCollapsedSidebarFooter = styled.a`
   background: #26A17B;
 `;
 
-const codeUrl =
-  'https://github.com/azouaoui-med/react-pro-sidebar/blob/master/storybook/Playground.tsx';
-
-export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapsed, ...rest }) => {
+export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapsed, user_name, access_level, profile_url, ...rest }) => {
   return (
     <div
       style={{
@@ -58,7 +58,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapse
       }}
     >
       {collapsed ? (
-        <StyledCollapsedSidebarFooter href={codeUrl} target="_blank">
+        <StyledCollapsedSidebarFooter href={profile_url} target="_blank">
           <Github size={28} />
         </StyledCollapsedSidebarFooter>
       ) : (
@@ -66,12 +66,12 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapse
           <div style={{ marginBottom: '12px' }}>
             <Github size={30} />
           </div>
-          <Typography fontWeight={600}>MShankayi</Typography>
+          <Typography fontWeight={600}>{user_name}</Typography>
           <Typography variant="caption" style={{ letterSpacing: 1, opacity: 0.7 }}>
-            Level 2
+            Level {access_level}
           </Typography>
           <div style={{ marginTop: '16px' }}>
-            <StyledButton href={codeUrl} target="_blank">
+            <StyledButton href={profile_url} target="_blank">
               <Typography variant="caption" color="#26A17B" fontWeight={600}>
                 View Profile
               </Typography>
