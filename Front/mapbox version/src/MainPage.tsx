@@ -233,6 +233,9 @@ function MainPage() {
     {
       name: 'id',
       selector: row => row.id,
+      sortable: true,
+      sortField: 'id',
+      maxWidth:'20'
     },
     {
       name: 'name',
@@ -504,13 +507,13 @@ function MainPage() {
                 Tasks
               </MenuItem>
               <SubMenu label="Settings" icon={<Settings />}>
-                <MenuItem icon={<Settings />} >
+                <MenuItem >
                   <Switch id="rtl" checked={autoHide} onChange={handleAutoHideChange} label="Auto Hide" />
                 </MenuItem>
-                <MenuItem icon={<Settings />}>
+                <MenuItem >
                   <Switch id="rtl" checked={rtl} onChange={handleRTLChange} label="RTL" />
                 </MenuItem>
-                <MenuItem icon={<Settings />}>
+                <MenuItem >
                   <Switch id="theme" checked={theme === 'dark'} onChange={handleThemeChange} label="Dark theme"
                   />
                 </MenuItem>
@@ -521,7 +524,7 @@ function MainPage() {
 
             </Menu>
           </div>
-          <SidebarFooter collapsed={collapsed} user_name={userData==null? '' : userData.user_name} access_level={userData==null? 0 : userData.access_level} profile_url='/profile' />
+          <SidebarFooter collapsed={collapsed}  />
         </div>
       </Sidebar>
       <div className={visibilityOfDetail}>

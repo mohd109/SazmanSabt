@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Github } from '../../icons/Github';
 import { Typography } from './Typography';
 import packageJson from '../../../package.json';
+import axios, { AxiosResponse } from 'axios';
 
 interface SidebarFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   collapsed?: boolean;
-  user_name: string;
-  access_level:number;
-  profile_url:string;
 }
 
 const StyledButton = styled.a`
@@ -47,8 +45,45 @@ const StyledCollapsedSidebarFooter = styled.a`
   color: white;
   background: #26A17B;
 `;
+const DEFAULT_OPTION = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
+};
+async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
+  let response = await axios.post(
+    endPoint,
+    body,
+    DEFAULT_OPTION,
+  );
+  return response;
+}
 
-export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapsed, user_name, access_level, profile_url, ...rest }) => {
+async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
+  let response = await axios.get(
+    endPoint,
+    DEFAULT_OPTION,
+  );
+  return response;
+}
+
+async function getUserData() {
+    let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
+  let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_user/mohd109");
+  if(response.status==200)
+  {
+    return response.data;
+  }
+  return null;
+}
+export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapsed, ...rest }) => {
+  const [userData,setUserData] = React.useState(null);
+
+  useLayoutEffect(() => {
+    getUserData().then(response => {setUserData(response as any)})
+  },[]);
+
   return (
     <div
       style={{
@@ -58,20 +93,20 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapse
       }}
     >
       {collapsed ? (
-        <StyledCollapsedSidebarFooter href={profile_url} target="_blank">
-          <Github size={28} />
+        <StyledCollapsedSidebarFooter href='/profile' target="_blank">
+          <Github size={28} url={userData==null? '' : userData.image} />
         </StyledCollapsedSidebarFooter>
       ) : (
         <StyledSidebarFooter {...rest}>
           <div style={{ marginBottom: '12px' }}>
             <Github size={30} />
           </div>
-          <Typography fontWeight={600}>{user_name}</Typography>
+          <Typography fontWeight={600}>{userData==null? '' : userData.user_name}</Typography>
           <Typography variant="caption" style={{ letterSpacing: 1, opacity: 0.7 }}>
-            Level {access_level}
+            Level {userData==null? '' : userData.access_level}
           </Typography>
           <div style={{ marginTop: '16px' }}>
-            <StyledButton href={profile_url} target="_blank">
+            <StyledButton href='/profile' target="_blank">
               <Typography variant="caption" color="#26A17B" fontWeight={600}>
                 View Profile
               </Typography>
