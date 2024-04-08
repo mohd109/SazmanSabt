@@ -8,7 +8,7 @@ import {
 } from '../../../../_metronic/partials/widgets'
 import { Content } from '../../../../_metronic/layout/components/content'
 import axios, { AxiosResponse } from 'axios';
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { getUserById } from '../../apps/user-management/users-list/core/_requests';
 
 const DEFAULT_OPTION = {
@@ -34,8 +34,7 @@ async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
   );
   return response;
 }
-
-export function Overview() {
+export const Overview: FC = ()=> {
   const [userData, setUserData] = React.useState(null);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   
@@ -45,11 +44,14 @@ export function Overview() {
       setLoginSuccess(true);
     }
     let response= await getUserById(2);
-    return (response as any).data;
+    console.log(response)
+
+    return (response as any);
   }
   useEffect(() => {
     getUserData().then(response => {
       setUserData(response);
+      
     });
   }, []);
 
@@ -141,7 +143,7 @@ export function Overview() {
             </div>
           </div>
 
-          <div className='notice d-flex bg-light-warning rounded border-warning border border-dashed p-6'>
+          {/* <div className='notice d-flex bg-light-warning rounded border-warning border border-dashed p-6'>
             <KTIcon iconName='information-5' className='fs-2tx text-warning me-4' />
             <div className='d-flex flex-stack flex-grow-1'>
               <div className='fw-bold'>
@@ -156,7 +158,7 @@ export function Overview() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
