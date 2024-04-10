@@ -1,19 +1,38 @@
 export interface IProfileDetails {
   avatar: string;
-  fName: string;
-  lName: string;
-  company: string;
-  contactPhone: string;
-  companySite: string;
-  country: string;
-  language: string;
-  timeZone: string;
-  currency: string;
-  communications: {
-    email: boolean;
-    phone: boolean;
-  };
-  allowMarketing: boolean;
+  // country: string;
+  // language: string;
+  // timeZone: string;
+  // currency: string;
+  // communications: {
+  //   email: boolean;
+  //   phone: boolean;
+  // };
+  two_steps: boolean;
+  user_name: string,
+  phone_number: string,
+  email: string,
+  // image: string,
+  // id_card: string,
+  // gender: string,
+  // birth: string,
+  // post_code: string,
+  // addr: string,
+  // city: string,
+  // bank_account: string,
+  // active: string,
+  // id_code: string,
+  // notifications: string,
+  // favorites: string,
+  // position: string,
+  // role: string,
+  // last_login: string,
+  // joined_day: string,
+  // online: boolean,
+  name: string,
+  // access_level: number,
+  // initial_label: string,
+  // initial_state: string
 }
 
 export interface IUpdateEmail {
@@ -71,21 +90,16 @@ export interface IDeactivateAccount {
 }
 
 export const profileDetailsInitValues: IProfileDetails = {
-  avatar: "media/avatars/300-1.jpg",
-  fName: "Max",
-  lName: "Smith",
-  company: "Keenthemes",
-  contactPhone: "044 3276 454 935",
-  companySite: "keenthemes.com",
-  country: "",
-  language: "",
-  timeZone: "",
-  currency: "",
-  communications: {
-    email: false,
-    phone: false,
-  },
-  allowMarketing: false,
+  avatar: "media/avatars/blank.jpg",
+  name: "",
+  user_name: "",
+  phone_number: "",
+  email: "",
+  // communications: {
+  //   email: false,
+  //   phone: false,
+  // },
+  two_steps: false,
 };
 
 export const updateEmail: IUpdateEmail = {

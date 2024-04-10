@@ -27,7 +27,7 @@ const ProfilePage = () => (
     <Route
       element={
         <>
-          <ProfileHeader />
+          <ProfileHeader/>
           <Outlet />
         </>
       }
@@ -37,7 +37,7 @@ const ProfilePage = () => (
         element={
           <>
             <PageTitle breadcrumbs={profileBreadCrumbs}>Overview</PageTitle>
-            <Overview />
+            <Overview/>
           </>
         }
       />

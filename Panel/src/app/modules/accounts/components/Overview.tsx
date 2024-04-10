@@ -9,50 +9,18 @@ import {
 import { Content } from '../../../../_metronic/layout/components/content'
 import axios, { AxiosResponse } from 'axios';
 import React, { FC, useEffect } from 'react';
-import { getUserById } from '../../apps/user-management/users-list/core/_requests';
 
-const DEFAULT_OPTION = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true
-};
-
-async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.post(
-    endPoint,
-    body,
-    DEFAULT_OPTION,
-  );
-  return response;
+interface IProps {
+  InputUserData: any;
 }
 
-async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.get(
-    endPoint,
-    DEFAULT_OPTION,
-  );
-  return response;
-}
-export const Overview: FC = ()=> {
+export const Overview: FC<IProps> = (props,InputUserData)=> {
   const [userData, setUserData] = React.useState(null);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   
-  async function getUserData() {
-    if (!loginSuccess) {
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256" }, "http://panel.sabt.shankayi.ir/api/login_user");
-      setLoginSuccess(true);
-    }
-    let response= await getUserById(2);
-    console.log(response)
-
-    return (response as any);
-  }
+  
   useEffect(() => {
-    getUserData().then(response => {
-      setUserData(response);
-      
-    });
+      setUserData(InputUserData);
   }, []);
 
   return (

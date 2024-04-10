@@ -1,22 +1,26 @@
-import {useState, FC} from 'react'
+import {useState, FC, useEffect} from 'react'
 import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
 import {IProfileDetails, profileDetailsInitValues as initialValues} from '../SettingsModel'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 
-const profileDetailsSchema = Yup.object().shape({
-  fName: Yup.string().required('First name is required'),
-  lName: Yup.string().required('Last name is required'),
-  company: Yup.string().required('Company name is required'),
-  contactPhone: Yup.string().required('Contact phone is required'),
-  companySite: Yup.string().required('Company site is required'),
-  country: Yup.string().required('Country is required'),
-  language: Yup.string().required('Language is required'),
-  timeZone: Yup.string().required('Time zone is required'),
-  currency: Yup.string().required('Currency is required'),
-})
 
-const ProfileDetails: FC = () => {
+const profileDetailsSchema = Yup.object().shape({
+  name: Yup.string().required('Full name is required'),
+  user_name: Yup.string().required('Username is required'),
+  phone_number: Yup.string().required('Contact phone is required'),
+  email: Yup.string().required('Email is required'),
+  // country: Yup.string().required('Country is required'),
+  // language: Yup.string().required('Language is required'),
+  // timeZone: Yup.string().required('Time zone is required'),
+  // currency: Yup.string().required('Currency is required'),
+})
+interface IProps {
+  InputUserData: any;
+}
+
+export const ProfileDetails: FC<IProps> = (props,InputUserData)=> {
+  
   const [data, setData] = useState<IProfileDetails>(initialValues)
   const updateData = (fieldsToUpdate: Partial<IProfileDetails>): void => {
     const updatedData = Object.assign(data, fieldsToUpdate)
@@ -30,9 +34,7 @@ const ProfileDetails: FC = () => {
     onSubmit: (values) => {
       setLoading(true)
       setTimeout(() => {
-        values.communications.email = data.communications.email
-        values.communications.phone = data.communications.phone
-        values.allowMarketing = data.allowMarketing
+        values.two_steps = data.two_steps
         const updatedData = Object.assign(data, values)
         setData(updatedData)
         setLoading(false)
@@ -68,7 +70,7 @@ const ProfileDetails: FC = () => {
                 >
                   <div
                     className='image-input-wrapper w-125px h-125px'
-                    style={{backgroundImage: `url(${toAbsoluteUrl(data.avatar)})`}}
+                    style={{backgroundImage: `url(${toAbsoluteUrl('media/avatars/' + data.avatar + '.jpg')})`}}
                   ></div>
                 </div>
               </div>
@@ -84,45 +86,32 @@ const ProfileDetails: FC = () => {
                       type='text'
                       className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
                       placeholder='First name'
-                      {...formik.getFieldProps('fName')}
+                      {...formik.getFieldProps('name')}
                     />
-                    {formik.touched.fName && formik.errors.fName && (
+                    {formik.touched.name && formik.errors.name && (
                       <div className='fv-plugins-message-container'>
-                        <div className='fv-help-block'>{formik.errors.fName}</div>
+                        <div className='fv-help-block'>{formik.errors.name}</div>
                       </div>
                     )}
                   </div>
 
-                  <div className='col-lg-6 fv-row'>
-                    <input
-                      type='text'
-                      className='form-control form-control-lg form-control-solid'
-                      placeholder='Last name'
-                      {...formik.getFieldProps('lName')}
-                    />
-                    {formik.touched.lName && formik.errors.lName && (
-                      <div className='fv-plugins-message-container'>
-                        <div className='fv-help-block'>{formik.errors.lName}</div>
-                      </div>
-                    )}
-                  </div>
                 </div>
               </div>
             </div>
 
             <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Company</label>
+              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Username</label>
 
               <div className='col-lg-8 fv-row'>
                 <input
                   type='text'
                   className='form-control form-control-lg form-control-solid'
                   placeholder='Company name'
-                  {...formik.getFieldProps('company')}
+                  {...formik.getFieldProps('user_name')}
                 />
-                {formik.touched.company && formik.errors.company && (
+                {formik.touched.user_name && formik.errors.user_name && (
                   <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.company}</div>
+                    <div className='fv-help-block'>{formik.errors.user_name}</div>
                   </div>
                 )}
               </div>
@@ -138,11 +127,11 @@ const ProfileDetails: FC = () => {
                   type='tel'
                   className='form-control form-control-lg form-control-solid'
                   placeholder='Phone number'
-                  {...formik.getFieldProps('contactPhone')}
+                  {...formik.getFieldProps('phone_number')}
                 />
-                {formik.touched.contactPhone && formik.errors.contactPhone && (
+                {formik.touched.phone_number && formik.errors.phone_number && (
                   <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.contactPhone}</div>
+                    <div className='fv-help-block'>{formik.errors.phone_number}</div>
                   </div>
                 )}
               </div>
@@ -158,17 +147,18 @@ const ProfileDetails: FC = () => {
                   type='text'
                   className='form-control form-control-lg form-control-solid'
                   placeholder='Company website'
-                  {...formik.getFieldProps('companySite')}
+                  {...formik.getFieldProps('email')}
                 />
-                {formik.touched.companySite && formik.errors.companySite && (
+                {formik.touched.email && formik.errors.email && (
                   <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.companySite}</div>
+                    <div className='fv-help-block'>{formik.errors.email}</div>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className='row mb-6'>
+
+            {/* <div className='row mb-6'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>
                 <span className='required'>Country</span>
               </label>
@@ -433,8 +423,8 @@ const ProfileDetails: FC = () => {
                   </div>
                 )}
               </div>
-            </div>
-
+            </div> */}
+{/* 
             <div className='row mb-6'>
               <label className='col-lg-4 col-form-label required fw-bold fs-6'>Language</label>
               <div className='col-lg-8 fv-row'>
@@ -696,9 +686,9 @@ const ProfileDetails: FC = () => {
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
 
-            <div className='row mb-6'>
+            {/* <div className='row mb-6'>
               <label className='col-lg-4 col-form-label fw-bold fs-6'>Communication</label>
 
               <div className='col-lg-8 fv-row'>
@@ -740,10 +730,10 @@ const ProfileDetails: FC = () => {
                   </label>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className='row mb-0'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>Allow Marketing</label>
+              <label className='col-lg-4 col-form-label fw-bold fs-6'>Two Factor Authentication</label>
 
               <div className='col-lg-8 d-flex align-items-center'>
                 <div className='form-check form-check-solid form-switch fv-row'>
@@ -751,9 +741,9 @@ const ProfileDetails: FC = () => {
                     className='form-check-input w-45px h-30px'
                     type='checkbox'
                     id='allowmarketing'
-                    defaultChecked={data.allowMarketing}
+                    defaultChecked={data.two_steps}
                     onChange={() => {
-                      updateData({allowMarketing: !data.allowMarketing})
+                      updateData({two_steps: !data.two_steps})
                     }}
                   />
                   <label className='form-check-label'></label>
@@ -778,5 +768,3 @@ const ProfileDetails: FC = () => {
     </div>
   )
 }
-
-export {ProfileDetails}

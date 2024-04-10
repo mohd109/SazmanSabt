@@ -1,7 +1,12 @@
-import React, {useState} from 'react'
+import React, {FC, useState} from 'react'
 import {INotifications, notifications} from '../SettingsModel'
 
-const Notifications: React.FC = () => {
+
+interface IProps {
+  InputUserData: any;
+}
+
+const Notifications: FC<IProps> = (props,InputUserData)=> {
   const [data, setData] = useState<INotifications>(notifications)
 
   const updateData = (fieldsToUpdate: Partial<INotifications>) => {

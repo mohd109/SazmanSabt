@@ -32,7 +32,11 @@ const passwordFormValidationSchema = Yup.object().shape({
     .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
 })
 
-const SignInMethod: FC = () => {
+interface IProps {
+  InputUserData: any;
+}
+
+const SignInMethod: FC<IProps> = (props,InputUserData)=> {
   const [emailUpdateData, setEmailUpdateData] = useState<IUpdateEmail>(updateEmail)
   const [passwordUpdateData, setPasswordUpdateData] = useState<IUpdatePassword>(updatePassword)
 
