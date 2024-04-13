@@ -1,4 +1,4 @@
-import {lazy, FC, Suspense} from 'react'
+import {lazy, FC, Suspense, useEffect} from 'react'
 import {Route, Routes, Navigate} from 'react-router-dom'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
@@ -7,6 +7,9 @@ import {MenuTestPage} from '../pages/MenuTestPage'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
+import React from 'react'
+import { getUserById } from '../modules/apps/user-management/users-list/core/_requests'
+import { login } from '../modules/auth/core/_requests'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -15,7 +18,25 @@ const PrivateRoutes = () => {
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
+  const [userData, setUserData] = React.useState(null);
+  const [loginSuccess, setLoginSuccess] = React.useState(false);
+  
+  async function getUserData() {
+    if (!loginSuccess) {
+      let loginResponse: any = await login("mohd109@gmail.com","Czin1231091256","mohd109");
+      setLoginSuccess(true);
+    }
+    let response= await getUserById(2);
+    // console.log(response)
 
+    return (response as any);
+  }
+  useEffect(() => {
+    getUserData().then(response => {
+      setUserData(response);
+    });
+  }, []);
+  
   return (
     <Routes>
       <Route element={<MasterLayout />}>
@@ -30,7 +51,7 @@ const PrivateRoutes = () => {
           path='crafted/pages/profile/*'
           element={
             <SuspensedView>
-              <ProfilePage />
+              <ProfilePage  InputUserData={userData}/>
             </SuspensedView>
           }
         />
@@ -54,7 +75,7 @@ const PrivateRoutes = () => {
           path='crafted/account/*'
           element={
             <SuspensedView>
-              <AccountPage />
+              <AccountPage InputUserData={userData}/>
             </SuspensedView>
           }
         />

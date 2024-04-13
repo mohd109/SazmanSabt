@@ -10,29 +10,7 @@ import {
 } from '../../../helpers'
 import React from 'react';
 import axios, { AxiosResponse } from 'axios';
-
-const DEFAULT_OPTION = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true
-};
-async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.post(
-    endPoint,
-    body,
-    DEFAULT_OPTION,
-  );
-  return response;
-}
-
-async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.get(
-    endPoint,
-    DEFAULT_OPTION,
-  );
-  return response;
-}
+import { login, sendGetRequest } from '../../../../app/modules/auth/core/_requests';
 
 export function HeaderNotificationsMenu() {
   const [notificationData, setNotificationData] = React.useState([]);
@@ -42,7 +20,7 @@ export function HeaderNotificationsMenu() {
   
   async function getNotifications() {
     if (!loginSuccess) {
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256" }, "http://panel.sabt.shankayi.ir/api/login_user");
+      let loginResponse: any = await login("mohd109@gmail.com","Czin1231091256","mohd109");
       setLoginSuccess(true);
     }
     let response: AxiosResponse<any, any> = await sendGetRequest("http://panel.sabt.shankayi.ir/api/get_notifications");

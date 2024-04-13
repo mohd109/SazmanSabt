@@ -28,7 +28,7 @@ const Step3: FC = () => {
 
       <div className='fv-row mb-10'>
         <label className='d-flex align-items-center form-label'>
-          <span className='required'>Shortened Descriptor</span>
+          <span className='required'>Business Descriptor</span>
         </label>
 
         <Field

@@ -52,9 +52,9 @@ const DashboardPage: FC = () => (
       {/* end::Col */}
 
       {/* begin::Col */}
-      <div className='col-xxl-6'>
+      {/* <div className='col-xxl-6'>
         <EngageWidget10 className='h-md-100' />
-      </div>
+      </div> */}
       {/* end::Col */}
     </div>
     {/* end::Row */}

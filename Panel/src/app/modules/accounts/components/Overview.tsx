@@ -21,7 +21,7 @@ export const Overview: FC<IProps> = (props,InputUserData)=> {
   
   useEffect(() => {
       setUserData(InputUserData);
-  }, []);
+  }, [InputUserData]);
 
   return (
     <Content>

@@ -1,21 +1,53 @@
-import {useEffect, useRef, useState} from 'react'
-import {KTIcon} from '../../../../_metronic/helpers'
-import {Step1} from './steps/Step1'
-import {Step2} from './steps/Step2'
-import {Step3} from './steps/Step3'
-import {Step4} from './steps/Step4'
-import {Step5} from './steps/Step5'
-import {StepperComponent} from '../../../../_metronic/assets/ts/components'
-import {Form, Formik, FormikValues} from 'formik'
-import {createAccountSchemas, ICreateAccount, inits} from './CreateAccountWizardHelper'
+import { useEffect, useRef, useState } from 'react'
+import { KTIcon } from '../../../../_metronic/helpers'
+import { Step1 } from './steps/Step1'
+import { Step2 } from './steps/Step2'
+import { Step3 } from './steps/Step3'
+import { Step4 } from './steps/Step4'
+import { Step5 } from './steps/Step5'
+import { StepperComponent } from '../../../../_metronic/assets/ts/components'
+import { Form, Formik, FormikValues } from 'formik'
+import { createAccountSchemas, ICreateAccount, inits } from './CreateAccountWizardHelper'
 import { ToolbarWrapper } from '../../../../_metronic/layout/components/toolbar'
 import { Content } from '../../../../_metronic/layout/components/content'
+import { AxiosResponse } from 'axios'
+import { login, sendPostRequest } from '../../auth/core/_requests'
 
 const Vertical = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
-  const [ stepper, setStepper ] = useState<StepperComponent | null>(null)
+  const [stepper, setStepper] = useState<StepperComponent | null>(null)
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues] = useState<ICreateAccount>(inits)
+  const [loginSuccess, setLoginSuccess] = useState(false);
+
+
+  async function submitDataset() {
+    if (!loginSuccess) {
+      let loginResponse: any = await login("mohd109@gmail.com", "Czin1231091256", "mohd109");
+      setLoginSuccess(true);
+    }
+    const tempSchema = currentSchema as any;
+
+    const tempBody = {
+      id: 1,
+      type_id: tempSchema.multiPart == '1' ? 1 : 0,
+      creation_date_time: tempSchema.captureYear == undefined?"":tempSchema.captureYear + '-' + tempSchema.captureMonth == undefined?"":tempSchema.captureMonth  + '-' + tempSchema.captureDayHour == undefined?"":tempSchema.captureDayHour,
+      access_level: 1,
+      owner_id: -1,
+      tile_id: -1,
+      url: tempSchema.datasetName == undefined?"":tempSchema.datasetName,
+      name: tempSchema.cameraModel == undefined?"":tempSchema.cameraModel,
+    }
+    console.log(tempBody);
+
+    let response: AxiosResponse<any, any> = await sendPostRequest(tempBody as any,"http://panel.sabt.shankayi.ir/api/add_dataset");
+
+    if (response.status == 200) {
+      return response.data;
+    }
+    return [];
+  }
+
 
   const loadStepper = () => {
     setStepper(StepperComponent.createInsance(stepperRef.current as HTMLDivElement))
@@ -36,9 +68,13 @@ const Vertical = () => {
       return
     }
 
-    if (stepper.currentStepIndex !== stepper.totalStepsNumber) {
+    if (stepper.currentStepIndex < stepper.totalStepsNumber - 1) {
       stepper.goNext()
-    } else {
+    } else if (stepper.currentStepIndex === stepper.totalStepsNumber - 1) {
+      //send add dataset request
+      submitDataset().then(response => { stepper.goNext() })
+    }
+    else {
       stepper.goto(1)
       actions.resetForm()
     }
@@ -261,4 +297,4 @@ const Vertical = () => {
   )
 }
 
-export {Vertical}
+export { Vertical }

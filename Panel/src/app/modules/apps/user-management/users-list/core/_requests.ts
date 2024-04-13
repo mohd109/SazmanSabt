@@ -7,6 +7,31 @@ const USER_URL = `${API_URL}/user`;
 const LOGIN_URL = `${API_URL}/login_user`;
 const GET_USERS_URL = `${API_URL}/users/query`;
 
+const DEFAULT_OPTION = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
+};
+
+export async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
+  let response = await axios.post(
+    endPoint,
+    body,
+    DEFAULT_OPTION,
+  );
+  return response;
+}
+
+export async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
+  let response = await axios.get(
+    endPoint,
+    DEFAULT_OPTION,
+  );
+  return response;
+}
+
+
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
     .get(`${GET_USERS_URL}?${query}`)

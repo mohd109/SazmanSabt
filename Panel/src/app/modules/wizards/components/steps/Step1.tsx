@@ -31,7 +31,7 @@ const Step1: FC = () => {
             <Field
               type='radio'
               className='btn-check'
-              name='accountType'
+              name='datasetType'
               value='personal'
               id='kt_create_account_form_account_type_personal'
             />
@@ -44,7 +44,7 @@ const Step1: FC = () => {
               <span className='d-block fw-bold text-start'>
                 <span className='text-gray-900 fw-bolder d-block fs-4 mb-2'>DEM</span>
                 <span className='text-gray-500 fw-bold fs-6'>
-                Create Dataset from DEM/DSM/DTM with Georefrencing Data
+                DEM/DSM/DTM
                 </span>
               </span>
             </label>
@@ -54,7 +54,7 @@ const Step1: FC = () => {
             <Field
               type='radio'
               className='btn-check'
-              name='accountType'
+              name='datasetType'
               value='corporate'
               id='kt_create_account_form_account_type_corporate'
             />
@@ -67,14 +67,14 @@ const Step1: FC = () => {
               <span className='d-block fw-bold text-start'>
                 <span className='text-gray-900 fw-bolder d-block fs-4 mb-2'>Imagery</span>
                 <span className='text-gray-500 fw-bold fs-6'>
-                  Create Dataset from Imagery with Georefrencing Data
+                  Aerial or Satellite Imagery
                 </span>
               </span>
             </label>
           </div>
 
           <div className='text-danger mt-2'>
-            <ErrorMessage name='accountType' />
+            <ErrorMessage name='datasetType' />
           </div>
         </div>
       </div>

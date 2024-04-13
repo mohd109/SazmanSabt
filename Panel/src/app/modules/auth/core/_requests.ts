@@ -1,19 +1,43 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { AuthModel, UserModel } from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/verify_token`;
-export const LOGIN_URL = `${API_URL}/login`;
+export const LOGIN_URL = `${API_URL}/login_user`;
 export const REGISTER_URL = `${API_URL}/register`;
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`;
 
 // Server should return AuthModel
-export function login(email: string, password: string) {
+export function login(email: string, password: string, user_name: string) {
   return axios.post<AuthModel>(LOGIN_URL, {
     email,
+    user_name,
     password,
   });
+}
+const DEFAULT_OPTION = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
+};
+
+export async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
+  let response = await axios.post(
+    endPoint,
+    body,
+    DEFAULT_OPTION,
+  );
+  return response;
+}
+
+export async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
+  let response = await axios.get(
+    endPoint,
+    DEFAULT_OPTION,
+  );
+  return response;
 }
 
 // Server should return AuthModel

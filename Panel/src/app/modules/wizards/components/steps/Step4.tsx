@@ -32,10 +32,10 @@ const Step4: FC = () => {
           type='text'
           className='form-control form-control-solid'
           placeholder=''
-          name='nameOnCard'
+          name='cameraModel'
         />
         <div className='text-danger mt-2'>
-          <ErrorMessage name='nameOnCard' />
+          <ErrorMessage name='cameraModel' />
         </div>
       </div>
 
@@ -47,10 +47,10 @@ const Step4: FC = () => {
             type='text'
             className='form-control form-control-solid'
             placeholder='Specify flying height'
-            name='cardNumber'
+            name='flyingHeight'
           />
           <div className='text-danger mt-2'>
-            <ErrorMessage name='cardNumber' />
+            <ErrorMessage name='flyingHeight' />
           </div>
 
           <div className='position-absolute translate-middle-y top-50 end-0 me-5'>
@@ -75,7 +75,7 @@ const Step4: FC = () => {
 
           <div className='row fv-row'>
             <div className='col-6'>
-              <Field as='select' name='cardExpiryMonth' className='form-select form-select-solid'>
+              <Field as='select' name='captureMonth' className='form-select form-select-solid'>
                 <option></option>
                 <option value='1'>1</option>
                 <option value='2'>2</option>
@@ -91,12 +91,12 @@ const Step4: FC = () => {
                 <option value='12'>12</option>
               </Field>
               <div className='text-danger mt-2'>
-                <ErrorMessage name='cardExpiryMonth' />
+                <ErrorMessage name='captureMonth' />
               </div>
             </div>
 
             <div className='col-6'>
-              <Field as='select' name='cardExpiryYear' className='form-select form-select-solid'>
+              <Field as='select' name='captureYear' className='form-select form-select-solid'>
                 <option></option>
                 <option value='2021'>2021</option>
                 <option value='2022'>2022</option>
@@ -111,7 +111,7 @@ const Step4: FC = () => {
                 <option value='2031'>2031</option>
               </Field>
               <div className='text-danger mt-2'>
-                <ErrorMessage name='cardExpiryYear' />
+                <ErrorMessage name='captureYear' />
               </div>
             </div>
           </div>
@@ -134,10 +134,10 @@ const Step4: FC = () => {
               minLength={3}
               maxLength={4}
               placeholder='CVV'
-              name='cardCvv'
+              name='captureDayHour'
             />
             <div className='text-danger mt-2'>
-              <ErrorMessage name='cardCvv' />
+              <ErrorMessage name='captureDayHour' />
             </div>
 
             <div className='position-absolute translate-middle-y top-50 end-0 me-3'>

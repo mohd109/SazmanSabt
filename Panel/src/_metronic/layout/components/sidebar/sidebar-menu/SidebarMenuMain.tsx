@@ -29,7 +29,7 @@ const SidebarMenuMain = () => {
         </SidebarMenuItemWithSub>
       <SidebarMenuItemWithSub
         to='/crafted/accounts'
-        title='Profile'
+        title='Account'
         icon='profile-circle'
         fontIcon='bi-person'
       >
@@ -58,16 +58,16 @@ const SidebarMenuMain = () => {
         <SidebarMenuItem to='/error/500' title='Error 500' hasBullet={true} />
       </SidebarMenuItemWithSub> */}
      
-      <SidebarMenuItemWithSub
+      {/* <SidebarMenuItemWithSub
         to='/apps/chat'
         title='Support'
         fontIcon='bi-chat-left'
         icon='message-text-2'
       >
         <SidebarMenuItem to='/apps/chat/private-chat' title='Chat' hasBullet={true} />
-        {/* <SidebarMenuItem to='/apps/chat/group-chat' title='Group Chart' hasBullet={true} />
-        <SidebarMenuItem to='/apps/chat/drawer-chat' title='Drawer Chart' hasBullet={true} /> */}
-      </SidebarMenuItemWithSub>
+        {<SidebarMenuItem to='/apps/chat/group-chat' title='Group Chart' hasBullet={true} />
+        <SidebarMenuItem to='/apps/chat/drawer-chat' title='Drawer Chart' hasBullet={true} />}
+      </SidebarMenuItemWithSub> */}
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Settings</span>
@@ -88,7 +88,7 @@ const SidebarMenuMain = () => {
         {/* <SidebarMenuItem to='/crafted/widgets/feeds' title='Feeds' hasBullet={true} /> */}
       </SidebarMenuItemWithSub>
      
-            <SidebarMenuItem to='/builder' icon='switch' title='Layout' fontIcon='bi-layers' />
+      {/* <SidebarMenuItem to='/builder' icon='switch' title='Layout' fontIcon='bi-layers' /> */}
 
       {/* <div className='menu-item'>
         <a

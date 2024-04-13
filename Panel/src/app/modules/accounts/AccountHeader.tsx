@@ -1,14 +1,21 @@
 
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Dropdown1} from '../../../_metronic/partials'
 import {useLocation} from 'react-router'
 import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
 import { Content } from '../../../_metronic/layout/components/content'
+import { User } from '../apps/user-management/users-list/core/_models'
 
-const AccountHeader: FC = () => {
+
+interface IProps {
+  InputUserData: any;
+}
+
+const AccountHeader: FC<IProps> = (props,InputUserData:User)=> {
   const location = useLocation()
+  const [projectStats, setProjectStats] = useState();
 
   return (
     <>
@@ -29,7 +36,7 @@ const AccountHeader: FC = () => {
                   <div className='d-flex flex-column'>
                     <div className='d-flex align-items-center mb-2'>
                       <a href='#' className='text-gray-800 text-hover-primary fs-2 fw-bolder me-1'>
-                        Max Smith
+                      {InputUserData.name}
                       </a>
                       <a href='#'>
                         <KTIcon iconName='verify' className='fs-1 text-primary' />
@@ -40,7 +47,7 @@ const AccountHeader: FC = () => {
                         data-bs-toggle='modal'
                         data-bs-target='#kt_modal_upgrade_plan'
                       >
-                        Upgrade to Pro
+                        {InputUserData.position}
                       </a>
                     </div>
 
@@ -50,21 +57,21 @@ const AccountHeader: FC = () => {
                         className='d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2'
                       >
                         <KTIcon iconName='profile-circle' className='fs-4 me-1' />
-                        Developer
+                        {InputUserData.role}
                       </a>
                       <a
                         href='#'
                         className='d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2'
                       >
                         <KTIcon iconName='geolocation' className='fs-4 me-1' />
-                        SF, Bay Area
+                        {InputUserData.city}
                       </a>
                       <a
                         href='#'
                         className='d-flex align-items-center text-gray-500 text-hover-primary mb-2'
                       >
                         <KTIcon iconName='sms' className='fs-4 me-1' />
-                        max@kt.com
+                        {InputUserData.email}
                       </a>
                     </div>
                   </div>
@@ -73,7 +80,7 @@ const AccountHeader: FC = () => {
                     <a href='#' className='btn btn-sm btn-light me-2' id='kt_user_follow_button'>
                       <KTIcon iconName='check' className='fs-3 d-none' />
 
-                      <span className='indicator-label'>Follow</span>
+                      <span className='indicator-label'>Avatar</span>
                       <span className='indicator-progress'>
                         Please wait...
                         <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
@@ -85,7 +92,7 @@ const AccountHeader: FC = () => {
                       data-bs-toggle='modal'
                       data-bs-target='#kt_modal_offer_a_deal'
                     >
-                      Hire Me
+                      Connections
                     </a>
                     <div className='me-0'>
                       <button
@@ -107,16 +114,16 @@ const AccountHeader: FC = () => {
                       <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                         <div className='d-flex align-items-center'>
                           <KTIcon iconName='arrow-up' className='fs-3 text-success me-2' />
-                          <div className='fs-2 fw-bolder'>4500$</div>
+                          <div className='fs-2 fw-bolder'>4</div>
                         </div>
 
-                        <div className='fw-bold fs-6 text-gray-500'>Earnings</div>
+                        <div className='fw-bold fs-6 text-gray-500'>Approvals</div>
                       </div>
 
                       <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                         <div className='d-flex align-items-center'>
                           <KTIcon iconName='arrow-down' className='fs-3 text-danger me-2' />
-                          <div className='fs-2 fw-bolder'>75</div>
+                          <div className='fs-2 fw-bolder'>6</div>
                         </div>
 
                         <div className='fw-bold fs-6 text-gray-500'>Projects</div>
@@ -125,24 +132,24 @@ const AccountHeader: FC = () => {
                       <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
                         <div className='d-flex align-items-center'>
                           <KTIcon iconName='arrow-up' className='fs-3 text-success me-2' />
-                          <div className='fs-2 fw-bolder'>60%</div>
+                          <div className='fs-2 fw-bolder'>66%</div>
                         </div>
 
-                        <div className='fw-bold fs-6 text-gray-500'>Success Rate</div>
+                        <div className='fw-bold fs-6 text-gray-500'>Approve Rate</div>
                       </div>
                     </div>
                   </div>
 
                   <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                     <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
-                      <span className='fw-bold fs-6 text-gray-500'>Profile Compleation</span>
-                      <span className='fw-bolder fs-6'>50%</span>
+                      <span className='fw-bold fs-6 text-gray-500'>Project Compleation</span>
+                      <span className='fw-bolder fs-6'>95%</span>
                     </div>
                     <div className='h-5px mx-3 w-100 bg-light mb-3'>
                       <div
                         className='bg-success rounded h-5px'
                         role='progressbar'
-                        style={{width: '50%'}}
+                        style={{width: '95%'}}
                       ></div>
                     </div>
                   </div>

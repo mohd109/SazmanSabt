@@ -90,7 +90,7 @@ export interface IDeactivateAccount {
 }
 
 export const profileDetailsInitValues: IProfileDetails = {
-  avatar: "media/avatars/blank.jpg",
+  avatar: "blank",
   name: "",
   user_name: "",
   phone_number: "",
@@ -103,7 +103,7 @@ export const profileDetailsInitValues: IProfileDetails = {
 };
 
 export const updateEmail: IUpdateEmail = {
-  newEmail: "support@keenthemes.com",
+  newEmail: "xyz@ut.ac.ir",
   confirmPassword: "",
 };
 

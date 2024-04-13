@@ -6,6 +6,7 @@ import {Campaigns} from './components/Campaigns'
 import {Documents} from './components/Documents'
 import {Connections} from './components/Connections'
 import {ProfileHeader} from './ProfileHeader'
+import { FC } from 'react'
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
@@ -22,12 +23,18 @@ const profileBreadCrumbs: Array<PageLink> = [
   },
 ]
 
-const ProfilePage = () => (
+
+interface IProps {
+  InputUserData: any;
+}
+
+const ProfilePage: FC<IProps> = (props,InputUserData)=> {
+  return(
   <Routes>
     <Route
       element={
         <>
-          <ProfileHeader/>
+          <ProfileHeader InputUserData={InputUserData} />
           <Outlet />
         </>
       }
@@ -81,5 +88,6 @@ const ProfilePage = () => (
     </Route>
   </Routes>
 )
+}
 
 export default ProfilePage

@@ -7,6 +7,7 @@ import {useFormik} from 'formik'
 import {getUserByToken, login} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../core/Auth'
+import { getUserById } from '../../apps/user-management/users-list/core/_requests'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -41,10 +42,15 @@ export function Login() {
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        const {data: auth} = await login(values.email, values.password)
-        saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
+        let loginResponse: any = await login("mohd109@gmail.com","Czin1231091256","mohd109");
+        let user= await getUserById(2);
+        saveAuth(loginResponse)
+        setCurrentUser(user as any)
+
+        // const {data: auth} = await login(values.email, values.password,"")
+        // saveAuth(auth)
+        // const {data: user} = await getUserByToken(auth.api_token)
+        // setCurrentUser(user)
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
