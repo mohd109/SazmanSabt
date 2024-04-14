@@ -19,7 +19,7 @@ const PrivateRoutes = () => {
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
-  const [userData, setUserData] = React.useState(null);
+  const [userData, setUserData] = React.useState();
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   const {currentUser} = useAuth()
 
