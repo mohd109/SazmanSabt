@@ -91,7 +91,7 @@ export function Registration() {
         <h1 className='text-gray-900 fw-bolder mb-3'>Sign Up</h1>
         {/* end::Title */}
 
-        <div className='text-gray-500 fw-semibold fs-6'>Your Social Campaigns</div>
+        <div className='text-gray-500 fw-semibold fs-6'>With Org Authentication</div>
       </div>
       {/* end::Heading */}
 
@@ -109,7 +109,7 @@ export function Registration() {
               src={toAbsoluteUrl('media/svg/brand-logos/google-icon.svg')}
               className='h-15px me-3'
             />
-            Sign in with Google
+            Sign in with Face
           </a>
           {/* end::Google link */}
         </div>
@@ -132,7 +132,7 @@ export function Registration() {
               src={toAbsoluteUrl('media/svg/brand-logos/apple-black-dark.svg')}
               className='theme-dark-show h-15px me-3'
             />
-            Sign in with Apple
+            Sign in with Sabt OAuth
           </a>
           {/* end::Google link */}
         </div>
