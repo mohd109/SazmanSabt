@@ -10,6 +10,7 @@ import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import React from 'react'
 import { getUserById } from '../modules/apps/user-management/users-list/core/_requests'
 import { login } from '../modules/auth/core/_requests'
+import { useAuth } from '../modules/auth/core/Auth'
 
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
@@ -20,10 +21,11 @@ const PrivateRoutes = () => {
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
   const [userData, setUserData] = React.useState(null);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
-  
+  const {currentUser} = useAuth()
+
   async function getUserData() {
     if (!loginSuccess) {
-      let loginResponse: any = await login("mohd109@gmail.com","Czin1231091256","mohd109");
+      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.username as any);
       setLoginSuccess(true);
     }
     let response= await getUserById(2);

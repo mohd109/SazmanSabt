@@ -12,6 +12,7 @@ import { ToolbarWrapper } from '../../../../_metronic/layout/components/toolbar'
 import { Content } from '../../../../_metronic/layout/components/content'
 import { AxiosResponse } from 'axios'
 import { login, sendPostRequest } from '../../auth/core/_requests'
+import { useAuth } from '../../auth/core/Auth'
 
 const Vertical = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)
@@ -19,12 +20,13 @@ const Vertical = () => {
   const [currentSchema, setCurrentSchema] = useState(createAccountSchemas[0])
   const [initValues] = useState<ICreateAccount>(inits)
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const {currentUser} = useAuth()
 
 
   async function submitDataset() {
     if (!loginSuccess) {
-      let loginResponse: any = await login("mohd109@gmail.com", "Czin1231091256", "mohd109");
-      setLoginSuccess(true);
+      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.username as any);
+            setLoginSuccess(true);
     }
     const tempSchema = currentSchema as any;
 

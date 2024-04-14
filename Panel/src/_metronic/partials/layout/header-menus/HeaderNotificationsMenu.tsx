@@ -11,16 +11,18 @@ import {
 import React from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { login, sendGetRequest } from '../../../../app/modules/auth/core/_requests';
+import { useAuth } from '../../../../app/modules/auth/core/Auth';
 
 export function HeaderNotificationsMenu() {
   const [notificationData, setNotificationData] = React.useState([]);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   const alertState =['primary','danger','warning','success'];
+  const {currentUser} = useAuth()
   
   
   async function getNotifications() {
     if (!loginSuccess) {
-      let loginResponse: any = await login("mohd109@gmail.com","Czin1231091256","mohd109");
+      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.username as any);
       setLoginSuccess(true);
     }
     let response: AxiosResponse<any, any> = await sendGetRequest("http://panel.sabt.shankayi.ir/api/get_notifications");

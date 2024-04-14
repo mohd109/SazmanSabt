@@ -35,6 +35,7 @@ const initialValues = {
 export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
+  const {currentUser} = useAuth()
 
   const formik = useFormik({
     initialValues,
@@ -42,8 +43,8 @@ export function Login() {
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        let loginResponse: any = await login("mohd109@gmail.com","Czin1231091256","mohd109");
-        let user= await getUserById(2);
+        let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.username as any);
+                let user= await getUserById(2);
         saveAuth(loginResponse)
         setCurrentUser(user as any)
 
