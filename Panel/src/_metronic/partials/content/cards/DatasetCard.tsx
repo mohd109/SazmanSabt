@@ -8,7 +8,7 @@ type Props = {
   description: string
 }
 
-const Card4: FC<Props> = ({icon, title, description}) => {
+const DatasetCard: FC<Props> = ({icon, title, description}) => {
   return (
     <div className='card h-100'>
       <div className='card-body d-flex justify-content-center text-center flex-column p-8'>
@@ -24,4 +24,4 @@ const Card4: FC<Props> = ({icon, title, description}) => {
   )
 }
 
-export {Card4}
+export {DatasetCard}

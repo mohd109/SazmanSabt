@@ -215,7 +215,7 @@ const defaultAlerts: Array<AlertModel> = [
   },
   {
     title: 'HR Confidential',
-    description: 'Confidential staff documents',
+    description: 'Confidential staff datasets',
     time: '2 hrs',
     icon: 'information-5',
     state: 'danger',

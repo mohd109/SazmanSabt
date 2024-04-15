@@ -18,7 +18,7 @@ type Props = {
   users?: Array<IconUserModel>
 }
 
-const Card2: FC<Props> = ({
+const TaskCard: FC<Props> = ({
   icon,
   badgeColor,
   status,
@@ -84,4 +84,4 @@ const Card2: FC<Props> = ({
   )
 }
 
-export {Card2}
+export {TaskCard}

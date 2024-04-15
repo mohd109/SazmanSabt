@@ -3,7 +3,7 @@ import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {Overview} from './components/Overview'
 import {Tasks} from './components/Tasks'
 import {Maps} from './components/Maps'
-import {Documents} from './components/Documents'
+import {Datasets} from './components/Datasets'
 import {Connections} from './components/Connections'
 import {ProfileHeader} from './ProfileHeader'
 import { FC } from 'react'
@@ -68,11 +68,11 @@ const ProfilePage: FC<IProps> = ({InputUserData})=> {
         }
       />
       <Route
-        path='documents'
+        path='datasets'
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Documents</PageTitle>
-            <Documents />
+            <PageTitle breadcrumbs={profileBreadCrumbs}>Datasets</PageTitle>
+            <Datasets InputUserData={InputUserData}/>
           </>
         }
       />

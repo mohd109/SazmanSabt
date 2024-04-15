@@ -1,12 +1,12 @@
 
 import { FC, useEffect } from 'react';
 import { Content } from '../../../../_metronic/layout/components/content'
-import {Card5} from '../../../../_metronic/partials/content/cards/Card5'
+import { TileCard} from '../../../../_metronic/partials/content/cards/TileCard'
 import { User } from '../../apps/user-management/users-list/core/_models';
 import { useAuth } from '../../auth';
 import React from 'react';
 import { login } from '../../auth/core/_requests';
-import { getUserById } from '../../apps/user-management/users-list/core/_requests';
+import { getTilesbyUserId, getUserById } from '../../apps/user-management/users-list/core/_requests';
 
 
 
@@ -17,22 +17,41 @@ interface IProps {
 export const Maps: FC<IProps> = ({InputUserData})=> {
   const [userData, setUserData] = React.useState<User>();
   const [loginSuccess, setLoginSuccess] = React.useState(false);
+  const [tileCards, setTileCards] = React.useState<JSX.Element[]>();
   const {currentUser} = useAuth()
 
-  async function getUserData() {
+  async function getTileData() {
     if (!loginSuccess) {
       let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.user_name as any);
       setLoginSuccess(true);
     }
-    // let response= await getUserById(2);
-    let response= await getMapsbyUserId(2);
+    let response= await getTilesbyUserId();
 
     return (response as any);
   }
   useEffect(() => {
-    getUserData().then(response => {
+    getTileData().then(response => {
       setUserData(response);
+      const cards = [];
+
+      for (let i = 1; i <= 10; i++) {
+        cards.push(<div className='col-sm-6 col-xl-4'>
+        <TileCard
+          image='media/svg/brand-logos/twitch.svg'
+          title='Twitch Posts'
+          description='$500.00'
+          status='down'
+          statusValue={40.5}
+          statusDesc='more impressions'
+          progress={0.5}
+          progressType='MRR'
+        />
+      </div>);
+      }
+
+      setTileCards(cards);
     });
+
   }, []);
   
   return (
@@ -63,104 +82,9 @@ export const Maps: FC<IProps> = ({InputUserData})=> {
           </button>
         </div>
       </div>
-
+ 
       <div className='row g-6 g-xl-9'>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/twitch.svg'
-            title='Twitch Posts'
-            description='$500.00'
-            status='down'
-            statusValue={40.5}
-            statusDesc='more impressions'
-            progress={0.5}
-            progressType='MRR'
-          />
-        </div>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/twitter.svg'
-            title='Twitter Followers'
-            description='807k'
-            status='up'
-            statusValue={17.62}
-            statusDesc='Followers growth'
-            progress={5}
-            progressType='New trials'
-          />
-        </div>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/spotify.svg'
-            title='Spotify Listeners'
-            description='1,073'
-            status='down'
-            statusValue={10.45}
-            statusDesc='Less comments than usual'
-            progress={40}
-            progressType='Impressions'
-          />
-        </div>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/pinterest-p.svg'
-            title='Pinterest Posts'
-            description='97'
-            status='up'
-            statusValue={26.1}
-            statusDesc='More posts'
-            progress={10}
-            progressType='Spend'
-          />
-        </div>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/github.svg'
-            title='Github Contributes'
-            description='4,109'
-            status='down'
-            statusValue={32.8}
-            statusDesc='Less contributions'
-            progress={40}
-            progressType='Dispute'
-          />
-        </div>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/youtube-play.svg'
-            title='Youtube Subscribers'
-            description='354'
-            status='up'
-            statusValue={29.45}
-            statusDesc='Subscribers growth'
-            progress={40}
-            progressType='Subscribers'
-          />
-        </div>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/telegram.svg'
-            title='Telegram Posts'
-            description='566'
-            status='up'
-            statusValue={11.4}
-            statusDesc='more clicks'
-            progress={40}
-            progressType='Profit'
-          />
-        </div>
-        <div className='col-sm-6 col-xl-4'>
-          <Card5
-            image='media/svg/brand-logos/reddit.svg'
-            title='Reddit Awards'
-            description='2.1M'
-            status='up'
-            statusValue={46.7}
-            statusDesc='more adds'
-            progress={0.0}
-            progressType='Retention'
-          />
-        </div>
+        {tileCards}
       </div>
 
       <div className='d-flex flex-stack flex-wrap pt-10'>
@@ -219,3 +143,7 @@ export const Maps: FC<IProps> = ({InputUserData})=> {
     </Content>
   )
 }
+function getLayersbyUserId() {
+  throw new Error('Function not implemented.');
+}
+

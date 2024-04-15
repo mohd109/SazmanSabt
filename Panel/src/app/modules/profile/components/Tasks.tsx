@@ -1,8 +1,62 @@
-import { Content } from '../../../../_metronic/layout/components/content'
-import {Card2} from '../../../../_metronic/partials/content/cards/Card2'
 import {IconUserModel} from '../ProfileModels'
 
-export function Tasks() {
+import { FC, useEffect } from 'react';
+import { Content } from '../../../../_metronic/layout/components/content'
+import { TaskCard} from '../../../../_metronic/partials/content/cards/TaskCard'
+import { User } from '../../apps/user-management/users-list/core/_models';
+import { useAuth } from '../../auth';
+import React from 'react';
+import { login } from '../../auth/core/_requests';
+import { getTasksbyUserId, getTilesbyUserId, getUserById } from '../../apps/user-management/users-list/core/_requests';
+
+
+interface IProps {
+  InputUserData: User;
+}
+
+export const Tasks: FC<IProps> = ({InputUserData})=> {
+  const [userData, setUserData] = React.useState<User>();
+  const [loginSuccess, setLoginSuccess] = React.useState(false);
+  const [taskCards, setTaskCards] = React.useState<JSX.Element[]>();
+  const {currentUser} = useAuth()
+
+  async function getTaskData() {
+    if (!loginSuccess) {
+      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.user_name as any);
+      setLoginSuccess(true);
+    }
+    let response= await getTasksbyUserId();
+
+    return (response as any);
+  }
+  useEffect(() => {
+    getTaskData().then(response => {
+      setUserData(response);
+      const cards = [];
+
+      for (let i = 1; i <= 10; i++) {
+        cards.push( <div className='col-md-6 col-xl-4'>
+        <TaskCard
+          icon='media/svg/brand-logos/plurk.svg'
+          badgeColor='primary'
+          status='In Progress'
+          statusColor='primary'
+          title='Fitnes App'
+          description='CRM App application to HR efficiency'
+          date='November 10, 2021'
+          budget='$284,900.00'
+          progress={50}
+          users={users1}
+        />
+      </div>);
+      }
+
+      setTaskCards(cards);
+    });
+
+  }, []);
+  
+
   return (
     <Content>
       <div className='d-flex flex-wrap flex-stack mb-6'>
@@ -38,140 +92,7 @@ export function Tasks() {
       </div>
 
       <div className='row g-6 g-xl-9'>
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/plurk.svg'
-            badgeColor='primary'
-            status='In Progress'
-            statusColor='primary'
-            title='Fitnes App'
-            description='CRM App application to HR efficiency'
-            date='November 10, 2021'
-            budget='$284,900.00'
-            progress={50}
-            users={users1}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/disqus.svg'
-            badgeColor='info'
-            status='Pending'
-            statusColor='info'
-            title='Leaf CRM'
-            description='CRM App application to HR efficiency'
-            date='May 10, 2021'
-            budget='$36,400.00'
-            progress={30}
-            users={users2}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/figma-1.svg'
-            badgeColor='success'
-            status='Completed'
-            statusColor='success'
-            title='Atica Banking'
-            description='CRM App application to HR efficiency'
-            date='Mar 14, 2021'
-            budget='$605,100.00'
-            progress={100}
-            users={users3}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/sentry-3.svg'
-            badgeColor='info'
-            status='Pending'
-            statusColor='info'
-            title='Finance Dispatch'
-            description='CRM App application to HR efficiency'
-            date='Mar 14, 2021'
-            budget='$605,100.00'
-            progress={60}
-            users={users4}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/xing-icon.svg'
-            badgeColor='primary'
-            status='In Progress'
-            statusColor='primary'
-            title='9 Degree'
-            description='CRM App application to HR efficiency'
-            date='Mar 14, 2021'
-            budget='$605,100.00'
-            progress={40}
-            users={users5}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/tvit.svg'
-            badgeColor='primary'
-            status='In Progress'
-            statusColor='primary'
-            title='9 Degree'
-            description='CRM App application to HR efficiency'
-            date='Mar 14, 2021'
-            budget='$605,100.00'
-            progress={70}
-            users={users6}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/aven.svg'
-            badgeColor='primary'
-            status='In Progress'
-            statusColor='primary'
-            title='Buldozer CRM'
-            description='CRM App application to HR efficiency'
-            date='Mar 14, 2021'
-            budget='$605,100.00'
-            progress={70}
-            users={users7}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/treva.svg'
-            badgeColor='danger'
-            status='Overdue'
-            statusColor='danger'
-            title='Aviasales App'
-            description='CRM App application to HR efficiency'
-            date='Mar 14, 2021'
-            budget='$605,100.00'
-            progress={10}
-            users={users8}
-          />
-        </div>
-
-        <div className='col-md-6 col-xl-4'>
-          <Card2
-            icon='media/svg/brand-logos/kanba.svg'
-            badgeColor='success'
-            status='Completed'
-            statusColor='success'
-            title='Oppo CRM'
-            description='CRM App application to HR efficiency'
-            date='Mar 14, 2021'
-            budget='$605,100.00'
-            progress={100}
-            users={users9}
-          />
-        </div>
+        {taskCards}
       </div>
 
       <div className='d-flex flex-stack flex-wrap pt-10'>

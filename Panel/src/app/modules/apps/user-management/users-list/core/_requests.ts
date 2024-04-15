@@ -1,12 +1,13 @@
 import axios, { AxiosResponse } from "axios";
 import { ID, Response } from "../../../../../../_metronic/helpers";
-import { User, UsersQueryResponse } from "./_models";
+import { DatasetsQueryResponse, LayersQueryResponse, TasksQueryResponse, TilesQueryResponse, User, UsersQueryResponse } from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_THEME_API_URL;
 const USER_URL = `${API_URL}/user`;
 const DATASET_URL = `${API_URL}/datasets`;
 const LAYER_URL = `${API_URL}/layers`;
 const TILE_URL = `${API_URL}/tiles`;
+const TASK_URL = `${API_URL}/get_jobs`;
 
 const GET_USERS_URL = `${API_URL}/users/query`;
 
@@ -48,11 +49,33 @@ const getUserById = (id: ID): Promise<User | undefined> => {
     .then((response: Response<User>) => response.data);
 };
 
-const getMapsbyUserId = (id: ID): Promise<User | undefined> => {
+const getLayersbyUserId = (): Promise<LayersQueryResponse | undefined> => {
   return axios
-    .get(`${MAPS_URL}/${id}`)
-    .then((response: AxiosResponse<Response<Maps>>) => response.data)
-    .then((response: Response<User>) => response.data);
+    .get(`${LAYER_URL}`)
+    .then((response: AxiosResponse<Response<LayersQueryResponse>>) => response.data)
+    .then((response: Response<LayersQueryResponse>) => response.data);
+};
+
+
+const getTasksbyUserId = (): Promise<TasksQueryResponse | undefined> => {
+  return axios
+    .get(`${TASK_URL}`)
+    .then((response: AxiosResponse<Response<TasksQueryResponse>>) => response.data)
+    .then((response: Response<TasksQueryResponse>) => response.data);
+};
+
+const getTilesbyUserId = (): Promise<TilesQueryResponse | undefined> => {
+  return axios
+    .get(`${TILE_URL}`)
+    .then((response: AxiosResponse<Response<TilesQueryResponse>>) => response.data)
+    .then((response: Response<TilesQueryResponse>) => response.data);
+};
+
+const getDatasetsbyUserId = (): Promise<DatasetsQueryResponse | undefined> => {
+  return axios
+    .get(`${DATASET_URL}`)
+    .then((response: AxiosResponse<Response<DatasetsQueryResponse>>) => response.data)
+    .then((response: Response<DatasetsQueryResponse>) => response.data);
 };
 
 const createUser = (user: User): Promise<User | undefined> => {
@@ -85,4 +108,9 @@ export {
   getUserById,
   createUser,
   updateUser,
+  getDatasetsbyUserId,
+  getLayersbyUserId,
+  getTilesbyUserId,
+  getTasksbyUserId
+
 };

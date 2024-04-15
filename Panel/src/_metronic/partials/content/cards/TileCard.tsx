@@ -14,7 +14,7 @@ type Props = {
   progressType: string
 }
 
-const Card5: FC<Props> = ({
+const TileCard: FC<Props> = ({
   image,
   title,
   description,
@@ -81,4 +81,4 @@ const Card5: FC<Props> = ({
   )
 }
 
-export {Card5}
+export {TileCard}

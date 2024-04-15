@@ -42,8 +42,8 @@ const SidebarMenuMain = () => {
             hasBullet={true}
           />
           <SidebarMenuItem
-            to='/crafted/pages/profile/documents'
-            title='Documents'
+            to='/crafted/pages/profile/datasets'
+            title='Datasets'
             hasBullet={true}
           />
           {/* <SidebarMenuItem
