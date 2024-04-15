@@ -54,7 +54,7 @@ const ProfilePage: FC<IProps> = ({InputUserData})=> {
         element={
           <>
             <PageTitle breadcrumbs={profileBreadCrumbs}>Tasks</PageTitle>
-            <Tasks />
+            <Tasks  InputUserData={InputUserData}/>
           </>
         }
       />
