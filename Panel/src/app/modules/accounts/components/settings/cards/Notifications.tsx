@@ -1,12 +1,13 @@
 import React, {FC, useState} from 'react'
 import {INotifications, notifications} from '../SettingsModel'
+import { User } from '../../../../apps/user-management/users-list/core/_models';
 
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-const Notifications: FC<IProps> = (props,InputUserData)=> {
+const Notifications: FC<IProps> = ({InputUserData})=> {
   const [data, setData] = useState<INotifications>(notifications)
 
   const updateData = (fieldsToUpdate: Partial<INotifications>) => {
@@ -187,7 +188,7 @@ const Notifications: FC<IProps> = (props,InputUserData)=> {
                   </tr>
 
                   <tr>
-                    <td>Completed Projects</td>
+                    <td>Completed Tasks</td>
                     <td>
                       <div className='form-check form-check-solid'>
                         <input
@@ -195,12 +196,12 @@ const Notifications: FC<IProps> = (props,InputUserData)=> {
                           type='checkbox'
                           value=''
                           id='project1'
-                          defaultChecked={data.completeProjects.email}
+                          defaultChecked={data.completeTasks.email}
                           onChange={() =>
                             updateData({
-                              completeProjects: {
-                                phone: data.completeProjects.phone,
-                                email: !data.completeProjects.email,
+                              completeTasks: {
+                                phone: data.completeTasks.phone,
+                                email: !data.completeTasks.email,
                               },
                             })
                           }
@@ -215,12 +216,12 @@ const Notifications: FC<IProps> = (props,InputUserData)=> {
                           type='checkbox'
                           value=''
                           id='project2'
-                          defaultChecked={data.completeProjects.phone}
+                          defaultChecked={data.completeTasks.phone}
                           onChange={() =>
                             updateData({
-                              completeProjects: {
-                                phone: !data.completeProjects.phone,
-                                email: data.completeProjects.email,
+                              completeTasks: {
+                                phone: !data.completeTasks.phone,
+                                email: data.completeTasks.email,
                               },
                             })
                           }

@@ -9,13 +9,14 @@ import {
 import { Content } from '../../../../_metronic/layout/components/content'
 import axios, { AxiosResponse } from 'axios';
 import React, { FC, useEffect } from 'react';
+import { User } from '../../apps/user-management/users-list/core/_models';
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-export const Overview: FC<IProps> = (props,InputUserData)=> {
-  const [userData, setUserData] = React.useState(null);
+export const Overview: FC<IProps> = ({InputUserData})=> {
+  const [userData, setUserData] = React.useState<User>();
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   
   
@@ -41,7 +42,7 @@ export const Overview: FC<IProps> = (props,InputUserData)=> {
             <label className='col-lg-4 fw-bold text-muted'>Full Name</label>
 
             <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-gray-900'>{userData==null? "":(userData as any).name}</span>
+              <span className='fw-bolder fs-6 text-gray-900'>{userData==null? "":userData.name}</span>
             </div>
           </div>
 
@@ -49,7 +50,7 @@ export const Overview: FC<IProps> = (props,InputUserData)=> {
             <label className='col-lg-4 fw-bold text-muted'>Role</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'>{userData==null? "":(userData as any).role}</span>
+              <span className='fw-bold fs-6'>{userData==null? "":(userData).role}</span>
             </div>
           </div>
 
@@ -64,7 +65,7 @@ export const Overview: FC<IProps> = (props,InputUserData)=> {
             </label>
 
             <div className='col-lg-8 d-flex align-items-center'>
-              <span className='fw-bolder fs-6 me-2'>{userData==null? "":(userData as any).phone_number}</span>
+              <span className='fw-bolder fs-6 me-2'>{userData==null? "":userData.phone_number}</span>
 
               <span className='badge badge-success'>Verified</span>
             </div>
@@ -75,7 +76,7 @@ export const Overview: FC<IProps> = (props,InputUserData)=> {
 
             <div className='col-lg-8'>
               <a href='#' className='fw-bold fs-6 text-gray-900 text-hover-primary'>
-              {userData==null? "":(userData as any).email}
+              {userData==null? "":userData.email}
               </a>
             </div>
           </div>

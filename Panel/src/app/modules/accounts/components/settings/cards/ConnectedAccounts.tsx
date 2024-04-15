@@ -135,7 +135,7 @@ const ConnectedAccounts: FC = () => {
                   <a href='#' className='fs-5 text-gray-900 text-hover-primary fw-bolder'>
                     Slack
                   </a>
-                  <div className='fs-6 fw-bold text-gray-500'>Integrate Projects Discussions</div>
+                  <div className='fs-6 fw-bold text-gray-500'>Integrate Tasks Discussions</div>
                 </div>
               </div>
               <div className='d-flex justify-content-end'>

@@ -3,6 +3,7 @@ import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
 import {IProfileDetails, profileDetailsInitValues as initialValues} from '../SettingsModel'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
+import { User } from '../../../../apps/user-management/users-list/core/_models'
 
 
 const profileDetailsSchema = Yup.object().shape({
@@ -16,10 +17,10 @@ const profileDetailsSchema = Yup.object().shape({
   // currency: Yup.string().required('Currency is required'),
 })
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-export const ProfileDetails: FC<IProps> = (props,InputUserData)=> {
+export const ProfileDetails: FC<IProps> = ({InputUserData})=> {
   
   const [data, setData] = useState<IProfileDetails>(initialValues)
   const updateData = (fieldsToUpdate: Partial<IProfileDetails>): void => {

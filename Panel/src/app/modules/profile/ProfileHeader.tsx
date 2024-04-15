@@ -1,5 +1,5 @@
 
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Link, useLocation} from 'react-router-dom'
 import {Dropdown1} from '../../../_metronic/partials'
@@ -8,12 +8,13 @@ import { Content } from '../../../_metronic/layout/components/content'
 import { User } from '../apps/user-management/users-list/core/_models'
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-const ProfileHeader: FC<IProps> = (props,InputUserData:User)=> {
+const ProfileHeader: FC<IProps> = ({InputUserData})=> {
 
   const location = useLocation()
+  const [projectStats, setProjectStats] = useState(95);
 
   return (
     <>
@@ -24,7 +25,7 @@ const ProfileHeader: FC<IProps> = (props,InputUserData:User)=> {
             <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
               <div className='me-7 mb-4'>
                 <div className='symbol symbol-100px symbol-lg-160px symbol-fixed position-relative'>
-                  <img src={toAbsoluteUrl('media/avatars/300-1.jpg')} alt='Metornic' />
+                  <img src={toAbsoluteUrl('media/avatars/' + InputUserData.avatar + '.jpg')} alt='Metornic' />
                   <div className='position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px'></div>
                 </div>
               </div>
@@ -116,7 +117,7 @@ const ProfileHeader: FC<IProps> = (props,InputUserData:User)=> {
                           <div className='fs-2 fw-bolder'>6</div>
                         </div>
 
-                        <div className='fw-bold fs-6 text-gray-500'>Projects</div>
+                        <div className='fw-bold fs-6 text-gray-500'>Tasks</div>
                       </div>
 
                       <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -133,13 +134,13 @@ const ProfileHeader: FC<IProps> = (props,InputUserData:User)=> {
                   <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                     <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
                       <span className='fw-bold fs-6 text-gray-500'>Project Compleation</span>
-                      <span className='fw-bolder fs-6'>95%</span>
+                      <span className='fw-bolder fs-6'>{projectStats}%</span>
                     </div>
                     <div className='h-5px mx-3 w-100 bg-light mb-3'>
                       <div
                         className='bg-success rounded h-5px'
                         role='progressbar'
-                        style={{width: '95%'}}
+                        style={{width: projectStats+'%'}}
                       ></div>
                     </div>
                   </div>
@@ -164,9 +165,9 @@ const ProfileHeader: FC<IProps> = (props,InputUserData:User)=> {
                   <Link
                     className={
                       `nav-link text-active-primary me-6 ` +
-                      (location.pathname === '/crafted/pages/profile/projects' && 'active')
+                      (location.pathname === '/crafted/pages/profile/tasks' && 'active')
                     }
-                    to='/crafted/pages/profile/projects'
+                    to='/crafted/pages/profile/tasks'
                   >
                     Tasks
                   </Link>

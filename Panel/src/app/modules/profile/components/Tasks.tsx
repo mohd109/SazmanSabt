@@ -2,12 +2,12 @@ import { Content } from '../../../../_metronic/layout/components/content'
 import {Card2} from '../../../../_metronic/partials/content/cards/Card2'
 import {IconUserModel} from '../ProfileModels'
 
-export function Projects() {
+export function Tasks() {
   return (
     <Content>
       <div className='d-flex flex-wrap flex-stack mb-6'>
         <h3 className='fw-bolder my-2'>
-          My Projects
+          My Tasks
           <span className='fs-6 text-gray-500 fw-bold ms-1'>Active</span>
         </h3>
 

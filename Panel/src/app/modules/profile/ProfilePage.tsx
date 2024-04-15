@@ -1,12 +1,13 @@
 import {Navigate, Routes, Route, Outlet} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import {Overview} from './components/Overview'
-import {Projects} from './components/Projects'
-import {Campaigns} from './components/Campaigns'
+import {Tasks} from './components/Tasks'
+import {Maps} from './components/Maps'
 import {Documents} from './components/Documents'
 import {Connections} from './components/Connections'
 import {ProfileHeader} from './ProfileHeader'
 import { FC } from 'react'
+import { User } from '../apps/user-management/users-list/core/_models'
 
 const profileBreadCrumbs: Array<PageLink> = [
   {
@@ -25,10 +26,10 @@ const profileBreadCrumbs: Array<PageLink> = [
 
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-const ProfilePage: FC<IProps> = (props,InputUserData)=> {
+const ProfilePage: FC<IProps> = ({InputUserData})=> {
   return(
   <Routes>
     <Route
@@ -52,8 +53,8 @@ const ProfilePage: FC<IProps> = (props,InputUserData)=> {
         path='projects'
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Projects</PageTitle>
-            <Projects />
+            <PageTitle breadcrumbs={profileBreadCrumbs}>Tasks</PageTitle>
+            <Tasks />
           </>
         }
       />
@@ -61,8 +62,8 @@ const ProfilePage: FC<IProps> = (props,InputUserData)=> {
         path='campaigns'
         element={
           <>
-            <PageTitle breadcrumbs={profileBreadCrumbs}>Campaigns</PageTitle>
-            <Campaigns />
+            <PageTitle breadcrumbs={profileBreadCrumbs}>Maps</PageTitle>
+            <Maps InputUserData={InputUserData}/>
           </>
         }
       />

@@ -337,7 +337,7 @@ const Search: FC = () => {
                   className='fs-5 text-muted m-0 pt-5 pb-5'
                   data-kt-search-element='category-title'
                 >
-                  Projects
+                  Tasks
                 </h3>
 
                 <a
@@ -575,7 +575,7 @@ const Search: FC = () => {
                 <label>
                   <input type='radio' className='btn-check' name='type' value='projects' />
                   <span className='btn btn-sm btn-color-muted btn-active btn-active-primary px-4'>
-                    Projects
+                    Tasks
                   </span>
                 </label>
               </div>
@@ -691,7 +691,7 @@ const Search: FC = () => {
             <div className='pb-4 border-bottom'>
               <label className='form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack'>
                 <span className='form-check-label text-gray-700 fs-6 fw-bold ms-0 me-2'>
-                  Projects
+                  Tasks
                 </span>
 
                 <input className='form-check-input' type='checkbox' value='1' defaultChecked />

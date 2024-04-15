@@ -1,11 +1,12 @@
 import {useState, FC} from 'react'
 import {IEmailPreferences, emailPreferences} from '../SettingsModel'
+import { User } from '../../../../apps/user-management/users-list/core/_models';
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-const EmailPreferences: FC<IProps> = (props,InputUserData)=> {
+const EmailPreferences: FC<IProps> = ({InputUserData})=> {
   const [data, setData] = useState<IEmailPreferences>(emailPreferences)
 
   const updateData = (fieldsToUpdate: Partial<IEmailPreferences>) => {

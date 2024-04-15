@@ -11,21 +11,23 @@ import React from 'react'
 import { getUserById } from '../modules/apps/user-management/users-list/core/_requests'
 import { login } from '../modules/auth/core/_requests'
 import { useAuth } from '../modules/auth/core/Auth'
+import { User } from '../modules/apps/user-management/users-list/core/_models'
 
-const PrivateRoutes = () => {
+const PrivateRoutes: FC = ()=> {
+
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
-  const [userData, setUserData] = React.useState();
+  const [userData, setUserData] = React.useState<User>();
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   const {currentUser} = useAuth()
 
   async function getUserData() {
     if (!loginSuccess) {
-      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.username as any);
+      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.user_name as any);
       setLoginSuccess(true);
     }
     let response= await getUserById(2);
@@ -53,7 +55,7 @@ const PrivateRoutes = () => {
           path='crafted/pages/profile/*'
           element={
             <SuspensedView>
-              <ProfilePage  InputUserData={userData}/>
+              <ProfilePage  InputUserData={userData as any}/>
             </SuspensedView>
           }
         />
@@ -77,7 +79,7 @@ const PrivateRoutes = () => {
           path='crafted/account/*'
           element={
             <SuspensedView>
-              <AccountPage InputUserData={userData}/>
+              <AccountPage InputUserData={userData as any}/>
             </SuspensedView>
           }
         />

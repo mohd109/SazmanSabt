@@ -47,7 +47,7 @@ const CardsWidget17: FC<Props> = ({
               <KTIcon iconName='arrow-up' className='fs-5 text-success ms-n1' /> 2.2%
             </span>
           </div>
-          <span className='text-gray-500 pt-1 fw-semibold fs-6'>Projects Earnings in April</span>
+          <span className='text-gray-500 pt-1 fw-semibold fs-6'>Tasks Earnings in April</span>
         </div>
       </div>
 

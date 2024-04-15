@@ -6,11 +6,12 @@ import {Notifications} from './cards/Notifications'
 import {DeactivateAccount} from './cards/DeactivateAccount'
 import { Content } from '../../../../../_metronic/layout/components/content'
 import { FC } from 'react'
+import { User } from '../../../apps/user-management/users-list/core/_models'
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
-export const Settings: FC<IProps> = (props,InputUserData)=>{
+export const Settings: FC<IProps> = ({InputUserData})=>{
 
   return (
     <Content>

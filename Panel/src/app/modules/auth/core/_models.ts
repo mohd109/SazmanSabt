@@ -1,3 +1,5 @@
+import { ID } from "../../../../_metronic/helpers"
+
 export interface AuthModel {
   api_token: string
   refreshToken?: string
@@ -44,24 +46,32 @@ export interface UserSocialNetworksModel {
 }
 
 export interface UserModel {
-  id: number
-  username: string
-  password: string | undefined
-  email: string
-  first_name: string
-  last_name: string
-  fullname?: string
-  occupation?: string
-  companyName?: string
-  phone?: string
-  roles?: Array<number>
-  pic?: string
-  language?: 'en' | 'de' | 'es' | 'fr' | 'ja' | 'zh' | 'ru'
-  timeZone?: string
-  website?: 'https://keenthemes.com'
-  emailSettings?: UserEmailSettingsModel
-  auth?: AuthModel
-  communication?: UserCommunicationModel
-  address?: UserAddressModel
-  socialNetworks?: UserSocialNetworksModel
+  id?: ID,
+  user_name?: string,
+  phone_number?: string,
+  email?: string,
+  password?: string,
+  image?: string,
+  id_card?: string,
+  gender?: string,
+  birth?: string,
+  post_code?: string,
+  addr?: string,
+  city?: string,
+  bank_account?: string,
+  active?: string,
+  id_code?: string,
+  notifications?: string,
+  favorites?: string,
+  position?: string,
+  role?: string,
+  last_login?: string,
+  joined_day?: string,
+  online?: boolean,
+  two_steps?: boolean,
+  name?: string,
+  access_level?: number,
+  avatar?: string,
+  initial_label?: string,
+  initial_state?: string
 }

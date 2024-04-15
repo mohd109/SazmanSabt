@@ -129,6 +129,7 @@ function MainPage() {
   const [jobsData, setJobsData] = React.useState([]);
   const [datasetsData, setDatasetsData] = React.useState([]);
   const [userData,setUserData] = React.useState(null);
+  const [userId,setUserId] = React.useState(-1);
 
   const createFileFolder = (
     <>
@@ -146,6 +147,7 @@ function MainPage() {
   async function getNotifications() {
     if(!loginSuccess){
       let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
+      setUserId(loginReponse.id);
       setLoginSuccess(true);
     }
     let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_notifications");
@@ -161,7 +163,7 @@ function MainPage() {
       let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
       setLoginSuccess(true);
     }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_user/mohd109");
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_user/" + userId);
     if(response.status==200)
     {
       return response.data;

@@ -73,12 +73,12 @@ const MenuTestPage: FC = () => {
                         <div className='menu-item'>
                           <a
                             className='menu-link py-3'
-                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/projects'
+                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/tasks'
                           >
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
                             </span>
-                            <span className='menu-title'>Projects</span>
+                            <span className='menu-title'>Tasks</span>
                           </a>
                         </div>
                         <div className='menu-item'>
@@ -89,7 +89,7 @@ const MenuTestPage: FC = () => {
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
                             </span>
-                            <span className='menu-title'>Campaigns</span>
+                            <span className='menu-title'>Maps</span>
                           </a>
                         </div>
                         <div
@@ -121,12 +121,12 @@ const MenuTestPage: FC = () => {
                             <div className='menu-item'>
                               <a
                                 className='menu-link py-3'
-                                href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/projects'
+                                href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/tasks'
                               >
                                 <span className='menu-bullet'>
                                   <span className='bullet bullet-dot'></span>
                                 </span>
-                                <span className='menu-title'>Projects</span>
+                                <span className='menu-title'>Tasks</span>
                               </a>
                             </div>
                             <div className='menu-item'>
@@ -137,7 +137,7 @@ const MenuTestPage: FC = () => {
                                 <span className='menu-bullet'>
                                   <span className='bullet bullet-dot'></span>
                                 </span>
-                                <span className='menu-title'>Campaigns</span>
+                                <span className='menu-title'>Maps</span>
                               </a>
                             </div>
                             <div className='menu-item'>
@@ -237,12 +237,12 @@ const MenuTestPage: FC = () => {
                             <div className='menu-item'>
                               <a
                                 className='menu-link py-3'
-                                href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/projects'
+                                href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/tasks'
                               >
                                 <span className='menu-bullet'>
                                   <span className='bullet bullet-dot'></span>
                                 </span>
-                                <span className='menu-title'>Projects</span>
+                                <span className='menu-title'>Tasks</span>
                               </a>
                             </div>
                             <div className='menu-item'>
@@ -253,7 +253,7 @@ const MenuTestPage: FC = () => {
                                 <span className='menu-bullet'>
                                   <span className='bullet bullet-dot'></span>
                                 </span>
-                                <span className='menu-title'>Campaigns</span>
+                                <span className='menu-title'>Maps</span>
                               </a>
                             </div>
                             <div className='menu-item'>
@@ -337,14 +337,14 @@ const MenuTestPage: FC = () => {
                             <SVG src={toAbsoluteUrl('media/logos/default-small.svg')} />
                           </span>
                         </span>
-                        <span className='menu-title'>Projects</span>
+                        <span className='menu-title'>Tasks</span>
                         <span className='menu-arrow'></span>
                       </span>
                       <div className='menu-sub menu-sub-accordion menu-sub-lg-dropdown py-4 w-100 w-lg-225px'>
                         <div className='menu-item'>
                           <a
                             className='menu-link py-3'
-                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/overview'
+                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/overview'
                           >
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
@@ -355,7 +355,7 @@ const MenuTestPage: FC = () => {
                         <div className='menu-item'>
                           <a
                             className='menu-link py-3'
-                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/lists'
+                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/lists'
                           >
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
@@ -366,7 +366,7 @@ const MenuTestPage: FC = () => {
                         <div className='menu-item'>
                           <a
                             className='menu-link py-3'
-                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/activity'
+                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/activity'
                           >
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
@@ -377,7 +377,7 @@ const MenuTestPage: FC = () => {
                         <div className='menu-item'>
                           <a
                             className='menu-link py-3'
-                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/files'
+                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/files'
                           >
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
@@ -388,7 +388,7 @@ const MenuTestPage: FC = () => {
                         <div className='menu-item'>
                           <a
                             className='menu-link py-3'
-                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/users'
+                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/users'
                           >
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
@@ -399,7 +399,7 @@ const MenuTestPage: FC = () => {
                         <div className='menu-item'>
                           <a
                             className='menu-link py-3'
-                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/targets'
+                            href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/targets'
                           >
                             <span className='menu-bullet'>
                               <span className='bullet bullet-dot'></span>
@@ -786,12 +786,12 @@ const MenuTestPage: FC = () => {
                       <div className='menu-item'>
                         <a
                           className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/projects'
+                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/profile/tasks'
                         >
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>
                           </span>
-                          <span className='menu-title'>Projects</span>
+                          <span className='menu-title'>Tasks</span>
                         </a>
                       </div>
                       <div className='menu-item'>
@@ -802,7 +802,7 @@ const MenuTestPage: FC = () => {
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>
                           </span>
-                          <span className='menu-title'>Campaigns</span>
+                          <span className='menu-title'>Maps</span>
                         </a>
                       </div>
                       <div className='menu-item'>
@@ -856,14 +856,14 @@ const MenuTestPage: FC = () => {
                       <span className='menu-bullet'>
                         <span className='bullet bullet-dot'></span>
                       </span>
-                      <span className='menu-title'>Projects</span>
+                      <span className='menu-title'>Tasks</span>
                       <span className='menu-arrow'></span>
                     </span>
                     <div className='menu-sub menu-sub-accordion menu-active-bg'>
                       <div className='menu-item'>
                         <a
                           className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/overview'
+                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/overview'
                         >
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>
@@ -874,7 +874,7 @@ const MenuTestPage: FC = () => {
                       <div className='menu-item'>
                         <a
                           className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/lists'
+                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/lists'
                         >
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>
@@ -885,7 +885,7 @@ const MenuTestPage: FC = () => {
                       <div className='menu-item'>
                         <a
                           className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/activity'
+                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/activity'
                         >
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>
@@ -896,7 +896,7 @@ const MenuTestPage: FC = () => {
                       <div className='menu-item'>
                         <a
                           className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/files'
+                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/files'
                         >
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>
@@ -907,7 +907,7 @@ const MenuTestPage: FC = () => {
                       <div className='menu-item'>
                         <a
                           className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/users'
+                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/users'
                         >
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>
@@ -918,7 +918,7 @@ const MenuTestPage: FC = () => {
                       <div className='menu-item'>
                         <a
                           className='menu-link'
-                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/projects/targets'
+                          href='/keenthemes/products/themes/start/html/demo1/dist/?page=pages/tasks/targets'
                         >
                           <span className='menu-bullet'>
                             <span className='bullet bullet-dot'></span>

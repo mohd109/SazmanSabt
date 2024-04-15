@@ -4,7 +4,10 @@ import { User, UsersQueryResponse } from "./_models";
 
 const API_URL = import.meta.env.VITE_APP_THEME_API_URL;
 const USER_URL = `${API_URL}/user`;
-const LOGIN_URL = `${API_URL}/login_user`;
+const DATASET_URL = `${API_URL}/datasets`;
+const LAYER_URL = `${API_URL}/layers`;
+const TILE_URL = `${API_URL}/tiles`;
+
 const GET_USERS_URL = `${API_URL}/users/query`;
 
 const DEFAULT_OPTION = {
@@ -42,6 +45,13 @@ const getUserById = (id: ID): Promise<User | undefined> => {
   return axios
     .get(`${USER_URL}/${id}`)
     .then((response: AxiosResponse<Response<User>>) => response.data)
+    .then((response: Response<User>) => response.data);
+};
+
+const getMapsbyUserId = (id: ID): Promise<User | undefined> => {
+  return axios
+    .get(`${MAPS_URL}/${id}`)
+    .then((response: AxiosResponse<Response<Maps>>) => response.data)
     .then((response: Response<User>) => response.data);
 };
 

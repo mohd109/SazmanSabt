@@ -1,13 +1,45 @@
 
+import { FC, useEffect } from 'react';
 import { Content } from '../../../../_metronic/layout/components/content'
 import {Card5} from '../../../../_metronic/partials/content/cards/Card5'
+import { User } from '../../apps/user-management/users-list/core/_models';
+import { useAuth } from '../../auth';
+import React from 'react';
+import { login } from '../../auth/core/_requests';
+import { getUserById } from '../../apps/user-management/users-list/core/_requests';
 
-export function Campaigns() {
+
+
+interface IProps {
+  InputUserData: User;
+}
+
+export const Maps: FC<IProps> = ({InputUserData})=> {
+  const [userData, setUserData] = React.useState<User>();
+  const [loginSuccess, setLoginSuccess] = React.useState(false);
+  const {currentUser} = useAuth()
+
+  async function getUserData() {
+    if (!loginSuccess) {
+      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.user_name as any);
+      setLoginSuccess(true);
+    }
+    // let response= await getUserById(2);
+    let response= await getMapsbyUserId(2);
+
+    return (response as any);
+  }
+  useEffect(() => {
+    getUserData().then(response => {
+      setUserData(response);
+    });
+  }, []);
+  
   return (
     <Content>
       <div className='d-flex flex-wrap flex-stack mb-6'>
         <h3 className='fw-bolder my-2'>
-          My Campaigns
+          My Maps
           <span className='fs-6 text-gray-500 fw-bold ms-1'>30 Days</span>
         </h3>
 

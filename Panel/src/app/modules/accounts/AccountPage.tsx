@@ -6,6 +6,7 @@ import {Settings} from './components/settings/Settings'
 import {AccountHeader} from './AccountHeader'
 import { getUserById } from '../apps/user-management/users-list/core/_requests'
 import { login } from '../auth/core/_requests'
+import { User } from '../apps/user-management/users-list/core/_models'
 
 const accountBreadCrumbs: Array<PageLink> = [
   {
@@ -24,13 +25,11 @@ const accountBreadCrumbs: Array<PageLink> = [
 
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-const AccountPage: FC<IProps> = (props,InputUserData)=> {
+const AccountPage: FC<IProps> = ({InputUserData})=> {
 
-  
-  
   return (
     <Routes>
       <Route

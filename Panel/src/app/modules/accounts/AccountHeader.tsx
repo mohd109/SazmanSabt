@@ -1,5 +1,5 @@
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Link} from 'react-router-dom'
 import {Dropdown1} from '../../../_metronic/partials'
@@ -8,14 +8,13 @@ import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
 import { Content } from '../../../_metronic/layout/components/content'
 import { User } from '../apps/user-management/users-list/core/_models'
 
-
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-const AccountHeader: FC<IProps> = (props,InputUserData:User)=> {
+const AccountHeader: FC<IProps> = ({InputUserData})=> {
   const location = useLocation()
-  const [projectStats, setProjectStats] = useState();
+  const [projectStats, setProjectStats] = useState(95);
 
   return (
     <>
@@ -26,7 +25,7 @@ const AccountHeader: FC<IProps> = (props,InputUserData:User)=> {
             <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
               <div className='me-7 mb-4'>
                 <div className='symbol symbol-100px symbol-lg-160px symbol-fixed position-relative'>
-                  <img src={toAbsoluteUrl('media/avatars/300-1.jpg')} alt='Metronic' />
+                  <img src={toAbsoluteUrl('media/avatars/' + InputUserData.avatar + '.jpg')} alt='Metronic' />
                   <div className='position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px'></div>
                 </div>
               </div>
@@ -47,7 +46,7 @@ const AccountHeader: FC<IProps> = (props,InputUserData:User)=> {
                         data-bs-toggle='modal'
                         data-bs-target='#kt_modal_upgrade_plan'
                       >
-                        {InputUserData.position}
+                        {InputUserData.role}
                       </a>
                     </div>
 
@@ -57,7 +56,7 @@ const AccountHeader: FC<IProps> = (props,InputUserData:User)=> {
                         className='d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2'
                       >
                         <KTIcon iconName='profile-circle' className='fs-4 me-1' />
-                        {InputUserData.role}
+                        {InputUserData.position}
                       </a>
                       <a
                         href='#'
@@ -126,7 +125,7 @@ const AccountHeader: FC<IProps> = (props,InputUserData:User)=> {
                           <div className='fs-2 fw-bolder'>6</div>
                         </div>
 
-                        <div className='fw-bold fs-6 text-gray-500'>Projects</div>
+                        <div className='fw-bold fs-6 text-gray-500'>Tasks</div>
                       </div>
 
                       <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -143,13 +142,13 @@ const AccountHeader: FC<IProps> = (props,InputUserData:User)=> {
                   <div className='d-flex align-items-center w-200px w-sm-300px flex-column mt-3'>
                     <div className='d-flex justify-content-between w-100 mt-auto mb-2'>
                       <span className='fw-bold fs-6 text-gray-500'>Project Compleation</span>
-                      <span className='fw-bolder fs-6'>95%</span>
+                      <span className='fw-bolder fs-6'>{projectStats}%</span>
                     </div>
                     <div className='h-5px mx-3 w-100 bg-light mb-3'>
                       <div
                         className='bg-success rounded h-5px'
                         role='progressbar'
-                        style={{width: '95%'}}
+                        style={{width: projectStats + '%'}}
                       ></div>
                     </div>
                   </div>

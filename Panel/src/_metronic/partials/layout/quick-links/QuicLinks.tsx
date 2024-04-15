@@ -43,7 +43,7 @@ const QuickLinks: FC = () => (
       <div className='col-6'>
         <a href='#' className='d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end'>
           <KTIcon iconName='abstract-41' className='fs-3x text-primary mb-2' />
-          <span className='fs-5 fw-bold text-gray-800 mb-0'>Projects</span>
+          <span className='fs-5 fw-bold text-gray-800 mb-0'>Tasks</span>
           <span className='fs-7 text-gray-500'>Pending Tasks</span>
         </a>
       </div>

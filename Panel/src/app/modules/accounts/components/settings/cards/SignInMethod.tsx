@@ -3,6 +3,7 @@ import {KTIcon} from '../../../../../../_metronic/helpers'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {IUpdateEmail, IUpdatePassword, updateEmail, updatePassword} from '../SettingsModel'
+import { User } from '../../../../apps/user-management/users-list/core/_models'
 
 const emailFormValidationSchema = Yup.object().shape({
   newEmail: Yup.string()
@@ -33,10 +34,10 @@ const passwordFormValidationSchema = Yup.object().shape({
 })
 
 interface IProps {
-  InputUserData: any;
+  InputUserData: User;
 }
 
-const SignInMethod: FC<IProps> = (props,InputUserData)=> {
+const SignInMethod: FC<IProps> = ({InputUserData})=> {
   const [emailUpdateData, setEmailUpdateData] = useState<IUpdateEmail>(updateEmail)
   const [passwordUpdateData, setPasswordUpdateData] = useState<IUpdatePassword>(updatePassword)
 

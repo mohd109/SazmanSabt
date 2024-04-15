@@ -25,8 +25,8 @@ const Vertical = () => {
 
   async function submitDataset() {
     if (!loginSuccess) {
-      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.username as any);
-            setLoginSuccess(true);
+      let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.user_name as any);
+      setLoginSuccess(true);
     }
     const tempSchema = currentSchema as any;
 

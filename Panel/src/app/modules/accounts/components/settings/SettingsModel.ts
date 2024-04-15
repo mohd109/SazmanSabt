@@ -75,7 +75,7 @@ export interface INotifications {
     email: boolean;
     phone: boolean;
   };
-  completeProjects: {
+  completeTasks: {
     email: boolean;
     phone: boolean;
   };
@@ -142,7 +142,7 @@ export const notifications: INotifications = {
     email: true,
     phone: false,
   },
-  completeProjects: {
+  completeTasks: {
     email: false,
     phone: true,
   },
