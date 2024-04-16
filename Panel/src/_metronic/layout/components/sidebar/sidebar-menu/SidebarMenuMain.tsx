@@ -37,7 +37,7 @@ const SidebarMenuMain = () => {
           {/* <SidebarMenuItem to='/crafted/pages/profile/overview' title='Overview' hasBullet={true} /> */}
           <SidebarMenuItem to='/crafted/pages/profile/tasks' title='Tasks' hasBullet={true} />
           <SidebarMenuItem
-            to='/crafted/pages/profile/campaigns'
+            to='/crafted/pages/profile/maps'
             title='Maps'
             hasBullet={true}
           />

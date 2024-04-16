@@ -24,7 +24,6 @@ const profileBreadCrumbs: Array<PageLink> = [
   },
 ]
 
-
 interface IProps {
   InputUserData: User;
 }
@@ -50,7 +49,7 @@ const ProfilePage: FC<IProps> = ({InputUserData})=> {
         }
       />
       <Route
-        path='projects'
+        path='tasks'
         element={
           <>
             <PageTitle breadcrumbs={profileBreadCrumbs}>Tasks</PageTitle>
@@ -59,7 +58,7 @@ const ProfilePage: FC<IProps> = ({InputUserData})=> {
         }
       />
       <Route
-        path='campaigns'
+        path='maps'
         element={
           <>
             <PageTitle breadcrumbs={profileBreadCrumbs}>Maps</PageTitle>

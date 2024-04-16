@@ -10,79 +10,86 @@ interface SidebarFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   collapsed?: boolean;
 }
 
-const StyledButton = styled.a`
-  padding: 5px 16px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-  background-color: #fff;
-  color: #484848;
-  text-decoration: none;
-`;
-
-const StyledSidebarFooter = styled.div`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  border-radius: 8px;
-  color: white;
-  background: #26A17B;
-`;
-
-const StyledCollapsedSidebarFooter = styled.a`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  border-radius: 50%;
-  color: white;
-  background: #26A17B;
-`;
-const DEFAULT_OPTION = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true
-};
-async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.post(
-    endPoint,
-    body,
-    DEFAULT_OPTION,
-  );
-  return response;
-}
-
-async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.get(
-    endPoint,
-    DEFAULT_OPTION,
-  );
-  return response;
-}
-
-async function getUserData() {
-    let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
-  let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_user/mohd109");
-  if(response.status==200)
-  {
-    return response.data;
-  }
-  return null;
-}
 export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapsed, ...rest }) => {
-  const [userData,setUserData] = React.useState(null);
+
+  const StyledButton = styled.a`
+padding: 5px 16px;
+border-radius: 4px;
+border: none;
+cursor: pointer;
+display: inline-block;
+background-color: #fff;
+color: #484848;
+text-decoration: none;
+`;
+
+  const StyledSidebarFooter = styled.div`
+width: 50%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 20px;
+border-radius: 8px;
+color: white;
+background: #26A17B;
+`;
+
+  const StyledCollapsedSidebarFooter = styled.a`
+width: 40px;
+height: 40px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+border-radius: 50%;
+color: white;
+background: #26A17B;
+`;
+  const DEFAULT_OPTION = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  };
+  async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
+    let response = await axios.post(
+      endPoint,
+      body,
+      DEFAULT_OPTION,
+    );
+    return response;
+  }
+
+  async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
+    let response = await axios.get(
+      endPoint,
+      DEFAULT_OPTION,
+    );
+    return response;
+  }
+
+  const [userData, setUserData] = React.useState(null);
+  const [userId,setUserId] = React.useState(-1);
+  const [loginSuccess, setLoginSuccess] = React.useState(false);
+
+  async function getUserData() {
+    if(!loginSuccess){
+      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
+      setUserId(loginReponse.id);
+      setLoginSuccess(true);
+    }
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/user/2" );
+    if (response.status == 200) {
+      return response.data;
+    }
+    return null;
+  }
 
   useLayoutEffect(() => {
-    getUserData().then(response => {setUserData(response as any)})
-  },[]);
+    getUserData().then(response => { setUserData(response as any) })
+  }, []);
 
   return (
     <div
@@ -94,16 +101,16 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({ children, collapse
     >
       {collapsed ? (
         <StyledCollapsedSidebarFooter href='/profile' target="_blank">
-          <Github size={28} url={userData==null? '' : userData.image} />
+          <Github size={28} url={userData == null ? '' : userData.image} />
         </StyledCollapsedSidebarFooter>
       ) : (
         <StyledSidebarFooter {...rest}>
           <div style={{ marginBottom: '12px' }}>
             <Github size={30} />
           </div>
-          <Typography fontWeight={600}>{userData==null? '' : userData.user_name}</Typography>
+          <Typography fontWeight={600}>{userData == null ? '' : userData.user_name}</Typography>
           <Typography variant="caption" style={{ letterSpacing: 1, opacity: 0.7 }}>
-            Level {userData==null? '' : userData.access_level}
+            Level {userData == null ? '' : userData.access_level}
           </Typography>
           <div style={{ marginTop: '16px' }}>
             <StyledButton href='/profile' target="_blank">

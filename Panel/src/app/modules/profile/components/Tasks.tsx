@@ -7,7 +7,7 @@ import { User } from '../../apps/user-management/users-list/core/_models';
 import { useAuth } from '../../auth';
 import React from 'react';
 import { login } from '../../auth/core/_requests';
-import { getTasksbyUserId, getTilesbyUserId, getUserById } from '../../apps/user-management/users-list/core/_requests';
+import { getTasksbyUserId } from '../../apps/user-management/users-list/core/_requests';
 
 
 interface IProps {
@@ -26,11 +26,13 @@ export const Tasks: FC<IProps> = ({InputUserData})=> {
       setLoginSuccess(true);
     }
     let response= await getTasksbyUserId();
+    console.log("began to get the task data")
 
     return (response as any);
   }
   useEffect(() => {
     getTaskData().then(response => {
+      console.log("got the task data")
       setUserData(response);
       const cards = [];
 

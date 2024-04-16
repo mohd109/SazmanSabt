@@ -176,9 +176,9 @@ const ProfileHeader: FC<IProps> = ({InputUserData})=> {
                   <Link
                     className={
                       `nav-link text-active-primary me-6 ` +
-                      (location.pathname === '/crafted/pages/profile/campaigns' && 'active')
+                      (location.pathname === '/crafted/pages/profile/maps' && 'active')
                     }
-                    to='/crafted/pages/profile/campaigns'
+                    to='/crafted/pages/profile/maps'
                   >
                     Maps
                   </Link>

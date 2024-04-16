@@ -144,13 +144,20 @@ function MainPage() {
       </button>
     </>
   );
-  async function getNotifications() {
+
+  async function login() {
     if(!loginSuccess){
       let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
       setUserId(loginReponse.id);
       setLoginSuccess(true);
+      return loginReponse.id;
     }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_notifications");
+    return userId;
+  }
+
+  async function getNotifications() {
+    await login();
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/notifications");
     if(response.status==200)
     {
       return response.data;
@@ -159,23 +166,21 @@ function MainPage() {
   }
 
   async function getUserData() {
-    if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
-      setLoginSuccess(true);
-    }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_user/" + userId);
-    if(response.status==200)
-    {
-      return response.data;
-    }
+    login().then(async r => {
+      let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/user/2");
+      if(response.status==200)
+      {
+        return response.data;
+      }
+
+    })
+    
     return null;
   }
   async function getDatasets() {
-    if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
-      setLoginSuccess(true);
-    }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_datasets");
+    await login();
+
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/datasets");
     if(response.status==200)
     {
       return response.data;
@@ -184,11 +189,9 @@ function MainPage() {
   }
 
   async function getJobs() {
-    if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
-      setLoginSuccess(true);
-    }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_jobs");
+    await login();
+
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/jobs");
     if(response.status==200)
     {
       return response.data;
@@ -197,11 +200,9 @@ function MainPage() {
   }
 
   async function getTiles() {
-    if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
-      setLoginSuccess(true);
-    }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_tiles");
+    await login();
+
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/tiles");
     if(response.status==200)
     {
       return response.data;
@@ -210,11 +211,9 @@ function MainPage() {
   }
 
   async function getLayers() {
-    if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
-      setLoginSuccess(true);
-    }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_layers");
+    await login();
+
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/layers");
     if(response.status==200)
     {
       return response.data;
@@ -223,10 +222,8 @@ function MainPage() {
   }
   
   async function getLayerMetadata() {
-    if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
-      setLoginSuccess(true);
-    }
+    await login();
+
     let response: any = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_layer_metadata");
     return response.data;
   }
@@ -296,7 +293,7 @@ function MainPage() {
           })
           element.children = tempChildren;
           element.id=element.id.toString()
-          console.log(tempChildren);
+          //console.log(tempChildren);
 
         }
         else {
@@ -318,7 +315,7 @@ function MainPage() {
           })
           element.children = tempChildren;
           element.id=element.id.toString()
-          console.log(tempChildren);
+          //console.log(tempChildren);
 
         }
         else {
@@ -326,15 +323,13 @@ function MainPage() {
         }
       });
 
-      console.log(response);
+      //console.log(response);
 
       setLayersData(response as any);
       setData((response as any).userRasterLayers);
-      // {loadFinished? (layersData as any).vectorLayers : null}
       getLayerMetadata().then(response => {
         let tempLayersMetadata = { layers: response, columns: metadataColumns };
         setLayersMetadata(tempLayersMetadata as any);
-        console.log(tempLayersMetadata);
         setLoadFinished(true);
       });
     });
@@ -418,7 +413,7 @@ function MainPage() {
     }),
   };
 
-
+  // console.log(layersData)
   return (
     <div className={"flex h-full absolute inset-0 w-full overflow-hidden"} style={{ direction: rtl ? 'rtl' : 'ltr' }}>
       <Sidebar
@@ -589,7 +584,7 @@ function MainPage() {
         </Sidebar>
       </div>
 
-      <MarketPlace rasterLayers={loadFinished ? (layersData as any).rasterLayers : null} vectorLayers={loadFinished ? (layersData as any).vectorLayers : null} accountZoomCenter={[51.32, 35.5219]} />
+      <MarketPlace layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
 
     </div>
   );

@@ -162,7 +162,7 @@ const Mixed: FC = () => {
               image='/media/svg/brand-logos/plurk.svg'
               time='7 hours ago'
               title='PitStop - Multiple Email Generator'
-              description='Pitstop creates quick email campaigns.<br/>We help to strengthen your brand<br/>for your every purpose.'
+              description='Pitstop creates quick email maps.<br/>We help to strengthen your brand<br/>for your every purpose.'
             />
           </div>
           {/* end::Col */}

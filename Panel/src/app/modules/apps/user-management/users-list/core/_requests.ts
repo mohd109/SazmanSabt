@@ -7,7 +7,7 @@ const USER_URL = `${API_URL}/user`;
 const DATASET_URL = `${API_URL}/datasets`;
 const LAYER_URL = `${API_URL}/layers`;
 const TILE_URL = `${API_URL}/tiles`;
-const TASK_URL = `${API_URL}/get_jobs`;
+const TASK_URL = `${API_URL}/jobs`;
 
 const GET_USERS_URL = `${API_URL}/users/query`;
 
