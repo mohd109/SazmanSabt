@@ -13,10 +13,34 @@ import "@turf/boolean-intersects"
 import booleanIntersects from "@turf/boolean-intersects";
 import { useNavigate } from 'react-router-dom';
 import MeasuresControl from 'maplibre-gl-measures';
-// import * as MaplibreExportControl from '@watergis/maplibre-gl-export'
+import * as MaplibreExportControl from '@watergis/maplibre-gl-export'
 import TemporalControl from 'maplibre-gl-temporal-control';
 import TooltipControl from '@mapbox-controls/tooltip';
 import '@mapbox-controls/tooltip/src/index.css';
+import { fromUrl } from 'geotiff';
+import { resolvePath, isBrowser } from '@loaders.gl/core';
+import { loadGeoTiff } from '@loaders.gl/geotiff';
+import DeckGL from '@deck.gl/react';
+import { BitmapLayer } from '@deck.gl/layers';
+import type { BitmapLayerPickingInfo } from '@deck.gl/layers';
+import { MapboxOverlay } from '@deck.gl/mapbox';
+import CompassControl from '@mapbox-controls/compass';
+import '@mapbox-controls/compass/src/index.css';
+import ImageControl from '@mapbox-controls/image';
+import '@mapbox-controls/image/src/index.css';
+import InspectControl from '@mapbox-controls/inspect';
+import '@mapbox-controls/inspect/src/index.css';
+var utmObj = require('utm-latlng');
+var utm=new utmObj();
+
+const TIFF_URL = "http://main.sabt.shankayi.ir/sample.tif";
+const bitmapLayer = new BitmapLayer({
+  id: 'BitmapLayer',
+  bounds: [-122.519, 37.7045, -122.355, 37.829],
+  image: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-districts.png',
+  pickable: true
+});
+
 
 const pako = require('pako');
 const DEFAULT_OPTION = {
@@ -252,6 +276,30 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     }
     return uniqueFeatures;
   }
+  // useEffect(() => {
+
+  //   // fromUrl(TIFF_URL).then(tiff => {
+  //     loadGeoTiff(TIFF_URL).then(data2 => {
+  //       const { data } = data2;
+  //       const [base] = data;
+  //       for (let c = 0; c < 3; c += 1) {
+  //         const selection = { c, z: 0, t: 0 };
+  //         base.getRaster({ selection }).then(pixelData => {
+  //           console.log(pixelData.height)
+  //           console.log(pixelData.width)
+  //           console.log(pixelData.height)
+  //           console.log(pixelData.data.length);
+  //           // console.log(pixelData.width * pixelData.height * );
+
+  //         }
+  //         );
+  //       }
+  //     })
+  //   // });
+
+
+  // });
+
   useEffect(() => {
     let map = null;
 
@@ -295,6 +343,24 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             'tileSize': 256
           },
           'sources': {
+            'osm': {
+              'type': 'raster',
+              'tiles': ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+              'tileSize': 256,
+              'attribution': '&copy; OpenStreetMap Contributors',
+              'maxzoom': 19
+            },
+            // Use a different source for terrain and hillshade layers, to improve render quality
+            'terrainSource': {
+              'type': 'raster-dem',
+              'url': 'https://demotiles.maplibre.org/terrain-tiles/tiles.json',
+              'tileSize': 256
+            },
+            'hillshadeSource': {
+              'type': 'raster-dem',
+              'url': 'https://demotiles.maplibre.org/terrain-tiles/tiles.json',
+              'tileSize': 256
+            },
             'bing-maps-raster-tiles': {
               'type': 'raster',
               'tiles': tileUrls,
@@ -308,6 +374,13 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
           },
           'layers': [
             {
+              'id': 'hills',
+              'type': 'hillshade',
+              'source': 'hillshadeSource',
+              'layout': { visibility: 'visible' },
+              'paint': { 'hillshade-shadow-color': '#473B24' }
+            },
+            {
               'id': 'bing-maps-tiles',
               'type': 'raster',
               'source': 'bing-maps-raster-tiles',
@@ -316,8 +389,8 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             }
           ],
           'terrain': {
-            source: 'terrainSource',
-            exaggeration: 1
+            'source': 'terrainSource',
+            'exaggeration': 1
           }
         };
 
@@ -334,9 +407,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
           // maxBounds:[[48.988211,34.502381],[49.276238,35.004091]]
         });
 
-        map.addControl(new TooltipControl({
-          getContent: (event) => `${event.lngLat.lng.toFixed(6)}, ${event.lngLat.lat.toFixed(6)}`,
-        }));
+
 
         let options = {
           lang: {
@@ -373,10 +444,68 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             },
           }
         };
+        // map.addControl(new MaplibreExportControl.MaplibreExportControl({
+        //   PageSize: MaplibreExportControl.Size.A4 as any,
+        //   PageOrientation: MaplibreExportControl.PageOrientation.Landscape,
+        //   Format: MaplibreExportControl.Format.PNG,
+        //   DPI: MaplibreExportControl.DPI[300],
+        //   Crosshair: true,
+        //   PrintableArea: true,
+        //   Local: 'en'
+        // }), 'top-right');
+        // map.on('draw.create', updateArea);
+        // map.on('draw.delete', updateArea);
+        // map.on('draw.update', updateArea);
+        // map.addControl(new TooltipControl({
+        //   getContent: (event) => `${event.lngLat.lng.toFixed(6)}, ${event.lngLat.lat.toFixed(6)}`,
+        // }));
+        // map.addControl(draw, 'top-right');
 
+        // map.addControl(new CompassControl(), 'top-right');
+        // const imageControl = new ImageControl();
+        // map.addControl(imageControl, 'top-right');
         map.addControl(new MeasuresControl(options));
+        map.addControl(
+          new maplibregl.NavigationControl({
+            visualizePitch: true,
+            showZoom: true,
+            showCompass: true
+          })
+        );
+        // map.addControl(new InspectControl(), 'top-right');
 
+        map.addControl(
+          new maplibregl.TerrainControl({
+            source: 'terrainSource',
+            exaggeration: 1
+          })
+        );
+        map.on('mousemove', (e) => {
+          const bottomBar = document.getElementById('bottomBar');
+          if (bottomBar != null) {
+            let bottomBarRect = bottomBar.getBoundingClientRect();
+            bottomBar.style.bottom = 20 + 'px';
+            let bottomBarHeight = bottomBarRect["height"];
+            let bottomBarWidth = bottomBarRect["width"];
+            let bottomBarLeft = (window.innerWidth - bottomBarRect["width"]) / 2;
+            bottomBar.style.left = bottomBarLeft + 'px';
 
+            const saleTime = document.getElementById("saleTime")
+            if (saleTime != null) {
+              let saleTimeRect = saleTime.getBoundingClientRect();
+              let saleTimeHeight = saleTimeRect["height"];
+              let saleTimeWidth = saleTimeRect["width"];
+
+              saleTime.style.bottom = (bottomBarHeight - 14) / 2 + 25 + 'px';
+              saleTime.style.left = bottomBarLeft + bottomBarWidth * 0.22 + 'px';
+
+              let utmObj = utm.convertLatLngToUtm(e.lngLat.lat, e.lngLat.lng, 2) as any;
+
+              saleTime.innerText ="Lat: " + e.lngLat.lat.toFixed(6) + " , Lng: "  + e.lngLat.lng.toFixed(6) + "  |  " + "Easting: " + utmObj.Easting.toFixed(2) + " , Northing: "  + utmObj.Northing.toFixed(2)  + " , Zone: "  + utmObj.ZoneNumber + utmObj.ZoneLetter ;
+            }
+          }
+
+        });
         map.on('click', 'hexagons', async (e: MapMouseEvent & { features?: any[] | undefined; } & Object) => {
           const hexagon = e?.features;
           if (hexagon && hexagon.length > 0 && draw.getMode() === 'simple_select' && !clickOnLayer) {
@@ -423,14 +552,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
       let bottomBarLeft = (window.innerWidth - bottomBarRect["width"]) / 2;
       bottomBar.style.left = bottomBarLeft + 'px';
 
-      const bottomLandsMenu = document.getElementById("bottomLandsMenu")
-      if (bottomLandsMenu != null) {
-        let bottomLandsMenu2 = bottomLandsMenu.getBoundingClientRect();
-        let bottomLandsMenuWidth2 = bottomLandsMenu2["width"];
 
-        bottomLandsMenu.style.left = bottomBarLeft + bottomBarWidth * 0.17 - bottomLandsMenuWidth2 + 'px';
-        bottomLandsMenu.style.bottom = 50 + bottomBarHeight + 'px';
-      }
     }
 
 
@@ -468,22 +590,12 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     // map.addControl(temporalControl);
 
 
-    // map.addControl(new MaplibreExportControl.MaplibreExportControl({
-    //   PageSize: MaplibreExportControl.Size.A4,
-    //   PageOrientation: MaplibreExportControl.PageOrientation.Landscape,
-    //   Format: MaplibreExportControl.Format.PNG,
-    //   DPI: MaplibreExportControl.DPI[300],
-    //   Crosshair: true,
-    //   PrintableArea: true,
-    //   Local: 'fr'
-    // }), 'top-right');
+
 
 
     // }
 
-    // map.on('draw.create', updateArea);
-    // map.on('draw.delete', updateArea);
-    // map.on('draw.update', updateArea);
+
 
     // async function decompress() {
     //   map.addLayer({
@@ -564,7 +676,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                   });
               });
             });
-            
+
             if (rasterLayers[i].children !== undefined) {
               for (let j = 0; j < rasterLayers[i].children.length; j++) {
                 // console.log("added layer: " + rasterLayers[i].children[j].id)
@@ -578,6 +690,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                           type: "raster",
                           tiles: [
                             (response as any).url
+
                           ],
                           tileSize: 256,
                           attribution: ''
@@ -586,7 +699,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                       });
                   });
                 });
-               
+
               }
             }
 
@@ -602,7 +715,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                   type: 'vector',
                   url: (response as any).url
                 });
-  
+
                 map.addLayer({
                   id: vectorLayers[i].id,
                   type: 'vector',
@@ -611,7 +724,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
               });
             });
             // console.log("added layer: " + vectorLayers[i].id)
-            
+
             if (vectorLayers[i].children !== undefined) {
               for (let j = 0; j < vectorLayers[i].children.length; j++) {
                 // console.log("added layer: " + vectorLayers[i].children[j].id)
@@ -621,7 +734,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                       type: 'vector',
                       url: (response as any).url
                     });
-  
+
                     map.addLayer({
                       id: vectorLayers[i].children[j].id,
                       type: 'vector',
@@ -629,12 +742,21 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                     });
                   });
                 });
-                
+
               }
             }
 
           }
         }
+
+        let overlay = new MapboxOverlay({
+          layers: [bitmapLayer],
+        });
+
+        map.addControl(overlay);
+        map.flyTo({
+          center: [-122.4, 37.74]
+        });
         setMainMap(map)
 
       }
@@ -643,9 +765,37 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
 
   }, [layersData])
 
-  return (<div id="marketplaceMenu" className={"h-full absolute inset-0 w-full overflow-hidden"}>
-    <div id="map" className={"h-full overflow-hidden absolute inset-0 w-full"}></div>
-  </div>);
+  return (
+    <div id="marketplaceMenu" className={"h-full absolute inset-0 w-full overflow-hidden"}>
+      <div id="map" className={"h-full overflow-hidden absolute inset-0 w-full"}></div>
+      <svg id="bottomBar" width="800" height="58" viewBox="0 0 1000 58" fill="none" xmlns="http://www.w3.org/2000/svg" className={"absolute bottom-0 left-0 duration-300"}>
+        <rect x="142" width="800" height="40" rx="10" fill="#26A17B" fillOpacity="0.77" shapeRendering="crispEdges" />
+        <defs>
+          <filter id="filter0_d_0_1" x="138" y="0" width="800" height="58" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+            <feOffset dy="4" />
+            <feGaussianBlur stdDeviation="2" />
+            <feComposite in2="hardAlpha" operator="out" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1" />
+            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape" />
+          </filter>
+        </defs>
+      </svg>
+      <a id="saleTime" className={"text-sm absolute bottom-0 left-0 text-white duration-300"}>
+        Current sale finishes in
+      </a>
+      {/* <DeckGL
+        initialViewState={{
+          longitude: -122.4 as any,
+          latitude: 37.74 as any,
+          zoom: 11 as any
+        }}
+        controller
+        getTooltip={({ bitmap }: BitmapLayerPickingInfo) => bitmap && `${bitmap.pixel}`}
+        layers={[layer]} /> */}
+    </div>);
 }
 
 export default MarketPlace

@@ -2,11 +2,18 @@
   "name": "RasterManagement",
   "version": "1.0.0",
   "private": false,
+  "config-overrides-path": "config-overrides.js",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "latest",
+    "@deck.gl/layers": "latest",
+    "@deck.gl/react": "latest",
     "@fontsource/roboto": "latest",
     "@kunukn/react-collapse": "latest",
-    "@mapbox-controls/compass": "latest",
+    "@loaders.gl/core": "latest",
+    "@loaders.gl/geotiff": "latest",
+    "@mapbox-controls/compass": "^1.2.0",
+    "@mapbox-controls/image": "^1.2.0",
+    "@mapbox-controls/inspect": "^1.2.0",
     "@mapbox-controls/tooltip": "latest",
     "@mapbox/mapbox-gl-draw": "latest",
     "@mapbox/point-geometry": "latest",
@@ -30,8 +37,10 @@
     "classnames": "latest",
     "crypto-browserify": "latest",
     "crypto-js": "latest",
+    "deck.gl": "^9.0.10",
     "ethers": "latest",
     "f": "latest",
+    "geotiff": "latest",
     "https-browserify": "latest",
     "json-rpc-engine": "latest",
     "mapbox-gl": "latest",
@@ -60,6 +69,7 @@
     "typescript": "latest",
     "url": "latest",
     "util": "latest",
+    "utm-latlng": "^1.0.8",
     "web-vitals": "latest",
     "web3": "latest",
     "yarn": "latest"
@@ -86,7 +96,7 @@
     "autoprefixer": "latest",
     "dat.gui": "latest",
     "postcss": "latest",
-    "process": "latest",
+    "process": "^0.11.10",
     "tailwindcss": "latest"
   }
 }

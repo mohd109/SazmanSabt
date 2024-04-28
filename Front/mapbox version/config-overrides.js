@@ -10,8 +10,10 @@ module.exports = function override(config, env) {
         https: require.resolve("https-browserify"),
         http: require.resolve("stream-http"),
         crypto: require.resolve("crypto-browserify"),
-        stream: require.resolve("stream-browserify")
+        stream: require.resolve("stream-browserify"),
+        'process/browser':require.resolve('process/browser')
     };
+
     config.plugins.push(
         new webpack.ProvidePlugin({
             process: 'process/browser',
