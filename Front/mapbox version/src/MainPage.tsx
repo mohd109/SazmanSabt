@@ -256,6 +256,10 @@ function MainPage() {
       name: 'owner_id',
       selector: row => row.owner_id,
     },
+    {
+      name: 'area',
+      selector: row => row.area,
+    },
   ];
   useEffect(() => {
     getUserData().then(response => {setUserData(response as any)})
