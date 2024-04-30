@@ -30,8 +30,10 @@ import ImageControl from '@mapbox-controls/image';
 import '@mapbox-controls/image/src/index.css';
 import InspectControl from '@mapbox-controls/inspect';
 import '@mapbox-controls/inspect/src/index.css';
+import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
+import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
 var utmObj = require('utm-latlng');
-var utm=new utmObj();
+var utm = new utmObj();
 
 const TIFF_URL = "http://main.sabt.shankayi.ir/sample.tif";
 const bitmapLayer = new BitmapLayer({
@@ -85,7 +87,7 @@ interface IProps {
   accountZoomCenter: any
 }
 
-const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
+const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
   const [mainMap, setMainMap] = useState<maplibregl.Map>(null);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
 
@@ -452,33 +454,106 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
         //   Crosshair: true,
         //   PrintableArea: true,
         //   Local: 'en'
-        // }), 'top-right');
+        // }), 'bottom-right');
         // map.on('draw.create', updateArea);
         // map.on('draw.delete', updateArea);
         // map.on('draw.update', updateArea);
         // map.addControl(new TooltipControl({
         //   getContent: (event) => `${event.lngLat.lng.toFixed(6)}, ${event.lngLat.lat.toFixed(6)}`,
         // }));
-        // map.addControl(draw, 'top-right');
+        // map.addControl(draw, 'bottom-right');
 
-        // map.addControl(new CompassControl(), 'top-right');
+        // map.addControl(new CompassControl(), 'bottom-right');
         // const imageControl = new ImageControl();
-        // map.addControl(imageControl, 'top-right');
-        map.addControl(new MeasuresControl(options));
+        // map.addControl(imageControl, 'bottom-right');
+     
+
+        const geocoderApi = {
+          forwardGeocode: async (config) => {
+            const features = [];
+            if (config.query.includes('coords')) {
+              let coords_string = config.query.replace("coords:", "");
+              let coords = coords_string.split(",");
+              let coordinates = [Number(coords[0].trim()), Number(coords[1].trim())]
+              let coord_info = "Geographic Coordinates";
+              if (coords.length == 3) {
+                let tempGeoCoords = utm.convertUtmToLatLng(coordinates[0], coordinates[1], Number(coords[2].trim()), 'N');
+                coordinates = [tempGeoCoords.lng, tempGeoCoords.lat];
+                coord_info = "UTM Coordinates";
+
+              }
+              const point = {
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: coordinates
+                },
+                place_name: config.query.replace(":", ",").replace("coords", coord_info),
+                properties: [],
+                text: config.query,
+                place_type: ['place'],
+                coordinates
+              };
+              features.push(point);
+            }
+            else {
+              try {
+                const request =
+                  `https://nominatim.openstreetmap.org/search?q=${config.query
+                  }&format=geojson&polygon_geojson=1&addressdetails=1`;
+                const response = await fetch(request);
+                const geojson = await response.json();
+                for (const feature of geojson.features) {
+                  const center = [
+                    feature.bbox[0] +
+                    (feature.bbox[2] - feature.bbox[0]) / 2,
+                    feature.bbox[1] +
+                    (feature.bbox[3] - feature.bbox[1]) / 2
+                  ];
+                  const point = {
+                    type: 'Feature',
+                    geometry: {
+                      type: 'Point',
+                      coordinates: center
+                    },
+                    place_name: feature.properties.display_name,
+                    properties: feature.properties,
+                    text: feature.properties.display_name,
+                    place_type: ['place'],
+                    center
+                  };
+                  features.push(point);
+                }
+              } catch (e) {
+                console.error(`Failed to forwardGeocode with error: ${e}`);
+              }
+            }
+
+
+            return {
+              features
+            };
+          }
+        };
+
+        // Pass in or define a geocoding API that matches the above
+        const geocoder = new MaplibreGeocoder(geocoderApi, { mapboxgl: maplibregl });
+        map.addControl(geocoder, 'top-right');
+        map.addControl(new MeasuresControl(options), 'bottom-right');
         map.addControl(
           new maplibregl.NavigationControl({
             visualizePitch: true,
             showZoom: true,
             showCompass: true
-          })
+          }), 'bottom-right'
         );
-        // map.addControl(new InspectControl(), 'top-right');
+        // map.addControl(new InspectControl(), 'bottom-right');
 
         map.addControl(
           new maplibregl.TerrainControl({
             source: 'terrainSource',
             exaggeration: 1
-          })
+          }), 'bottom-right'
         );
         map.on('mousemove', (e) => {
           const bottomBar = document.getElementById('bottomBar');
@@ -501,7 +576,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
 
               let utmObj = utm.convertLatLngToUtm(e.lngLat.lat, e.lngLat.lng, 2) as any;
 
-              saleTime.innerText ="Lat: " + e.lngLat.lat.toFixed(6) + " , Lng: "  + e.lngLat.lng.toFixed(6) + "  |  " + "Easting: " + utmObj.Easting.toFixed(2) + " , Northing: "  + utmObj.Northing.toFixed(2)  + " , Zone: "  + utmObj.ZoneNumber + utmObj.ZoneLetter ;
+              saleTime.innerText = "Lat: " + e.lngLat.lat.toFixed(6) + " , Lng: " + e.lngLat.lng.toFixed(6) + "  |  " + "Easting: " + utmObj.Easting.toFixed(2) + " , Northing: " + utmObj.Northing.toFixed(2) + " , Zone: " + utmObj.ZoneNumber + utmObj.ZoneLetter;
             }
           }
 
@@ -766,7 +841,7 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
   }, [layersData])
 
   return (
-    <div id="marketplaceMenu" className={"h-full absolute inset-0 w-full overflow-hidden"}>
+    <div id="mappageMenu" className={"h-full absolute inset-0 w-full overflow-hidden"}>
       <div id="map" className={"h-full overflow-hidden absolute inset-0 w-full"}></div>
       <svg id="bottomBar" width="800" height="58" viewBox="0 0 1000 58" fill="none" xmlns="http://www.w3.org/2000/svg" className={"absolute bottom-0 left-0 duration-300"}>
         <rect x="142" width="800" height="40" rx="10" fill="#26A17B" fillOpacity="0.77" shapeRendering="crispEdges" />
@@ -798,4 +873,4 @@ const MarketPlace: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     </div>);
 }
 
-export default MarketPlace
+export default MapPage

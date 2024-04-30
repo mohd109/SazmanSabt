@@ -19,7 +19,7 @@ import { menuClasses } from './utils/utilityClasses';
 import { MenuItem } from './components/sidebar/MenuItem';
 import { SubMenu } from './components/sidebar/SubMenu';
 import { Sidebar } from './components/sidebar/Sidebar';
-import MarketPlace from './MarketPlace';
+import MapPage from './MapPage';
 import DataTable from 'react-data-table-component';
 import { Direction } from 'react-data-table-component';
 import axios, { AxiosResponse } from 'axios';
@@ -588,7 +588,7 @@ function MainPage() {
         </Sidebar>
       </div>
 
-      <MarketPlace layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
+      <MapPage layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
 
     </div>
   );

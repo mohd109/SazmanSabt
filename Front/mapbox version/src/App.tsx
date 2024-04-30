@@ -1,5 +1,5 @@
 import './App.css';
-import MarketPlace from "./MarketPlace";
+import MapPage from "./MapPage";
 import React from 'react';
 
 import {
@@ -20,8 +20,8 @@ function App() {
       <div className="App">
         <Router>
           <Routes >
-            {/* <Route path="/marketplace" element={
-              <MarketPlace />
+            {/* <Route path="/mappage" element={
+              <MapPage />
             } />
             <Route path="/history" element={<History />} />
             <Route path="/forgot" element={<ForgotPassword />} />

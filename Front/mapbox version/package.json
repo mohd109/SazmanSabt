@@ -17,6 +17,7 @@
     "@mapbox-controls/tooltip": "latest",
     "@mapbox/mapbox-gl-draw": "latest",
     "@mapbox/point-geometry": "latest",
+    "@maplibre/maplibre-gl-geocoder": "^1.5.0",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@mui/styled-engine-sc": "latest",
