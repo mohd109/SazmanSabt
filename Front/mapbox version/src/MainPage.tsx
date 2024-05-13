@@ -29,6 +29,7 @@ import Node from "./components/sidebar/Node";
 import { TbFolderPlus } from "react-icons/tb";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { useDynamicTree } from "react-arborist";
+import initGdalJs from 'gdal3.js';
 
 const DEFAULT_OPTION = {
   headers: {
@@ -52,8 +53,6 @@ async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
   );
   return response;
 }
-
-
 
 type Theme = 'light' | 'dark';
 type VisibilityOfDetail = '' | 'hidden';
@@ -457,7 +456,7 @@ function MainPage() {
                   </Badge>
                 }
               >
-                <MenuItem> Job Progress</MenuItem>
+                {/* <MenuItem> Job Progress</MenuItem> */}
                 <MenuItem> Import</MenuItem>
                 <MenuItem> Export</MenuItem>
               </SubMenu>
@@ -472,7 +471,7 @@ function MainPage() {
                 <MenuItem> Spatial</MenuItem>
                 <MenuItem> Tables</MenuItem>
               </SubMenu>
-              <SubMenu label="History" icon={<History />}>
+              {/* <SubMenu label="History" icon={<History />}>
                 <MenuItem> Edits</MenuItem>
                 <MenuItem> Uploads</MenuItem>
                 <SubMenu label="Favorites">
@@ -485,7 +484,7 @@ function MainPage() {
                     }}> Vector</MenuItem>
                   </SubMenu>
                 </SubMenu>
-              </SubMenu>
+              </SubMenu> */}
               <SubMenu label="Info" icon={<ShoppingCart />}>
                 <MenuItem onClick={() => handleVisibilityOfDetail(20)}> Metadata/Attribute Tables</MenuItem>
                 <MenuItem onClick={() => handleVisibilityOfDetail(21)}> Object Properties</MenuItem>
@@ -504,9 +503,9 @@ function MainPage() {
             </div>
 
             <Menu menuItemStyles={menuItemStyles}>
-              <MenuItem icon={<Tasks />} suffix={<Badge variant={notificationData.length>0?"success":"info"}>{notificationData.length>0?"New":"0"}</Badge>}>
+              {/* <MenuItem icon={<Tasks />} suffix={<Badge variant={notificationData.length>0?"success":"info"}>{notificationData.length>0?"New":"0"}</Badge>}>
                 Tasks
-              </MenuItem>
+              </MenuItem> */}
               <SubMenu label="Settings" icon={<Settings />}>
                 <MenuItem >
                   <Switch id="rtl" checked={autoHide} onChange={handleAutoHideChange} label="Auto Hide" />
@@ -519,9 +518,9 @@ function MainPage() {
                   />
                 </MenuItem>
               </SubMenu>
-              <MenuItem disabled icon={<Admin />}>
+              {/* <MenuItem disabled icon={<Admin />}>
                 Admin Section
-              </MenuItem>
+              </MenuItem> */}
 
             </Menu>
           </div>

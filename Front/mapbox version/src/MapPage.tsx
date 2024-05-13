@@ -32,8 +32,11 @@ import InspectControl from '@mapbox-controls/inspect';
 import '@mapbox-controls/inspect/src/index.css';
 import MaplibreGeocoder from '@maplibre/maplibre-gl-geocoder';
 import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
+import OpacityControl from 'maplibre-gl-opacity';
+
 var utmObj = require('utm-latlng');
 var utm = new utmObj();
+var opacityAdded = false;
 
 const TIFF_URL = "http://main.sabt.shankayi.ir/sample.tif";
 const bitmapLayer = new BitmapLayer({
@@ -110,13 +113,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
           let landIdx = landLayers.indexOf(tempfeature);
           landLayers.splice(landIdx, 1);
           lands.splice(landIdx, 1);
-          // //console.log("lengths: " + lands.length, landLayers.length);
-          // //console.log("deleted layer: " + featureName);
           map.removeLayer(tempfeature);
-          // //console.log(map.getSource(featureName));
           if (map.getSource(tempfeature)) {
             map.removeSource(tempfeature);
-            // //console.log("deleted source: " + featureName);
           }
         }
       }
@@ -141,7 +140,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
 
     let response: any = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_tile/" + tileId);
     if (response.status == 200) {
-      return response.data;
+      let response2: any = await sendGetRequest(response.data.url);
+      response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:3000", "main.sabt.shankayi.ir/tiles")
+      return response2.data;
     }
 
   }
@@ -223,7 +224,6 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
       });
 
       let uniqueFeatures = getUniqueFeatures(selectedFeatures, "title");
-      // //console.log(uniqueFeatures);
       let uniqueFeaturesLength = uniqueFeatures.length;
       for (let index1 = 0; index1 < data.features.length; index1++) {
         const element1 = data.features[index1];
@@ -271,46 +271,15 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     for (const feature of features) {
       const id = feature.properties[comparatorProperty];
       if (!uniqueIds.has(id)) {
-        // //console.log(id);
         uniqueIds.add(id);
         uniqueFeatures.push(feature);
       }
     }
     return uniqueFeatures;
   }
-  // useEffect(() => {
-
-  //   // fromUrl(TIFF_URL).then(tiff => {
-  //     loadGeoTiff(TIFF_URL).then(data2 => {
-  //       const { data } = data2;
-  //       const [base] = data;
-  //       for (let c = 0; c < 3; c += 1) {
-  //         const selection = { c, z: 0, t: 0 };
-  //         base.getRaster({ selection }).then(pixelData => {
-  //           console.log(pixelData.height)
-  //           console.log(pixelData.width)
-  //           console.log(pixelData.height)
-  //           console.log(pixelData.data.length);
-  //           // console.log(pixelData.width * pixelData.height * );
-
-  //         }
-  //         );
-  //       }
-  //     })
-  //   // });
-
-
-  // });
 
   useEffect(() => {
     let map = null;
-
-    // if(map!=null){
-    //   map.remove();
-
-    // }
-    //console.log(layersData);
-
 
     async function loadMap(map) {
 
@@ -339,29 +308,32 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
         var style = {
           "glyphs": "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
           'version': 8,
-          'terrainSource': {
-            'type': 'raster-dem',
-            'url': 'http://main.sabt.shankayi.ir/style.json',
-            'tileSize': 256
-          },
           'sources': {
+            'orthofootprints': {
+              'type': 'geojson',
+              'data': {
+                "type": "FeatureCollection",
+                "name": "orthofootprints.geojson",
+                "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+                "features": [
+                  { "type": "Feature", "properties": { "title": "KarajBig", "perimeter": "143.7 km", "area": "1236.7 sq km" }, "geometry": { "type": "Polygon", "coordinates": [[[50.795234683798306, 35.904271950232513], [51.273052018775644, 35.905222515222526], [51.273368873772313, 35.646668837940354], [50.794917828801637, 35.647619402930367], [50.795234683798306, 35.904271950232513]]] } },
+                  { "type": "Feature", "properties": { "title": "TehranNorthWestBig", "perimeter": "50.563 km", "area": "153.59 sq km", "LENGTH": "15.09 km", "WIDTH": "10.056 km" }, "geometry": { "type": "Polygon", "coordinates": [[[51.28477565365241, 35.820622231111813], [51.451758236897142, 35.820305376115144], [51.453342511880493, 35.729684847067716], [51.285092508649079, 35.72873428207771], [51.28477565365241, 35.820622231111813]]] } },
+                  { "type": "Feature", "properties": { "title": "TehranNorthBig", "perimeter": "34.592 km", "area": "67.455 sq km" }, "geometry": { "type": "Polygon", "coordinates": [[[51.389020947556617, 35.83012788101189], [51.502138181367563, 35.830444736008566], [51.502305049368594, 35.770872859640484], [51.389884010663401, 35.766122063410108], [51.389020947556617, 35.83012788101189]]] } }
+                ]
+              }
+            },
             'osm': {
               'type': 'raster',
               'tiles': ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
               'tileSize': 256,
               'attribution': '&copy; OpenStreetMap Contributors',
-              'maxzoom': 19
+              'maxzoom': 23
             },
-            // Use a different source for terrain and hillshade layers, to improve render quality
             'terrainSource': {
               'type': 'raster-dem',
-              'url': 'https://demotiles.maplibre.org/terrain-tiles/tiles.json',
-              'tileSize': 256
-            },
-            'hillshadeSource': {
-              'type': 'raster-dem',
-              'url': 'https://demotiles.maplibre.org/terrain-tiles/tiles.json',
-              'tileSize': 256
+              'url': 'http://194.5.205.58:3000/TehranDEM',
+              'tileSize': 256,
+              'encoding': 'mapbox',
             },
             'bing-maps-raster-tiles': {
               'type': 'raster',
@@ -376,23 +348,27 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
           },
           'layers': [
             {
-              'id': 'hills',
-              'type': 'hillshade',
-              'source': 'hillshadeSource',
-              'layout': { visibility: 'visible' },
-              'paint': { 'hillshade-shadow-color': '#473B24' }
-            },
-            {
-              'id': 'bing-maps-tiles',
+              'id': 'osm-tiles',
               'type': 'raster',
-              'source': 'bing-maps-raster-tiles',
+              'source': 'osm',
               'minzoom': 0,
               'maxzoom': 23   //Let the imagery be overscaled to support deeper zoom levels.
+            },
+            {
+              'id': 'orthofootprints',
+              'type': 'fill',
+              'source': 'orthofootprints',
+              'paint': {
+                'fill-color': '#888888',
+                'fill-opacity': 0.4
+              },
+              'filter': ['==', '$type', 'Polygon']
             }
+          
           ],
           'terrain': {
             'source': 'terrainSource',
-            'exaggeration': 1
+            'exaggeration': 1,
           }
         };
 
@@ -408,8 +384,6 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
           style: style as any,
           // maxBounds:[[48.988211,34.502381],[49.276238,35.004091]]
         });
-
-
 
         let options = {
           lang: {
@@ -466,7 +440,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
         // map.addControl(new CompassControl(), 'bottom-right');
         // const imageControl = new ImageControl();
         // map.addControl(imageControl, 'bottom-right');
-     
+
 
         const geocoderApi = {
           forwardGeocode: async (config) => {
@@ -536,8 +510,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
           }
         };
 
+
         // Pass in or define a geocoding API that matches the above
-        const geocoder = new MaplibreGeocoder(geocoderApi, { mapboxgl: maplibregl });
+        const geocoder = new MaplibreGeocoder(geocoderApi, { maplibregl });
         map.addControl(geocoder, 'top-right');
         map.addControl(new MeasuresControl(options), 'bottom-right');
         map.addControl(
@@ -548,6 +523,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
           }), 'bottom-right'
         );
         // map.addControl(new InspectControl(), 'bottom-right');
+        // BaseLayer
 
         map.addControl(
           new maplibregl.TerrainControl({
@@ -555,6 +531,38 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             exaggeration: 1
           }), 'bottom-right'
         );
+        map.on('data', () => {
+          let result = map.getStyle().layers.filter(row => (row['id'].length <= 2 || row['id'].includes("orthofootprints")));
+
+          if (true) {
+            // console.log("result.length: %d", result.length)
+            // console.log("opacityAdded: ", opacityAdded.toString())
+            if (result.length === 7 && !opacityAdded) {
+              const mapBaseLayer = {
+                "osm-tiles": 'osm-tiles',
+              };
+              var mapOverLayer: Record<string, string> = {
+                "1": "1",
+                "2": "2",
+                "3": "3",
+                "4": "4",
+                "5": "5",
+                "6": "6",
+                "orthofootprints": "orthofootprints"
+              };
+
+              let Opacity = new OpacityControl({
+                baseLayers: mapBaseLayer,
+                overLayers: mapOverLayer,
+                opacityControl: true,
+              });
+
+              map.addControl(Opacity, 'top-right');
+              opacityAdded = true;
+            }
+          }
+        });
+        
         map.on('mousemove', (e) => {
           const bottomBar = document.getElementById('bottomBar');
           if (bottomBar != null) {
@@ -576,36 +584,45 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
 
               let utmObj = utm.convertLatLngToUtm(e.lngLat.lat, e.lngLat.lng, 2) as any;
 
-              saleTime.innerText = "Lat: " + e.lngLat.lat.toFixed(6) + " , Lng: " + e.lngLat.lng.toFixed(6) + "  |  " + "Easting: " + utmObj.Easting.toFixed(2) + " , Northing: " + utmObj.Northing.toFixed(2) + " , Zone: " + utmObj.ZoneNumber + utmObj.ZoneLetter;
+              saleTime.innerText = "Lat: " + e.lngLat.lat.toFixed(6) + " , Lng: " + e.lngLat.lng.toFixed(6) + "  |  " + "Easting: " + utmObj.Easting.toFixed(2) + " , Northing: " + utmObj.Northing.toFixed(2) + " , Zone: " + utmObj.ZoneNumber + utmObj.ZoneLetter + " , Zoom: " + map.getZoom().toFixed(1);
             }
           }
 
         });
-        map.on('click', 'hexagons', async (e: MapMouseEvent & { features?: any[] | undefined; } & Object) => {
-          const hexagon = e?.features;
-          if (hexagon && hexagon.length > 0 && draw.getMode() === 'simple_select' && !clickOnLayer) {
-            const hname = hexagon[0].properties["title"];
-            const price1 = hexagon[0].properties["price"];
-            const district1 = hexagon[0].properties["district"];
-            const current_owner1 = hexagon[0].properties["current_owner"];
-            const group_id1 = hexagon[0].properties["group_id"];
-            const status1 = hexagon[0].properties["status"];
-            const token_id1 = hexagon[0].properties["token_id"];
+        map.on('click', 'orthofootprints', (e) => {
 
-            if (landLayers.indexOf(hname) == -1) {
-              landLayers.push(hname);
-              lands.push({ title: hname, price: price1, district: district1, current_owner: current_owner1, group_id: group_id1, status: status1, token_id: token_id1 });
-              highlightFeatures(hexagon, map);
+          console.log(e.features.length)
 
-            }
-            else {
-              //console.log(hname);
-              //console.log(lands);
-              //console.log(landLayers);
+          let description="";
+          e.features.forEach(feature => {
+            description = description + JSON.stringify(feature.properties)+ '\n';
+          });
 
-              removeFeatures([hname], map);
-            }
-          }
+
+          new maplibregl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(description)
+            .setMaxWidth("600px")
+            .addTo(map);
+          setMainMap(map);
+
+          // const hexagon = e?.features;
+          // // && draw.getMode() === 'simple_select'
+          // if (hexagon && hexagon.length > 0 && !clickOnLayer) {
+          //   const title1 = hexagon[0].properties["title"];
+          //   const perimeter1 = hexagon[0].properties["perimeter"];
+          //   const area1 = hexagon[0].properties["area"];
+
+          //   if (landLayers.indexOf(title1) == -1) {
+          //     landLayers.push(title1);
+          //     lands.push({ title: title1, perimeter: perimeter1, area: area1 });
+          //     // highlightFeatures(hexagon, map);
+
+          //   }
+          //   else {
+          //     removeFeatures([title1], map);
+          //   }
+          // }
         });
         setMainMap(map);
 
@@ -629,224 +646,121 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
 
 
     }
-
-
-    // // anyLayer is maplibre layer-object
-    // map.addLayer(anyLayer1_1)
-    // map.addLayer(anyLayer1_2)
-    // map.addLayer(anyLayer2_1)
-    // map.addLayer(anyLayer2_2)
-    // map.addLayer(anyLayer3_1)
-    // map.addLayer(anyLayer3_2)
-    // // some layers...
-
-    // import TemporalControl from 'maplibre-gl-temporal-control';
-
-    // const temporalFrames = [
-    //     {
-    //         title:'frame1', // shown on control panel
-    //         layers:[anyLayer1_1, anyLayer1_2] // set layers you want to show at one frame...
-    //     },
-    //         title:'frame2',
-    //         layers:[anyLayer2_1, anyLayer2_2]
-    //     },
-    //     {
-    //         title:'frame3',
-    //         layers:[anyLayer3_1, anyLayer3_2]
-    //     },
-    //     // add frames...
-    // ]
-
-    // const temporalControl = new TemporalControl(temporalFrames, {
-    //     interval: 100, // duration a frame is shown, in miliseconds
-    //     position: 'top-left',
-    //     performance: true // set when rendering is too slow, but frames which are not current are shown mostly transparent
-    // });
-    // map.addControl(temporalControl);
-
-
-
-
-
-    // }
-
-
-
-    // async function decompress() {
-    //   map.addLayer({
-    //     id: 'hexagons',
-    //     type: 'fill',
-    //     source: {
-    //       type: 'vector',
-    //       url: 'https://teh.land/tiles/public.tiles.json'
-    //     },
-    //     'source-layer': 'public.tiles',
-    //     "minzoom": 15,
-    //     "maxzoom": 22,
-    //     'layout': {},
-    //     'paint': {
-    //       'fill-color': [
-    //         'match',
-    //         ['get', 'status'],
-    //         '1',
-    //         '#24f910',
-    //         '2',
-    //         '#fff001',
-    //         '3',
-    //         '#373d41',
-    //         '4',
-    //         '#6f2fa1',
-    //         '5',
-    //         '#10883e',
-    //         /* other */ '#18191a'
-    //       ],
-    //       'fill-opacity': 0.2,
-    //       'fill-outline-color': '#151819'
-    //     }
-    //   });
-    // }
-
-
-
   }, []);
 
   useEffect(() => {
-
-    var rasterLayers = layersData ? layersData.userRasterLayers : null;
-    var vectorLayers = layersData ? layersData.userRasterLayers : null;
-    console.log("map")
-    console.log(mainMap)
-    console.log("layersData")
-    console.log(layersData)
-    if (mainMap != null) {
-
-      if (layersData != undefined) {
-
-        let map = mainMap as any;
-
-        // map.eachLayer(function (layer) {
-        //   map.removeLayer(layer);
-        // }); 
-        //console.log("onLoad")
-
-        if (rasterLayers != null) {
-          for (let i = 0; i < rasterLayers.length; i++) {
-            // console.log("added layer: " + rasterLayers[i].id)
-            login().then(_ => {
-              getTile(rasterLayers[i].id).then(response => {
-                console.log(response)
-                map.addLayer(
-                  {
-                    id: rasterLayers[i].id,
-                    type: "raster",
-                    source: {
+    try {
+      var rasterLayers = layersData ? layersData.userRasterLayers : null;
+      var vectorLayers = layersData ? layersData.userVectorLayers : null;
+      if (mainMap != null) {
+        if (layersData != undefined) {
+          var map = mainMap as any;
+          if (rasterLayers != null) {
+            for (let i = 0; i < rasterLayers.length; i++) {
+              login().then(_ => {
+                getTile(rasterLayers[i].id).then(response => {
+                  let tempObject = (response as any);
+                  tempObject["type"] = "raster";
+                  map.addLayer(
+                    {
+                      id: rasterLayers[i].id.toString(),
                       type: "raster",
-                      tiles: [
-                        (response as any).url
-                      ],
-                      tileSize: 256,
-                      attribution: ''
-                    },
-                    paint: {}
-                  });
+                      source: tempObject,
+                      paint: {}
+                    });
+                });
               });
-            });
 
-            if (rasterLayers[i].children !== undefined) {
-              for (let j = 0; j < rasterLayers[i].children.length; j++) {
-                // console.log("added layer: " + rasterLayers[i].children[j].id)
-                login().then(_ => {
-                  getTile(rasterLayers[i].children[j].id).then(response => {
-                    map.addLayer(
-                      {
-                        id: rasterLayers[i].children[j].id,
-                        type: "raster",
-                        source: {
+              if (rasterLayers[i].children !== undefined) {
+                for (let j = 0; j < rasterLayers[i].children.length; j++) {
+                  login().then(_ => {
+                    getTile(rasterLayers[i].children[j].id).then(response => {
+                      let tempObject = (response as any);
+                      tempObject["type"] = "raster";
+                      map.addLayer(
+                        {
+                          id: rasterLayers[i].children[j].id.toString(),
                           type: "raster",
-                          tiles: [
-                            (response as any).url
-
-                          ],
-                          tileSize: 256,
-                          attribution: ''
-                        },
-                        paint: {}
-                      });
+                          source: tempObject,
+                          paint: {}
+                        });
+                    });
                   });
-                });
-
+                }
               }
+
+              
+
             }
-
-
           }
-        }
 
-        if (vectorLayers != null) {
-          for (let i = 0; i < vectorLayers.length; i++) {
-            login().then(_ => {
-              getTile(vectorLayers[i].id).then(response => {
-                map.addSource(vectorLayers[i].id, {
-                  type: 'vector',
-                  url: (response as any).url
-                });
-
-                map.addLayer({
-                  id: vectorLayers[i].id,
-                  type: 'vector',
-                  source: vectorLayers[i].id,
+          if (vectorLayers != null) {
+            for (let i = 0; i < vectorLayers.length; i++) {
+              login().then(_ => {
+                getTile(vectorLayers[i].id).then(response => {
+                  let tempObject = (response as any);
+                  tempObject["type"] = "vector";
+                  map.addSource(vectorLayers[i].id.toString(), tempObject);
+                  map.addLayer({
+                    id: vectorLayers[i].id.toString(),
+                    type: 'line',
+                    source: vectorLayers[i].id.toString(),
+                    "source-layer": tempObject.vector_layers[0].id,
+                    // 'paint': {
+                    // 'fill-color': 'transparent',
+                    // 'fill-opacity': 0.15
+                    // }
+                  });
                 });
               });
-            });
-            // console.log("added layer: " + vectorLayers[i].id)
 
-            if (vectorLayers[i].children !== undefined) {
-              for (let j = 0; j < vectorLayers[i].children.length; j++) {
-                // console.log("added layer: " + vectorLayers[i].children[j].id)
-                login().then(_ => {
-                  getTile(vectorLayers[i].children[j].id).then(response => {
-                    map.addSource(vectorLayers[i].children[j].id, {
-                      type: 'vector',
-                      url: (response as any).url
-                    });
-
-                    map.addLayer({
-                      id: vectorLayers[i].children[j].id,
-                      type: 'vector',
-                      source: vectorLayers[i].children[j].id,
+              if (vectorLayers[i].children !== undefined) {
+                for (let j = 0; j < vectorLayers[i].children.length; j++) {
+                  login().then(_ => {
+                    getTile(vectorLayers[i].children[j].id).then(response => {
+                      let tempObject = (response as any);
+                      tempObject["type"] = "vector";
+                      map.addSource(vectorLayers[i].children[j].id.toString(), tempObject);
+                      map.addLayer({
+                        id: vectorLayers[i].children[j].id.toString(),
+                        type: 'line',
+                        source: vectorLayers[i].children[j].id.toString(),
+                        "source-layer": tempObject.vector_layers[0].id,
+                        // 'paint': {
+                        // 'fill-color': 'transparent',
+                        // 'fill-opacity': 0.15
+                        // }
+                      });
                     });
                   });
-                });
-
+                }
               }
             }
-
           }
+
+          // let overlay = new MapboxOverlay({
+          //   layers: [bitmapLayer],
+          // });
+
+          // map.addControl(overlay);
+          // map.flyTo({
+          //   center: [-122.4, 37.74]
+          // });
+          setMainMap(map)
         }
-
-        let overlay = new MapboxOverlay({
-          layers: [bitmapLayer],
-        });
-
-        map.addControl(overlay);
-        map.flyTo({
-          center: [-122.4, 37.74]
-        });
-        setMainMap(map)
-
       }
-
+    } catch (error) {
+      console.log(error)
     }
-
-  }, [layersData])
+  }, [layersData, mainMap])
 
   return (
     <div id="mappageMenu" className={"h-full absolute inset-0 w-full overflow-hidden"}>
       <div id="map" className={"h-full overflow-hidden absolute inset-0 w-full"}></div>
-      <svg id="bottomBar" width="800" height="58" viewBox="0 0 1000 58" fill="none" xmlns="http://www.w3.org/2000/svg" className={"absolute bottom-0 left-0 duration-300"}>
-        <rect x="142" width="800" height="40" rx="10" fill="#26A17B" fillOpacity="0.77" shapeRendering="crispEdges" />
+      <svg id="bottomBar" width="1000" height="58" viewBox="0 0 1200 58" fill="none" xmlns="http://www.w3.org/2000/svg" className={"absolute bottom-0 left-0 duration-300"}>
+        <rect x="142" width="1000" height="40" rx="10" fill="#26A17B" fillOpacity="0.77" shapeRendering="crispEdges" />
         <defs>
-          <filter id="filter0_d_0_1" x="138" y="0" width="800" height="58" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <filter id="filter0_d_0_1" x="138" y="0" width="1000" height="58" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
             <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
             <feOffset dy="4" />

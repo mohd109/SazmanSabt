@@ -20,6 +20,9 @@ const Node = ({ node, style, dragHandle, tree }) => {
         {node.isLeaf ? (
           <>
             <span className="arrow"></span>
+            <input
+              type="checkbox"
+            />
             <span className="file-folder-icon">
               {CustomIcon ? (
                 <CustomIcon color={iconColor ? iconColor : "#6bc7f6"} />
@@ -33,6 +36,9 @@ const Node = ({ node, style, dragHandle, tree }) => {
             <span className="arrow">
               {node.isOpen ? <MdArrowDropDown /> : <MdArrowRight />}
             </span>
+            <input
+              type="checkbox"
+            />
             <span className="file-folder-icon">
               {CustomIcon ? (
                 <CustomIcon color={iconColor ? iconColor : "#f6cf60"} />
