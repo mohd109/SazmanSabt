@@ -141,7 +141,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     let response: any = await sendGetRequest("http://10.1.47.63:30001/api/get_tile/" + tileId);
     if (response.status == 200) {
       let response2: any = await sendGetRequest(response.data.url);
-      response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:3000", "10.1.47.63:30001/tiles")
+      response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:30012", "10.1.47.63:30001/martin")
       return response2.data;
     }
 
@@ -282,7 +282,12 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     let map = null;
 
     async function loadMap(map) {
-        
+      let response: any = await sendGetRequest("http://10.1.47.63:30012/IranBing");
+      if (response.status == 200) {
+        let response2: any = await sendGetRequest(response.data.url);
+        response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:30012", "10.1.47.63:30001/martin")
+        return response2.data;
+      }
         var style = {
           "glyphs": "http://10.1.47.63:30001/glyphs/{fontstack}/{range}.pbf",
           'version': 8,
