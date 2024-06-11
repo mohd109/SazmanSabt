@@ -282,12 +282,11 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     let map = null;
 
     async function loadMap(map) {
-      let response: any = await sendGetRequest("http://10.1.47.63:30012/IranBing");
-      if (response.status == 200) {
-        let response2: any = await sendGetRequest(response.data.url);
-        response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:30012", "10.1.47.63:30001/martin")
-        return response2.data;
-      }
+      let response: any = await sendGetRequest("http://10.1.47.63:30001/martin/IranBing");
+      response.data.tiles[0] = response.data.tiles[0].replace("localhost:30012", "10.1.47.63:30001/martin")
+      let tempObject = response.data;
+      tempObject["type"] = "raster";
+      
         var style = {
           "glyphs": "http://10.1.47.63:30001/glyphs/{fontstack}/{range}.pbf",
           'version': 8,
@@ -305,15 +304,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                 ]
               }
             },
-            'bingsat': {
-              'type': 'raster',
-              'url': 'http://10.1.47.63:30012/IranBing',
-              'tileSize': 256,
-              'maxzoom': 23,
-            },
             'terrainSource': {
               'type': 'raster-dem',
-              'url': 'http://10.1.47.63:30012/TehranDEM',
+              'url': 'http://10.1.47.63:30001/martin/TehranDEM',
               'tileSize': 256,
               'encoding': 'mapbox',
             }
@@ -322,7 +315,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             {
               'id': 'bingsat-tiles',
               'type': 'raster',
-              'source': 'bingsat',
+              'source': tempObject,
               'minzoom': 0,
               'maxzoom': 23 
             },
