@@ -146,7 +146,7 @@ function MainPage() {
 
   async function login() {
     if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
+      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://10.1.47.63:30001/api/login_user");
       setUserId(loginReponse.id);
       setLoginSuccess(true);
       return loginReponse.id;
@@ -156,7 +156,7 @@ function MainPage() {
 
   async function getNotifications() {
     await login();
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/notifications");
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/notifications");
     if(response.status==200)
     {
       return response.data;
@@ -166,7 +166,7 @@ function MainPage() {
 
   async function getUserData() {
     login().then(async r => {
-      let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/user/2");
+      let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/user/2");
       if(response.status==200)
       {
         return response.data;
@@ -179,7 +179,7 @@ function MainPage() {
   async function getDatasets() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/datasets");
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/datasets");
     if(response.status==200)
     {
       return response.data;
@@ -190,7 +190,7 @@ function MainPage() {
   async function getJobs() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/jobs");
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/jobs");
     if(response.status==200)
     {
       return response.data;
@@ -201,7 +201,7 @@ function MainPage() {
   async function getTiles() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/tiles");
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/tiles");
     if(response.status==200)
     {
       return response.data;
@@ -212,7 +212,7 @@ function MainPage() {
   async function getLayers() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/layers");
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/layers");
     if(response.status==200)
     {
       return response.data;
@@ -223,7 +223,7 @@ function MainPage() {
   async function getLayerMetadata() {
     await login();
 
-    let response: any = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_layer_metadata");
+    let response: any = await sendGetRequest("http://10.1.47.63:30001/api/get_layer_metadata");
     return response.data;
   }
 

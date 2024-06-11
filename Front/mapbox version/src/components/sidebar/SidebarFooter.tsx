@@ -76,11 +76,11 @@ background: #26A17B;
 
   async function getUserData() {
     if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://main.sabt.shankayi.ir/api/login_user");
+      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://10.1.47.63:30001/api/login_user");
       setUserId(loginReponse.id);
       setLoginSuccess(true);
     }
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://main.sabt.shankayi.ir/api/user/2" );
+    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/user/2" );
     if (response.status == 200) {
       return response.data;
     }

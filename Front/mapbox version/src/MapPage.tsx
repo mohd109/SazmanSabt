@@ -38,13 +38,13 @@ var utmObj = require('utm-latlng');
 var utm = new utmObj();
 var opacityAdded = false;
 
-const TIFF_URL = "http://main.sabt.shankayi.ir/sample.tif";
-const bitmapLayer = new BitmapLayer({
-  id: 'BitmapLayer',
-  bounds: [-122.519, 37.7045, -122.355, 37.829],
-  image: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-districts.png',
-  pickable: true
-});
+// const TIFF_URL = "http://10.1.47.63:30001/sample.tif";
+// const bitmapLayer = new BitmapLayer({
+//   id: 'BitmapLayer',
+//   bounds: [-122.519, 37.7045, -122.355, 37.829],
+//   image: 'https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-districts.png',
+//   pickable: true
+// });
 
 
 const pako = require('pako');
@@ -131,17 +131,17 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
   }
   async function login() {
     if (!loginSuccess) {
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256" }, "http://main.sabt.shankayi.ir/api/login_user");
+      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256" }, "http://10.1.47.63:30001/api/login_user");
       setLoginSuccess(true);
       return loginReponse.id;
     }
   }
   async function getTile(tileId) {
 
-    let response: any = await sendGetRequest("http://main.sabt.shankayi.ir/api/get_tile/" + tileId);
+    let response: any = await sendGetRequest("http://10.1.47.63:30001/api/get_tile/" + tileId);
     if (response.status == 200) {
       let response2: any = await sendGetRequest(response.data.url);
-      response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:3000", "main.sabt.shankayi.ir/tiles")
+      response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:3000", "10.1.47.63:30001/tiles")
       return response2.data;
     }
 
@@ -282,31 +282,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     let map = null;
 
     async function loadMap(map) {
-
-
-      var BingMapsKey = 'AiSRVzVu0ZltCVJcCLXe969DFZ8zf_djZvJckGiApVS5llqvsyYuphTliMzaOznj';
-      var BingMapsImagerySet = 'AerialWithLabelsOnDemand'; //Alternatively, use 'AerialWithLabelsOnDemand' if you also want labels on the map.
-      var BingMapsImageryMetadataUrl = `https://dev.virtualearth.net/REST/V1/Imagery/Metadata/${BingMapsImagerySet}?output=json&include=ImageryProviders&key=${BingMapsKey}`;
-
-      fetch(BingMapsImageryMetadataUrl).then(r => r.json()).then(r => {
-
-        var tileInfo = r.resourceSets[0].resources[0];
-
-        //Bing Maps supports subdoamins which can make tile loading faster. Create a tile URL for each subdomain. 
-        var tileUrls = [];
-
-        tileInfo.imageUrlSubdomains.forEach(sub => {
-          tileUrls.push(tileInfo.imageUrl.replace('{subdomain}', sub));
-        });
-
-        //Use the image provider info to create attributions.
-        var attributions = tileInfo.imageryProviders.map(p => {
-          return p.attribution;
-        }).join(', ');
-
-        //Create a style using a raster layer for the Bing Maps tiles.
+;
         var style = {
-          "glyphs": "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
+          // "glyphs": "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
           'version': 8,
           'sources': {
             'orthofootprints': {
@@ -322,37 +300,26 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                 ]
               }
             },
-            'osm': {
+            'bigsat': {
               'type': 'raster',
-              'tiles': ['https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'],
+              'tiles': ['http://10.1.47.63:3000/TehranDEM'],
               'tileSize': 256,
-              'attribution': '&copy; OpenStreetMap Contributors',
               'maxzoom': 23
             },
             'terrainSource': {
               'type': 'raster-dem',
-              'url': 'http://194.5.205.58:3000/TehranDEM',
+              'url': 'http://10.1.47.63:3000/TehranDEM',
               'tileSize': 256,
               'encoding': 'mapbox',
-            },
-            'bing-maps-raster-tiles': {
-              'type': 'raster',
-              'tiles': tileUrls,
-              'tileSize': tileInfo.imageWidth,
-              'attribution': attributions,
-
-              //Offset set min/max zooms by one as Bign Maps is designed are 256 size tiles, while MapLibre is designed for 512 tiles.
-              'minzoom': 1,
-              'maxzoom': 20
             }
           },
           'layers': [
             {
-              'id': 'osm-tiles',
+              'id': 'bigsat-tiles',
               'type': 'raster',
-              'source': 'osm',
+              'source': 'bigsat',
               'minzoom': 0,
-              'maxzoom': 23   //Let the imagery be overscaled to support deeper zoom levels.
+              'maxzoom': 23 
             },
             {
               'id': 'orthofootprints',
@@ -539,7 +506,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             // console.log("opacityAdded: ", opacityAdded.toString())
             if (result.length === 7 && !opacityAdded) {
               const mapBaseLayer = {
-                "osm-tiles": 'osm-tiles',
+                "bigsat-tiles": 'bigsat-tiles',
               };
               var mapOverLayer: Record<string, string> = {
                 "1": "1",
@@ -626,7 +593,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
         });
         setMainMap(map);
 
-      });
+      // });
     }
 
     loadMap(map).then(_ => {
