@@ -305,7 +305,6 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
               'url': 'http://10.1.47.63:30012/IranBing',
               'tileSize': 256,
               'maxzoom': 23,
-              'encoding': 'mapbox',
             },
             'terrainSource': {
               'type': 'raster-dem',
