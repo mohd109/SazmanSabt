@@ -282,9 +282,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     let map = null;
 
     async function loadMap(map) {
-;
+        
         var style = {
-          // "glyphs": "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
+          "glyphs": "http://10.1.47.63:30001/glyphs/{fontstack}/{range}.pbf",
           'version': 8,
           'sources': {
             'orthofootprints': {
@@ -300,24 +300,25 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                 ]
               }
             },
-            'bigsat': {
+            'bingsat': {
               'type': 'raster',
-              'tiles': ['http://10.1.47.63:3000/TehranDEM'],
+              'url': 'http://10.1.47.63:30012/IranBing',
               'tileSize': 256,
-              'maxzoom': 23
+              'maxzoom': 23,
+              'encoding': 'mapbox',
             },
             'terrainSource': {
               'type': 'raster-dem',
-              'url': 'http://10.1.47.63:3000/TehranDEM',
+              'url': 'http://10.1.47.63:30012/TehranDEM',
               'tileSize': 256,
               'encoding': 'mapbox',
             }
           },
           'layers': [
             {
-              'id': 'bigsat-tiles',
+              'id': 'bingsat-tiles',
               'type': 'raster',
-              'source': 'bigsat',
+              'source': 'bingsat',
               'minzoom': 0,
               'maxzoom': 23 
             },
@@ -506,7 +507,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             // console.log("opacityAdded: ", opacityAdded.toString())
             if (result.length === 7 && !opacityAdded) {
               const mapBaseLayer = {
-                "bigsat-tiles": 'bigsat-tiles',
+                "bingsat-tiles": 'bingsat-tiles',
               };
               var mapOverLayer: Record<string, string> = {
                 "1": "1",

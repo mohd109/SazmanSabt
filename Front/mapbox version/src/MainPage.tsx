@@ -426,7 +426,7 @@ function MainPage() {
         toggled={toggled}
         onBackdropClick={() => setToggled(false)}
         onBreakPoint={setBroken}
-        image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
+        image=""
         rtl={rtl}
         breakPoint="md"
         backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, hasImage ? 0.9 : 1)}
@@ -534,7 +534,7 @@ function MainPage() {
           toggled={toggledDetail}
           onBackdropClick={() => setToggledDetail(false)}
           onBreakPoint={setBrokenDetail}
-          image="https://user-images.githubusercontent.com/25878302/144499035-2911184c-76d3-4611-86e7-bc4e8ff84ff5.jpg"
+          image=""
           rtl={rtl}
           breakPoint="md"
           backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, hasImage ? 0.9 : 1)}
