@@ -140,7 +140,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
 
     let response: any = await sendGetRequest("http://10.1.47.63:30001/api/get_tile/" + tileId);
     if (response.status == 200) {
-      let response2: any = await sendGetRequest(response.data.url);
+      let response2: any = await sendGetRequest(response.data.url.replace("10.1.47.63:30012", "10.1.47.63:30001/martin"));
       response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:30012", "10.1.47.63:30001/martin")
       response2.data.tiles[0] = response2.data.tiles[0].replace("10.1.47.63:30012", "10.1.47.63:30001/martin")
       return response2.data;
