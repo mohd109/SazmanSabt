@@ -142,6 +142,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     if (response.status == 200) {
       let response2: any = await sendGetRequest(response.data.url);
       response2.data.tiles[0] = response2.data.tiles[0].replace("localhost:30012", "10.1.47.63:30001/martin")
+      response2.data.tiles[0] = response2.data.tiles[0].replace("10.1.47.63:30012", "10.1.47.63:30001/martin")
       return response2.data;
     }
 
@@ -315,7 +316,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             {
               'id': 'bingsat-tiles',
               'type': 'raster',
-              'source': tempObject,
+              'source': JSON.stringify(tempObject),
               'minzoom': 0,
               'maxzoom': 23 
             },
