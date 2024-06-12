@@ -305,6 +305,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
                 ]
               }
             },
+            'bingsat':tempObject,
             'terrainSource': {
               'type': 'raster-dem',
               'url': 'http://10.1.47.63:30001/martin/TehranDEM',
@@ -316,7 +317,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
             {
               'id': 'bingsat-tiles',
               'type': 'raster',
-              'source': JSON.stringify(tempObject),
+              'source': 'bingsat',
               'minzoom': 0,
               'maxzoom': 23 
             },
