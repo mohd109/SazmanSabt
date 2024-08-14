@@ -1,95 +1,99 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 // import { Sidebar, Menu, MenuItem, SubMenu, menuClasses, MenuItemStyles } from '../src';
-import { Switch } from './components/sidebar/Switch';
-import { SidebarHeader } from './components/sidebar/SidebarHeader';
-import { History } from './icons/History';
-import { ImportExport } from './icons/ImportExport';
-import { Layers } from './icons/Layers';
-import { Search } from './icons/Search';
-import { Settings } from './icons/Settings';
-import { Tasks } from './icons/Tasks';
-import { ShoppingCart } from './icons/ShoppingCart';
-import { Admin } from './icons/Admin';
-import { SidebarFooter } from './components/sidebar/SidebarFooter';
-import { Badge } from './components/sidebar/Badge';
-import { Typography } from './components/sidebar/Typography';
-import { PackageBadges } from './components/sidebar/PackageBadges';
-import { Menu, MenuItemStyles } from './components/sidebar/Menu';
-import { menuClasses } from './utils/utilityClasses';
-import { MenuItem } from './components/sidebar/MenuItem';
-import { SubMenu } from './components/sidebar/SubMenu';
-import { Sidebar } from './components/sidebar/Sidebar';
-import MapPage from './MapPage';
-import DataTable from 'react-data-table-component';
-import { Direction } from 'react-data-table-component';
-import axios, { AxiosResponse } from 'axios';
+import { Switch } from "./components/sidebar/Switch";
+import { SidebarHeader } from "./components/sidebar/SidebarHeader";
+import { History } from "./icons/History";
+import { ImportExport } from "./icons/ImportExport";
+import { Layers } from "./icons/Layers";
+import { Search } from "./icons/Search";
+import { Settings } from "./icons/Settings";
+import { Tasks } from "./icons/Tasks";
+import { ShoppingCart } from "./icons/ShoppingCart";
+import { Admin } from "./icons/Admin";
+import { SidebarFooter } from "./components/sidebar/SidebarFooter";
+import { Badge } from "./components/sidebar/Badge";
+import { Typography } from "./components/sidebar/Typography";
+import { PackageBadges } from "./components/sidebar/PackageBadges";
+import { Menu, MenuItemStyles } from "./components/sidebar/Menu";
+import { menuClasses } from "./utils/utilityClasses";
+import { MenuItem } from "./components/sidebar/MenuItem";
+import { SubMenu } from "./components/sidebar/SubMenu";
+import { Sidebar } from "./components/sidebar/Sidebar";
+import MapPage from "./MapPage";
+import DataTable from "react-data-table-component";
+import { Direction } from "react-data-table-component";
+import axios, { AxiosResponse } from "axios";
 import { useRef, useState } from "react";
 import { Tree } from "react-arborist";
 import Node from "./components/sidebar/Node";
 import { TbFolderPlus } from "react-icons/tb";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { useDynamicTree } from "react-arborist";
-import initGdalJs from 'gdal3.js';
+import { LANGUAGES } from "./constants";
+import { useTranslation } from "react-i18next";
+// import initGdalJs from 'gdal3.js';
 
 const DEFAULT_OPTION = {
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
-  withCredentials: true
+  withCredentials: true,
 };
-async function sendPostRequest(body: any, endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.post(
-    endPoint,
-    body,
-    DEFAULT_OPTION,
-  );
+async function sendPostRequest(
+  body: any,
+  endPoint: string
+): Promise<AxiosResponse> {
+  let response = await axios.post(endPoint, body, DEFAULT_OPTION);
   return response;
 }
 
 async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
-  let response = await axios.get(
-    endPoint,
-    DEFAULT_OPTION,
-  );
+  let response = await axios.get(endPoint, DEFAULT_OPTION);
   return response;
 }
 
-type Theme = 'light' | 'dark';
-type VisibilityOfDetail = '' | 'hidden';
+type Theme = "light" | "dark";
+type VisibilityOfDetail = "" | "hidden";
 
-const detailTitle = { 10: "Raster Layers", 11: "Vector Layers", 20: "Attribute Table", 21: "Properties", 22: "Statistics" };
+const detailTitle = {
+  10: "Raster Layers",
+  11: "Vector Layers",
+  20: "Attribute Table",
+  21: "Properties",
+  22: "Statistics",
+};
 const themes = {
   light: {
     sidebar: {
-      backgroundColor: '#ffffff',
-      color: '#607489',
+      backgroundColor: "#ffffff",
+      color: "#607489",
     },
     menu: {
-      menuContent: '#fbfcfd',
-      icon: '#26A17B',
+      menuContent: "#fbfcfd",
+      icon: "#26A17B",
       hover: {
-        backgroundColor: '#727372',
-        color: '#ffffff',
+        backgroundColor: "#727372",
+        color: "#ffffff",
       },
       disabled: {
-        color: '#9fb6cf',
+        color: "#9fb6cf",
       },
     },
   },
   dark: {
     sidebar: {
-      backgroundColor: '#1f1f1f',
-      color: '#cccccc',
+      backgroundColor: "#1f1f1f",
+      color: "#cccccc",
     },
     menu: {
-      menuContent: '#083b2b',
-      icon: '#26A17B',
+      menuContent: "#083b2b",
+      icon: "#26A17B",
       hover: {
-        backgroundColor: '#727372',
-        color: '#050505',
+        backgroundColor: "#727372",
+        color: "#050505",
       },
       disabled: {
-        color: '#18634c',
+        color: "#18634c",
       },
     },
   },
@@ -110,7 +114,7 @@ function MainPage() {
   const [broken, setBroken] = React.useState(false);
   const [rtl, setRtl] = React.useState(false);
   const [hasImage, setHasImage] = React.useState(false);
-  const [theme, setTheme] = React.useState<Theme>('dark');
+  const [theme, setTheme] = React.useState<Theme>("dark");
   const [visibilityOfDetail, setVisibilityOfDetail] = React.useState("hidden");
   const [collapsedDetail, setCollapsedDetail] = React.useState(false);
   const [toggledDetail, setToggledDetail] = React.useState(true);
@@ -127,8 +131,9 @@ function MainPage() {
   const [tilesData, setTilesData] = React.useState([]);
   const [jobsData, setJobsData] = React.useState([]);
   const [datasetsData, setDatasetsData] = React.useState([]);
-  const [userData,setUserData] = React.useState(null);
-  const [userId,setUserId] = React.useState(-1);
+  const [userData, setUserData] = React.useState(null);
+  const [userId, setUserId] = React.useState(-1);
+  const { i18n, t } = useTranslation();
 
   const createFileFolder = (
     <>
@@ -145,8 +150,15 @@ function MainPage() {
   );
 
   async function login() {
-    if(!loginSuccess){
-      let loginReponse: any = await sendPostRequest({ email: "mohd109@gmail.com", user_name: "mohd109", password: "Czin1231091256"}, "http://10.1.47.63:30001/api/login_user");
+    if (!loginSuccess) {
+      let loginReponse: any = await sendPostRequest(
+        {
+          email: "mohd109@gmail.com",
+          user_name: "mohd109",
+          password: "Czin1231091256",
+        },
+        "http://10.1.47.63:30001/api/login_user"
+      );
       setUserId(loginReponse.id);
       setLoginSuccess(true);
       return loginReponse.id;
@@ -156,32 +168,34 @@ function MainPage() {
 
   async function getNotifications() {
     await login();
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/notifications");
-    if(response.status==200)
-    {
+    let response: AxiosResponse<any, any> = await sendGetRequest(
+      "http://10.1.47.63:30001/api/notifications"
+    );
+    if (response.status == 200) {
       return response.data;
     }
     return [];
   }
 
   async function getUserData() {
-    login().then(async r => {
-      let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/user/2");
-      if(response.status==200)
-      {
+    login().then(async (r) => {
+      let response: AxiosResponse<any, any> = await sendGetRequest(
+        "http://10.1.47.63:30001/api/user/2"
+      );
+      if (response.status == 200) {
         return response.data;
       }
+    });
 
-    })
-    
     return null;
   }
   async function getDatasets() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/datasets");
-    if(response.status==200)
-    {
+    let response: AxiosResponse<any, any> = await sendGetRequest(
+      "http://10.1.47.63:30001/api/datasets"
+    );
+    if (response.status == 200) {
       return response.data;
     }
     return [];
@@ -190,9 +204,10 @@ function MainPage() {
   async function getJobs() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/jobs");
-    if(response.status==200)
-    {
+    let response: AxiosResponse<any, any> = await sendGetRequest(
+      "http://10.1.47.63:30001/api/jobs"
+    );
+    if (response.status == 200) {
       return response.data;
     }
     return [];
@@ -201,9 +216,10 @@ function MainPage() {
   async function getTiles() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/tiles");
-    if(response.status==200)
-    {
+    let response: AxiosResponse<any, any> = await sendGetRequest(
+      "http://10.1.47.63:30001/api/tiles"
+    );
+    if (response.status == 200) {
       return response.data;
     }
     return [];
@@ -212,116 +228,132 @@ function MainPage() {
   async function getLayers() {
     await login();
 
-    let response: AxiosResponse<any,any> = await sendGetRequest("http://10.1.47.63:30001/api/layers");
-    if(response.status==200)
-    {
+    let response: AxiosResponse<any, any> = await sendGetRequest(
+      "http://10.1.47.63:30001/api/layers"
+    );
+    if (response.status == 200) {
       return response.data;
     }
     return [];
   }
-  
+
   async function getLayerMetadata() {
     await login();
 
-    let response: any = await sendGetRequest("http://10.1.47.63:30001/api/get_layer_metadata");
+    let response: any = await sendGetRequest(
+      "http://10.1.47.63:30001/api/get_layer_metadata"
+    );
     return response.data;
   }
 
   const metadataColumns = [
     {
-      name: 'id',
-      selector: row => row.id,
+      name: "id",
+      selector: (row) => row.id,
       sortable: true,
-      sortField: 'id',
-      maxWidth:'20'
+      sortField: "id",
+      maxWidth: "20",
     },
     {
-      name: 'name',
-      selector: row => row.name,
+      name: "name",
+      selector: (row) => row.name,
     },
     {
-      name: 'creation_date_time',
-      selector: row => row.creation_date_time,
+      name: "creation_date_time",
+      selector: (row) => row.creation_date_time,
     },
     {
-      name: 'decription',
-      selector: row => row.decription,
+      name: "decription",
+      selector: (row) => row.decription,
     },
     {
-      name: 'company',
-      selector: row => row.company,
+      name: "company",
+      selector: (row) => row.company,
     },
     {
-      name: 'owner_id',
-      selector: row => row.owner_id,
+      name: "owner_id",
+      selector: (row) => row.owner_id,
     },
     {
-      name: 'area',
-      selector: row => row.area,
+      name: "area",
+      selector: (row) => row.area,
     },
   ];
   useEffect(() => {
-    getUserData().then(response => {setUserData(response as any)})
-  },[]);
+    getUserData().then((response) => {
+      setUserData(response as any);
+    });
+  }, []);
   useEffect(() => {
-    getNotifications().then(response => {setNotificationData(response as any)})
-  },[]);
+    getNotifications().then((response) => {
+      setNotificationData(response as any);
+    });
+  }, []);
   useEffect(() => {
-    getDatasets().then(response => {setDatasetsData(response as any)})
-  },[]);
+    getDatasets().then((response) => {
+      setDatasetsData(response as any);
+    });
+  }, []);
 
   useEffect(() => {
-    getTiles().then(response => {setTilesData(response as any)})
-  },[]);
+    getTiles().then((response) => {
+      setTilesData(response as any);
+    });
+  }, []);
 
   useEffect(() => {
-    getJobs().then(response => {setJobsData(response as any)})
-  },[]);
+    getJobs().then((response) => {
+      setJobsData(response as any);
+    });
+  }, []);
   useEffect(() => {
-    getLayers().then(response => {
-
-      response.userRasterLayers.forEach(element => {
-        if (element.children !== 'None') {
+    getLayers().then((response) => {
+      response.userRasterLayers.forEach((element) => {
+        if (element.children !== "None") {
           let tempChildren = [];
-          let temp = element.children.replace("{","[").replace("}","]");
+          let temp = element.children.replace("{", "[").replace("}", "]");
           let array = JSON.parse(temp);
 
-          array.forEach(element2 => {
-            let childElement = response.userRasterLayers.find((element1) => element1.id == element2)
-            response.userRasterLayers=response.userRasterLayers.filter(function(element1) {
-              return element1.id !== element2
-            })
-            childElement.id=childElement.id.toString()
+          array.forEach((element2) => {
+            let childElement = response.userRasterLayers.find(
+              (element1) => element1.id == element2
+            );
+            response.userRasterLayers = response.userRasterLayers.filter(
+              function (element1) {
+                return element1.id !== element2;
+              }
+            );
+            childElement.id = childElement.id.toString();
             tempChildren.push(childElement);
-          })
+          });
           element.children = tempChildren;
-          element.id=element.id.toString()
+          element.id = element.id.toString();
           //console.log(tempChildren);
-
-        }
-        else {
+        } else {
           delete element.children;
         }
       });
-      response.userVectorLayers.forEach(element => {
-        if (element.children !== 'None') {
+      response.userVectorLayers.forEach((element) => {
+        if (element.children !== "None") {
           let tempChildren = [];
-          let temp = element.children.replace("{","[").replace("}","]");
+          let temp = element.children.replace("{", "[").replace("}", "]");
           let array = JSON.parse(temp);
-          array.forEach(element2 => {
-            let childElement = response.userVectorLayers.find((element1) => element1.id == element2)
-            response.userVectorLayers=response.userVectorLayers.filter(function(element1) {
-              return element1.id !== element2
-            })
-            childElement.id=childElement.id.toString()
+          array.forEach((element2) => {
+            let childElement = response.userVectorLayers.find(
+              (element1) => element1.id == element2
+            );
+            response.userVectorLayers = response.userVectorLayers.filter(
+              function (element1) {
+                return element1.id !== element2;
+              }
+            );
+            childElement.id = childElement.id.toString();
             tempChildren.push(childElement);
-          })
+          });
           element.children = tempChildren;
-          element.id=element.id.toString()
+          element.id = element.id.toString();
           //console.log(tempChildren);
-
-        }
-        else {
+        } else {
           delete element.children;
         }
       });
@@ -330,52 +362,60 @@ function MainPage() {
 
       setLayersData(response as any);
       setData((response as any).userRasterLayers);
-      getLayerMetadata().then(response => {
+      getLayerMetadata().then((response) => {
         let tempLayersMetadata = { layers: response, columns: metadataColumns };
         setLayersMetadata(tempLayersMetadata as any);
         setLoadFinished(true);
       });
     });
-
   }, []);
 
   const hideSidebar = (e) => {
     if (autoHide) {
       setTimeout(() => {
         setCollapsed(true);
-      }, 1000);
+      }, 100);
     }
   };
+  const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const lang_code = e.target.value;
+    handleRTLChange(e.target.value);
+    i18n.changeLanguage(lang_code);
+  };
+
   const showSidebar = (e) => {
     setTimeout(() => {
       setCollapsed(false);
-    }, 1000);
+    }, 100);
   };
   // handle on RTL change event
-  const handleRTLChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRtl(e.target.checked);
+  const handleRTLChange = (lang) => {
+    console.log(lang, "lang");
+    if (lang == "en") {
+      setRtl(false);
+    } else {
+      setRtl(true);
+    }
   };
   // handle on RTL change event
   const handleAutoHideChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAutoHide(e.target.checked)
+    setAutoHide(e.target.checked);
   };
   // handle on theme change event
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTheme(e.target.checked ? 'dark' : 'light');
+    setTheme(e.target.checked ? "dark" : "light");
   };
   // handle on theme change event
   const handleVisibilityOfDetail = (statusDetailInput) => {
     if (statusDetailInput !== 0) {
       if (statusDetailInput === statusDetail) {
-        setVisibilityOfDetail(visibilityOfDetail === 'hidden' ? '' : 'hidden');
+        setVisibilityOfDetail(visibilityOfDetail === "hidden" ? "" : "hidden");
         setStatusDetail(statusDetailInput);
         // setCollapsed(true);
-      }
-      else {
+      } else {
         setStatusDetail(statusDetailInput);
       }
     }
-
   };
   // handle on image change event
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -384,7 +424,7 @@ function MainPage() {
 
   const menuItemStyles: MenuItemStyles = {
     root: {
-      fontSize: '13px',
+      fontSize: "13px",
       fontWeight: 400,
     },
     icon: {
@@ -394,20 +434,26 @@ function MainPage() {
       },
     },
     SubMenuExpandIcon: {
-      color: '#b6b7b9',
+      color: "#b6b7b9",
     },
     subMenuContent: ({ level }) => ({
       backgroundColor:
         level === 0
-          ? hexToRgba(themes[theme].menu.menuContent, hasImage && !collapsed ? 0.4 : 1)
-          : 'transparent',
+          ? hexToRgba(
+              themes[theme].menu.menuContent,
+              hasImage && !collapsed ? 0.4 : 1
+            )
+          : "transparent",
     }),
     button: {
       [`&.${menuClasses.disabled}`]: {
         color: themes[theme].menu.disabled.color,
       },
-      '&:hover': {
-        backgroundColor: hexToRgba(themes[theme].menu.hover.backgroundColor, hasImage ? 0.8 : 1),
+      "&:hover": {
+        backgroundColor: hexToRgba(
+          themes[theme].menu.hover.backgroundColor,
+          hasImage ? 0.8 : 1
+        ),
         color: themes[theme].menu.hover.color,
       },
     },
@@ -418,7 +464,10 @@ function MainPage() {
 
   // console.log(layersData)
   return (
-    <div className={"flex h-full absolute inset-0 w-full overflow-hidden"} style={{ direction: rtl ? 'rtl' : 'ltr' }}>
+    <div
+      className={"flex h-full absolute inset-0 w-full overflow-hidden"}
+      style={{ direction: rtl ? "rtl" : "ltr" }}
+    >
       <Sidebar
         onMouseLeave={hideSidebar}
         onMouseEnter={showSidebar}
@@ -429,19 +478,31 @@ function MainPage() {
         image=""
         rtl={rtl}
         breakPoint="md"
-        backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, hasImage ? 0.9 : 1)}
+        backgroundColor={hexToRgba(
+          themes[theme].sidebar.backgroundColor,
+          hasImage ? 0.9 : 1
+        )}
         rootStyles={{
           color: themes[theme].sidebar.color,
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} >
-          <SidebarHeader rtl={rtl} style={{ opacity: collapsed ? 0 : 0.7, marginBottom: '24px', marginTop: '16px' }} />
-          <div style={{ flex: 1, marginBottom: '32px' }}>
-            <div style={{ padding: '0 24px', marginBottom: '8px' }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", height: "100%" }}
+        >
+          <SidebarHeader
+            rtl={rtl}
+            style={{
+              opacity: collapsed ? 0 : 0.7,
+              marginBottom: "24px",
+              marginTop: "16px",
+            }}
+          />
+          <div style={{ flex: 1, marginBottom: "32px" }}>
+            <div style={{ padding: "0 24px", marginBottom: "8px" }}>
               <Typography
                 variant="body2"
                 fontWeight={600}
-                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: '0.5px' }}
+                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: "0.5px" }}
               >
                 General
               </Typography>
@@ -457,19 +518,33 @@ function MainPage() {
                 }
               >
                 {/* <MenuItem> Job Progress</MenuItem> */}
-                <MenuItem> Import</MenuItem>
-                <MenuItem> Export</MenuItem>
+                <MenuItem> {t("import")}</MenuItem>
+                <MenuItem> {t("export")}</MenuItem>
               </SubMenu>
-              <SubMenu label="Layers" icon={<Layers />}>
+              <SubMenu label={t("layers")} icon={<Layers />}>
                 {/* <Tree initialData={data} /> */}
-                <MenuItem onClick={() => {setData((layersData as any).userRasterLayers);handleVisibilityOfDetail(10); 
-                    }}> Raster</MenuItem>
-                <MenuItem onClick={() => {setData((layersData as any).userVectorLayers);handleVisibilityOfDetail(11); 
-                    }}> Vector</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setData((layersData as any).userRasterLayers);
+                    handleVisibilityOfDetail(10);
+                  }}
+                >
+                  {" "}
+                  {t("raster")}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setData((layersData as any).userVectorLayers);
+                    handleVisibilityOfDetail(11);
+                  }}
+                >
+                  {" "}
+                  {t("raster")}
+                </MenuItem>
               </SubMenu>
-              <SubMenu label="Search" icon={<Search />}>
-                <MenuItem> Spatial</MenuItem>
-                <MenuItem> Tables</MenuItem>
+              <SubMenu label={t("search")} icon={<Search />}>
+                <MenuItem> {t("spatial")}</MenuItem>
+                <MenuItem> {t("tables")}</MenuItem>
               </SubMenu>
               {/* <SubMenu label="History" icon={<History />}>
                 <MenuItem> Edits</MenuItem>
@@ -485,20 +560,35 @@ function MainPage() {
                   </SubMenu>
                 </SubMenu>
               </SubMenu> */}
-              <SubMenu label="Info" icon={<ShoppingCart />}>
-                <MenuItem onClick={() => handleVisibilityOfDetail(20)}> Metadata/Attribute Tables</MenuItem>
-                <MenuItem onClick={() => handleVisibilityOfDetail(21)}> Object Properties</MenuItem>
-                <MenuItem onClick={() => handleVisibilityOfDetail(22)}> Area Statitics</MenuItem>
+              <SubMenu label={t("info")} icon={<ShoppingCart />}>
+                <MenuItem onClick={() => handleVisibilityOfDetail(20)}>
+                  {" "}
+                  {t("metadata")}
+                </MenuItem>
+                <MenuItem onClick={() => handleVisibilityOfDetail(21)}>
+                  {" "}
+                  {t("objectProperties")}
+                </MenuItem>
+                <MenuItem onClick={() => handleVisibilityOfDetail(22)}>
+                  {" "}
+                  {t("areaStatitics")}
+                </MenuItem>
               </SubMenu>
             </Menu>
 
-            <div style={{ padding: '0 24px', marginBottom: '8px', marginTop: '32px' }}>
+            <div
+              style={{
+                padding: "0 24px",
+                marginBottom: "8px",
+                marginTop: "32px",
+              }}
+            >
               <Typography
                 variant="body2"
                 fontWeight={600}
-                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: '0.5px' }}
+                style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: "0.5px" }}
               >
-                Extra
+                {t("extra")}
               </Typography>
             </div>
 
@@ -506,29 +596,50 @@ function MainPage() {
               {/* <MenuItem icon={<Tasks />} suffix={<Badge variant={notificationData.length>0?"success":"info"}>{notificationData.length>0?"New":"0"}</Badge>}>
                 Tasks
               </MenuItem> */}
-              <SubMenu label="Settings" icon={<Settings />}>
-                <MenuItem >
-                  <Switch id="rtl" checked={autoHide} onChange={handleAutoHideChange} label="Auto Hide" />
-                </MenuItem>
-                <MenuItem >
-                  <Switch id="rtl" checked={rtl} onChange={handleRTLChange} label="RTL" />
-                </MenuItem>
-                <MenuItem >
-                  <Switch id="theme" checked={theme === 'dark'} onChange={handleThemeChange} label="Dark theme"
+              <SubMenu label={t("settings")} icon={<Settings />}>
+                <MenuItem>
+                  <Switch
+                    id="rtl"
+                    checked={autoHide}
+                    onChange={handleAutoHideChange}
+                    label="Auto Hide"
                   />
+                </MenuItem>
+                {/* <MenuItem>
+                  <Switch
+                    id="rtl"
+                    checked={rtl}
+                    onChange={handleRTLChange}
+                    label="RTL"
+                  />
+                </MenuItem> */}
+                <MenuItem>
+                  <Switch
+                    id="theme"
+                    checked={theme === "dark"}
+                    onChange={handleThemeChange}
+                    label="Dark theme"
+                  />
+                </MenuItem>
+                <MenuItem>
+                  <select defaultValue={i18n.language} onChange={onChangeLang}>
+                    {LANGUAGES.map(({ code, label }) => (
+                      <option key={code} value={code}>
+                        {label}
+                      </option>
+                    ))}
+                  </select>
                 </MenuItem>
               </SubMenu>
               {/* <MenuItem disabled icon={<Admin />}>
                 Admin Section
               </MenuItem> */}
-
             </Menu>
           </div>
-          <SidebarFooter collapsed={collapsed}  />
+          <SidebarFooter collapsed={collapsed} />
         </div>
       </Sidebar>
       <div className={visibilityOfDetail}>
-
         <Sidebar
           collapsed={collapsedDetail}
           toggled={toggledDetail}
@@ -537,24 +648,40 @@ function MainPage() {
           image=""
           rtl={rtl}
           breakPoint="md"
-          backgroundColor={hexToRgba(themes[theme].sidebar.backgroundColor, hasImage ? 0.9 : 1)}
+          backgroundColor={hexToRgba(
+            themes[theme].sidebar.backgroundColor,
+            hasImage ? 0.9 : 1
+          )}
           rootStyles={{
             color: themes[theme].sidebar.color,
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }} >
+          <div
+            style={{ display: "flex", flexDirection: "column", height: "100%" }}
+          >
             {/* <SidebarHeader rtl={rtl} style={{ marginBottom: '24px', marginTop: '16px' }} /> */}
-            <div style={{ flex: 1, marginTop: '8px', marginBottom: '8px' }}>
-              <div style={{ padding: '0 8px', marginTop: '8px', marginBottom: '8px' }}>
+            <div style={{ flex: 1, marginTop: "8px", marginBottom: "8px" }}>
+              <div
+                style={{
+                  padding: "0 8px",
+                  marginTop: "8px",
+                  marginBottom: "8px",
+                }}
+              >
                 <Typography
                   variant="body2"
                   fontWeight={600}
-                  style={{ letterSpacing: '0.5px' }}
+                  style={{ letterSpacing: "0.5px" }}
                 >
                   {detailTitle[statusDetail]}
                 </Typography>
               </div>
-              <div className={'w-full h-full p-2 ' + (statusDetail >= 10 && statusDetail < 20 ? '' : 'hidden')}>
+              <div
+                className={
+                  "w-full h-full p-2 " +
+                  (statusDetail >= 10 && statusDetail < 20 ? "" : "hidden")
+                }
+              >
                 <div className="folderFileActions">{createFileFolder}</div>
                 <input
                   type="text"
@@ -565,7 +692,7 @@ function MainPage() {
                 />
                 <Tree
                   ref={treeRef}
-                  data={data} 
+                  data={data}
                   width={260}
                   height={1000}
                   indent={24}
@@ -573,14 +700,31 @@ function MainPage() {
                   // openByDefault={false}
                   searchTerm={term}
                   searchMatch={(node, term) =>
-                    (node.data as any).name.toLowerCase().includes(term.toLowerCase())
+                    (node.data as any).name
+                      .toLowerCase()
+                      .includes(term.toLowerCase())
                   }
                   {...controllers}
                 >
                   {Node}
                 </Tree>
               </div>
-              <DataTable direction={rtl ? Direction.RTL : Direction.LTR} dense={true} highlightOnHover={true} theme={theme === 'dark' ? 'dark' : 'default'} className={'w-full p-2 ' + (statusDetail >= 20 && statusDetail < 30 ? '' : 'hidden')} columns={loadFinished ? (layersMetadata as any).columns : metadataColumns} data={loadFinished ? (layersMetadata as any).layers : []} />
+              <DataTable
+                direction={rtl ? Direction.RTL : Direction.LTR}
+                dense={true}
+                highlightOnHover={true}
+                theme={theme === "dark" ? "dark" : "default"}
+                className={
+                  "w-full p-2 " +
+                  (statusDetail >= 20 && statusDetail < 30 ? "" : "hidden")
+                }
+                columns={
+                  loadFinished
+                    ? (layersMetadata as any).columns
+                    : metadataColumns
+                }
+                data={loadFinished ? (layersMetadata as any).layers : []}
+              />
             </div>
             {/* <SidebarFooter collapsed={collapsed} /> */}
           </div>
@@ -588,9 +732,8 @@ function MainPage() {
       </div>
 
       <MapPage layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
-
     </div>
   );
-};
+}
 
-export default MainPage
+export default MainPage;
