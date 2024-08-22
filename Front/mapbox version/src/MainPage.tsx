@@ -155,7 +155,7 @@ function MainPage() {
         {
           email: "mohd109@gmail.com",
           user_name: "mohd109",
-          password: "Czin1231091256",
+          password: "oPxVukreedHdWPgsvIG",
         },
         "http://10.1.47.63:30001/api/login_user"
       );
