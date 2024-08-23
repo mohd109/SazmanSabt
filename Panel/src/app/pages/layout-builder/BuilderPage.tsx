@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import {useState} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
-import {getLayoutFromLocalStorage, ILayout, LayoutSetup} from '../../../_metronic/layout/core'
-import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
-import { Content } from '../../../_metronic/layout/components/content'
+import {KTIcon, toAbsoluteUrl} from '../../../lib/helpers'
+import {getLayoutFromLocalStorage, ILayout, LayoutSetup} from '../../../lib/layout/core'
+import { ToolbarWrapper } from '../../../lib/layout/components/toolbar'
+import { Content } from '../../../lib/layout/components/content'
 
 const BuilderPage: React.FC = () => {
   const [tab, setTab] = useState('Sidebar')
@@ -57,7 +57,7 @@ const BuilderPage: React.FC = () => {
               </p>
               <p className='list-unstyled text-gray-600 fw-bold fs-6 p-0 m-0'>
                 Also, you can configurate the Layout in the code (
-                <code>src/_metronic/layout/core/_LayoutConfig.ts</code> file). Don't forget clear your
+                <code>src/lib/layout/core/_LayoutConfig.ts</code> file). Don't forget clear your
                 local storage when you are changing _LayoutConfig.
               </p>
             </div>

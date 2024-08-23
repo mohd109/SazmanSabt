@@ -1,4 +1,4 @@
-import { Content } from '../../../../_metronic/layout/components/content'
+import { Content } from '../../../../lib/layout/components/content'
 import {
   FeedsWidget2,
   FeedsWidget3,
@@ -8,7 +8,7 @@ import {
   ChartsWidget1,
   ListsWidget5,
   ListsWidget2,
-} from '../../../../_metronic/partials/widgets'
+} from '../../../../lib/partials/widgets'
 
 export function Overview() {
   return (

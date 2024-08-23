@@ -1,6 +1,6 @@
 
 import {useState, FC} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../../../../_metronic/helpers'
+import {KTIcon, toAbsoluteUrl} from '../../../../../../lib/helpers'
 import {connectedAccounts, IConnectedAccounts} from '../SettingsModel'
 
 const ConnectedAccounts: FC = () => {

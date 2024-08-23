@@ -4,12 +4,12 @@ import {Step2} from './steps/Step2'
 import {Step3} from './steps/Step3'
 import {Step4} from './steps/Step4'
 import {Step5} from './steps/Step5'
-import {KTIcon} from '../../../../_metronic/helpers'
-import {StepperComponent} from '../../../../_metronic/assets/ts/components'
+import {KTIcon} from '../../../../lib/helpers'
+import {StepperComponent} from '../../../../lib/assets/ts/components'
 import {Form, Formik, FormikValues} from 'formik'
 import {createAccountSchemas, ICreateAccount, inits} from './CreateAccountWizardHelper'
-import { ToolbarWrapper } from '../../../../_metronic/layout/components/toolbar'
-import { Content } from '../../../../_metronic/layout/components/content'
+import { ToolbarWrapper } from '../../../../lib/layout/components/toolbar'
+import { Content } from '../../../../lib/layout/components/content'
 
 const Horizontal: FC = () => {
   const stepperRef = useRef<HTMLDivElement | null>(null)

@@ -1,4 +1,4 @@
-import { ID, Response } from '../../../../../../_metronic/helpers'
+import { ID, Response } from '../../../../../../lib/helpers'
 export type User = {
   id?: ID,
   user_name?: string,

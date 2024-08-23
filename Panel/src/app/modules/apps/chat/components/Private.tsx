@@ -1,9 +1,9 @@
 
 import {FC} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../../../_metronic/helpers'
-import {ChatInner, Dropdown1} from '../../../../../_metronic/partials'
-import { ToolbarWrapper } from '../../../../../_metronic/layout/components/toolbar'
-import { Content } from '../../../../../_metronic/layout/components/content'
+import {KTIcon, toAbsoluteUrl} from '../../../../../lib/helpers'
+import {ChatInner, Dropdown1} from '../../../../../lib/partials'
+import { ToolbarWrapper } from '../../../../../lib/layout/components/toolbar'
+import { Content } from '../../../../../lib/layout/components/content'
 
 const Private: FC = () => {
   return (

@@ -1,5 +1,5 @@
 import {useState, FC} from 'react'
-import {KTIcon} from '../../../../../../_metronic/helpers'
+import {KTIcon} from '../../../../../../lib/helpers'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
 import {IUpdateEmail, IUpdatePassword, updateEmail, updatePassword} from '../SettingsModel'
