@@ -30,7 +30,9 @@ import { TbFolderPlus } from "react-icons/tb";
 import { AiOutlineFileAdd } from "react-icons/ai";
 import { useDynamicTree } from "react-arborist";
 import { LANGUAGES } from "./constants";
+import { DUMMYDATA } from "./constants/dummyData";
 import { useTranslation } from "react-i18next";
+import { width } from "./theme";
 // import initGdalJs from 'gdal3.js';
 
 const DEFAULT_OPTION = {
@@ -56,11 +58,11 @@ type Theme = "light" | "dark";
 type VisibilityOfDetail = "" | "hidden";
 
 const detailTitle = {
-  10: "Raster Layers",
-  11: "Vector Layers",
-  20: "Attribute Table",
-  21: "Properties",
-  22: "Statistics",
+  10: "rasterLayers",
+  11: "vectorLayers",
+  20: "attributeTable",
+  21: "properties",
+  22: "statistics",
 };
 const themes = {
   light: {
@@ -109,7 +111,7 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 function MainPage() {
   const [collapsed, setCollapsed] = React.useState(true);
-  const [autoHide, setAutoHide] = React.useState(true);
+  const [autoHide, setAutoHide] = React.useState(false);
   const [toggled, setToggled] = React.useState(true);
   const [broken, setBroken] = React.useState(false);
   const [rtl, setRtl] = React.useState(false);
@@ -126,6 +128,7 @@ function MainPage() {
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   const [term, setTerm] = useState("");
   const treeRef = useRef(null);
+  const mapRef = useRef(null);
   const { data, setData, controllers } = useDynamicTree();
   const [notificationData, setNotificationData] = React.useState([]);
   const [tilesData, setTilesData] = React.useState([]);
@@ -134,6 +137,40 @@ function MainPage() {
   const [userData, setUserData] = React.useState(null);
   const [userId, setUserId] = React.useState(-1);
   const { i18n, t } = useTranslation();
+  const [sideBarRenderControl, setSideBarRenderControl] = React.useState(0);
+  const [metadataColumns, setMetadataColumns] = React.useState([
+    {
+      name: t("id"),
+      selector: (row) => row.id,
+      sortable: true,
+      sortField: "id",
+      maxWidth: "20",
+    },
+    {
+      name: t("name"),
+      selector: (row) => row.name,
+    },
+    {
+      name: t("creation_date_time"),
+      selector: (row) => row.creation_date_time,
+    },
+    {
+      name: t("decription"),
+      selector: (row) => row.decription,
+    },
+    {
+      name: t("company"),
+      selector: (row) => row.company,
+    },
+    {
+      name: t("owner_id"),
+      selector: (row) => row.owner_id,
+    },
+    {
+      name: t("area"),
+      selector: (row) => row.area,
+    },
+  ]);
 
   const createFileFolder = (
     <>
@@ -155,9 +192,9 @@ function MainPage() {
         {
           email: "mohd109@gmail.com",
           user_name: "mohd109",
-          password: "oPxVukreedHdWPgsvIG",
+          password: "Czin1231091256",
         },
-        "http://10.1.47.63:30001/api/login_user"
+        "https://main.sabt.shankayi.ir/api/login_user"
       );
       setUserId(loginReponse.id);
       setLoginSuccess(true);
@@ -168,117 +205,103 @@ function MainPage() {
 
   async function getNotifications() {
     await login();
-    let response: AxiosResponse<any, any> = await sendGetRequest(
-      "http://10.1.47.63:30001/api/notifications"
-    );
-    if (response.status == 200) {
-      return response.data;
-    }
-    return [];
-  }
-
-  async function getUserData() {
-    login().then(async (r) => {
+    try {
       let response: AxiosResponse<any, any> = await sendGetRequest(
-        "http://10.1.47.63:30001/api/user/2"
+        "https://main.sabt.shankayi.ir/api/notifications"
       );
       if (response.status == 200) {
         return response.data;
       }
-    });
+    } catch (error) {
+      return DUMMYDATA.notifications;
+    }
+  }
 
-    return null;
+  async function getUserData() {
+    try {
+      login().then(async (r) => {
+        let response: AxiosResponse<any, any> = await sendGetRequest(
+          "https://main.sabt.shankayi.ir/api/user/2"
+        );
+        if (response.status == 200) {
+          return response.data;
+        }
+      });
+    } catch (error) {
+      return DUMMYDATA.userData;
+    }
   }
   async function getDatasets() {
-    await login();
+    try {
+      await login();
 
-    let response: AxiosResponse<any, any> = await sendGetRequest(
-      "http://10.1.47.63:30001/api/datasets"
-    );
-    if (response.status == 200) {
-      return response.data;
+      let response: AxiosResponse<any, any> = await sendGetRequest(
+        "https://main.sabt.shankayi.ir/api/datasets"
+      );
+      if (response.status == 200) {
+        return response.data;
+      }
+    } catch (error) {
+      return DUMMYDATA.dataSets;
     }
-    return [];
   }
 
   async function getJobs() {
-    await login();
-
-    let response: AxiosResponse<any, any> = await sendGetRequest(
-      "http://10.1.47.63:30001/api/jobs"
-    );
-    if (response.status == 200) {
-      return response.data;
+    try {
+      await login();
+      let response: AxiosResponse<any, any> = await sendGetRequest(
+        "https://main.sabt.shankayi.ir/api/jobs"
+      );
+      if (response.status == 200) {
+        return response.data;
+      }
+    } catch (error) {
+      return DUMMYDATA.jobs;
     }
-    return [];
   }
 
   async function getTiles() {
-    await login();
-
-    let response: AxiosResponse<any, any> = await sendGetRequest(
-      "http://10.1.47.63:30001/api/tiles"
-    );
-    if (response.status == 200) {
-      return response.data;
+    try {
+      await login();
+      let response: AxiosResponse<any, any> = await sendGetRequest(
+        "https://main.sabt.shankayi.ir/api/tiles"
+      );
+      if (response.status == 200) {
+        return response.data;
+      }
+    } catch (error) {
+      return DUMMYDATA.tiles;
     }
-    return [];
   }
 
   async function getLayers() {
     await login();
-
-    let response: AxiosResponse<any, any> = await sendGetRequest(
-      "http://10.1.47.63:30001/api/layers"
-    );
-    if (response.status == 200) {
-      return response.data;
+    try {
+      let response: AxiosResponse<any, any> = await sendGetRequest(
+        "https://main.sabt.shankayi.ir/api/layers"
+      );
+      if (response.status == 200) {
+        return response.data;
+      }
+    } catch (error) {
+      return DUMMYDATA.layers;
     }
-    return [];
   }
 
   async function getLayerMetadata() {
-    await login();
-
-    let response: any = await sendGetRequest(
-      "http://10.1.47.63:30001/api/get_layer_metadata"
-    );
-    return response.data;
+    try {
+      await login();
+      let response: any = await sendGetRequest(
+        "https://main.sabt.shankayi.ir/api/get_layer_metadata"
+      );
+      if (response.status == 200) {
+        return response.data;
+      }
+    } catch (error) {
+      return DUMMYDATA.layerMetaData;
+    }
   }
 
-  const metadataColumns = [
-    {
-      name: "id",
-      selector: (row) => row.id,
-      sortable: true,
-      sortField: "id",
-      maxWidth: "20",
-    },
-    {
-      name: "name",
-      selector: (row) => row.name,
-    },
-    {
-      name: "creation_date_time",
-      selector: (row) => row.creation_date_time,
-    },
-    {
-      name: "decription",
-      selector: (row) => row.decription,
-    },
-    {
-      name: "company",
-      selector: (row) => row.company,
-    },
-    {
-      name: "owner_id",
-      selector: (row) => row.owner_id,
-    },
-    {
-      name: "area",
-      selector: (row) => row.area,
-    },
-  ];
   useEffect(() => {
     getUserData().then((response) => {
       setUserData(response as any);
@@ -370,6 +393,10 @@ function MainPage() {
     });
   }, []);
 
+  // useEffect(() => {
+  //   test();
+  // }, [i18n.language]);
+
   const hideSidebar = (e) => {
     if (autoHide) {
       setTimeout(() => {
@@ -405,8 +432,57 @@ function MainPage() {
   const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTheme(e.target.checked ? "dark" : "light");
   };
+  const nodeClick = (node) => {
+    console.log(node, "test");
+    console.log(mapRef, "mapRef");
+    console.log(treeRef, "treeRef");
+    // mapRef.current?.layerSelect("asd");
+  };
+  const test = () => {
+    setMetadataColumns([
+      {
+        name: t("id"),
+        selector: (row) => row.id,
+        sortable: true,
+        sortField: "id",
+        maxWidth: "20",
+      },
+      {
+        name: t("name"),
+        selector: (row) => row.name,
+      },
+      {
+        name: t("creation_date_time"),
+        selector: (row) => row.creation_date_time,
+      },
+      {
+        name: t("decription"),
+        selector: (row) => row.decription,
+      },
+      {
+        name: t("company"),
+        selector: (row) => row.company,
+      },
+      {
+        name: t("owner_id"),
+        selector: (row) => row.owner_id,
+      },
+      {
+        name: t("area"),
+        selector: (row) => row.area,
+      },
+    ]);
+    getLayerMetadata().then((response) => {
+      let tempLayersMetadata = { layers: response, columns: metadataColumns };
+      setLayersMetadata(tempLayersMetadata as any);
+      setLoadFinished(true);
+    });
+    console.log(metadataColumns, "metadataColumns");
+  };
   // handle on theme change event
   const handleVisibilityOfDetail = (statusDetailInput) => {
+    console.log(statusDetailInput, "statusDetailInput");
+    console.log(statusDetail, "statusDetail");
     if (statusDetailInput !== 0) {
       if (statusDetailInput === statusDetail) {
         setVisibilityOfDetail(visibilityOfDetail === "hidden" ? "" : "hidden");
@@ -504,12 +580,12 @@ function MainPage() {
                 fontWeight={600}
                 style={{ opacity: collapsed ? 0 : 0.7, letterSpacing: "0.5px" }}
               >
-                General
+                {t("general")}
               </Typography>
             </div>
             <Menu menuItemStyles={menuItemStyles}>
               <SubMenu
-                label="Import/Export"
+                label={`${t("import")}/${t("export")}`}
                 icon={<ImportExport />}
                 suffix={
                   <Badge variant="danger" shape="circle">
@@ -539,7 +615,7 @@ function MainPage() {
                   }}
                 >
                   {" "}
-                  {t("raster")}
+                  {t("vector")}
                 </MenuItem>
               </SubMenu>
               <SubMenu label={t("search")} icon={<Search />}>
@@ -602,7 +678,7 @@ function MainPage() {
                     id="rtl"
                     checked={autoHide}
                     onChange={handleAutoHideChange}
-                    label="Auto Hide"
+                    label={t("autoHide")}
                   />
                 </MenuItem>
                 {/* <MenuItem>
@@ -618,7 +694,7 @@ function MainPage() {
                     id="theme"
                     checked={theme === "dark"}
                     onChange={handleThemeChange}
-                    label="Dark theme"
+                    label={t("darkTheme")}
                   />
                 </MenuItem>
                 <MenuItem>
@@ -655,6 +731,7 @@ function MainPage() {
           rootStyles={{
             color: themes[theme].sidebar.color,
           }}
+          style={{ width: "auto" }}
         >
           <div
             style={{ display: "flex", flexDirection: "column", height: "100%" }}
@@ -673,7 +750,7 @@ function MainPage() {
                   fontWeight={600}
                   style={{ letterSpacing: "0.5px" }}
                 >
-                  {detailTitle[statusDetail]}
+                  {t(detailTitle[statusDetail])}
                 </Typography>
               </div>
               <div
@@ -705,6 +782,7 @@ function MainPage() {
                       .includes(term.toLowerCase())
                   }
                   {...controllers}
+                  onSelect={nodeClick}
                 >
                   {Node}
                 </Tree>
@@ -725,13 +803,17 @@ function MainPage() {
                 }
                 data={loadFinished ? (layersMetadata as any).layers : []}
               />
+              {/* <button onClick={() => test()}>
+                <TbFolderPlus />
+              </button> */}
             </div>
             {/* <SidebarFooter collapsed={collapsed} /> */}
           </div>
         </Sidebar>
       </div>
-
-      <MapPage layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
+      <div ref={mapRef}>
+        <MapPage layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
+      </div>
     </div>
   );
 }

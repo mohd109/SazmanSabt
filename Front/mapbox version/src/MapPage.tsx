@@ -33,7 +33,7 @@ import "@mapbox-controls/inspect/src/index.css";
 import MaplibreGeocoder from "@maplibre/maplibre-gl-geocoder";
 import "@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css";
 import OpacityControl from "maplibre-gl-opacity";
-
+import { DUMMYDATA } from "./constants/dummyData";
 var utmObj = require("utm-latlng");
 var utm = new utmObj();
 var opacityAdded = false;
@@ -131,9 +131,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
         {
           email: "mohd109@gmail.com",
           user_name: "mohd109",
-          password: "oPxVukreedHdWPgsvIG",
+          password: "Czin1231091256",
         },
-        "http://10.1.47.63:30001/api/login_user"
+        "https://main.sabt.shankayi.ir/api/login_user"
       );
       setLoginSuccess(true);
       return loginReponse.id;
@@ -141,7 +141,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
   }
   async function getTile(tileId) {
     let response: any = await sendGetRequest(
-      "http://10.1.47.63:30001/api/get_tile/" + tileId
+      "https://main.sabt.shankayi.ir/api/get_tile/" + tileId
     );
     if (response.status == 200) {
       let response2: any = await sendGetRequest(
@@ -157,6 +157,9 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
       );
       return response2.data;
     }
+  }
+  async function layerSelect(layer) {
+    console.log(layer, "layer");
   }
   function highlightFeatures(features: any, map: any) {
     let candidateHexagons: any[] = [];
@@ -725,8 +728,12 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
 
   useEffect(() => {
     try {
-      var rasterLayers = layersData ? layersData.userRasterLayers : null;
-      var vectorLayers = layersData ? layersData.userVectorLayers : null;
+      var rasterLayers = layersData
+        ? layersData.userRasterLayers
+        : DUMMYDATA.layers.userRasterLayers;
+      var vectorLayers = layersData
+        ? layersData.userVectorLayers
+        : DUMMYDATA.layers.userVectorLayers;
       if (mainMap != null) {
         if (layersData != undefined) {
           var map = mainMap as any;
@@ -910,5 +917,4 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
     </div>
   );
 };
-
 export default MapPage;

@@ -4,6 +4,8 @@ import { Github } from "../../icons/Github";
 import { Typography } from "./Typography";
 import packageJson from "../../../package.json";
 import axios, { AxiosResponse } from "axios";
+import { DUMMYDATA } from "../../constants/dummyData";
+import { useTranslation } from "react-i18next";
 
 interface SidebarFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -56,6 +58,8 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
     },
     withCredentials: true,
   };
+  const { i18n, t } = useTranslation();
+
   async function sendPostRequest(
     body: any,
     endPoint: string
@@ -79,20 +83,20 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
         {
           email: "mohd109@gmail.com",
           user_name: "mohd109",
-          password: "oPxVukreedHdWPgsvIG",
+          password: "Czin1231091256",
         },
-        "http://10.1.47.63:30001/api/login_user"
+        "https://main.sabt.shankayi.ir/api/login_user"
       );
       setUserId(loginReponse.id);
       setLoginSuccess(true);
     }
     let response: AxiosResponse<any, any> = await sendGetRequest(
-      "http://10.1.47.63:30001/api/user/2"
+      "https://main.sabt.shankayi.ir/api/user/2"
     );
     if (response.status == 200) {
       return response.data;
     }
-    return null;
+    // return DUMMYDATA.user
   }
 
   useLayoutEffect(() => {
@@ -130,7 +134,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
           <div style={{ marginTop: "16px" }}>
             <StyledButton href="/profile" target="_blank">
               <Typography variant="caption" color="#26A17B" fontWeight={600}>
-                View Profile
+                {t("viewProfile")}
               </Typography>
             </StyledButton>
           </div>
