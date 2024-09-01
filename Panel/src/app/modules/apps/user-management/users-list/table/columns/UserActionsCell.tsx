@@ -1,8 +1,8 @@
 
 import {FC, useEffect} from 'react'
 import {useMutation, useQueryClient} from 'react-query'
-import {MenuComponent} from '../../../../../../../_metronic/assets/ts/components'
-import {ID, KTIcon, QUERIES} from '../../../../../../../_metronic/helpers'
+import {MenuComponent} from '../../../../../../../lib/assets/ts/components'
+import {ID, KTIcon, QUERIES} from '../../../../../../../lib/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteUser} from '../../core/_requests'

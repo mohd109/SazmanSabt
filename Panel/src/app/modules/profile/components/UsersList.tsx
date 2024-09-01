@@ -1,8 +1,8 @@
 import {FC} from 'react'
 import {IconUserModel} from '../ProfileModels'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
+import {toAbsoluteUrl} from '../../../../lib/helpers'
 import {OverlayTrigger, Tooltip} from 'react-bootstrap'
-import { Content } from '../../../../_metronic/layout/components/content'
+import { Content } from '../../../../lib/layout/components/content'
 
 type Props = {
   users?: Array<IconUserModel>

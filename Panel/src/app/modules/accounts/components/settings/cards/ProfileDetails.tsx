@@ -1,5 +1,5 @@
 import {useState, FC, useEffect} from 'react'
-import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
+import {toAbsoluteUrl} from '../../../../../../lib/helpers'
 import {IProfileDetails, profileDetailsInitValues as initialValues} from '../SettingsModel'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'

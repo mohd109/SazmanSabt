@@ -1,7 +1,7 @@
 
 import {useEffect} from 'react'
 import {Outlet, Link} from 'react-router-dom'
-import {toAbsoluteUrl} from '../../../_metronic/helpers'
+import {toAbsoluteUrl} from '../../../lib/helpers'
 
 const AuthLayout = () => {
   useEffect(() => {

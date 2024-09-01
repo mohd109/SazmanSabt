@@ -1,5 +1,5 @@
-import { Content } from '../../../../_metronic/layout/components/content'
-import {Card3} from '../../../../_metronic/partials/content/cards/Card3'
+import { Content } from '../../../../lib/layout/components/content'
+import {Card3} from '../../../../lib/partials/content/cards/Card3'
 
 export function Connections() {
   return (

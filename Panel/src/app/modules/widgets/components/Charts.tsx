@@ -8,9 +8,9 @@ import {
   ChartsWidget6,
   ChartsWidget7,
   ChartsWidget8,
-} from '../../../../_metronic/partials/widgets'
-import { ToolbarWrapper } from '../../../../_metronic/layout/components/toolbar'
-import { Content } from '../../../../_metronic/layout/components/content'
+} from '../../../../lib/partials/widgets'
+import { ToolbarWrapper } from '../../../../lib/layout/components/toolbar'
+import { Content } from '../../../../lib/layout/components/content'
 
 const Charts: FC = () => {
   return (

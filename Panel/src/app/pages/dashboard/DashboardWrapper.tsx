@@ -1,7 +1,7 @@
 import {FC} from 'react'
 import {useIntl} from 'react-intl'
-import {toAbsoluteUrl} from '../../../_metronic/helpers'
-import {PageTitle} from '../../../_metronic/layout/core'
+import {toAbsoluteUrl} from '../../../lib/helpers'
+import {PageTitle} from '../../../lib/layout/core'
 import {
   ListsWidget2,
   ListsWidget3,
@@ -15,9 +15,9 @@ import {
   CardsWidget20,
   ListsWidget26,
   EngageWidget10,
-} from '../../../_metronic/partials/widgets'
-import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
-import { Content } from '../../../_metronic/layout/components/content'
+} from '../../../lib/partials/widgets'
+import { ToolbarWrapper } from '../../../lib/layout/components/toolbar'
+import { Content } from '../../../lib/layout/components/content'
 
 const DashboardPage: FC = () => (
   <>

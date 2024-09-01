@@ -1,8 +1,8 @@
 import {IconUserModel} from '../ProfileModels'
 
 import { FC, useEffect } from 'react';
-import { Content } from '../../../../_metronic/layout/components/content'
-import { TaskCard} from '../../../../_metronic/partials/content/cards/TaskCard'
+import { Content } from '../../../../lib/layout/components/content'
+import { TaskCard} from '../../../../lib/partials/content/cards/TaskCard'
 import { User } from '../../apps/user-management/users-list/core/_models';
 import { useAuth } from '../../auth';
 import React from 'react';

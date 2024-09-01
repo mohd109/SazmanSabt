@@ -4,7 +4,7 @@ import {SignInMethod} from './cards/SignInMethod'
 import {EmailPreferences} from './cards/EmailPreferences'
 import {Notifications} from './cards/Notifications'
 import {DeactivateAccount} from './cards/DeactivateAccount'
-import { Content } from '../../../../../_metronic/layout/components/content'
+import { Content } from '../../../../../lib/layout/components/content'
 import { FC } from 'react'
 import { User } from '../../../apps/user-management/users-list/core/_models'
 
