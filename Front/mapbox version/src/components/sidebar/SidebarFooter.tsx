@@ -78,6 +78,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
   const [loginSuccess, setLoginSuccess] = React.useState(false);
 
   async function getUserData() {
+    setUserData(DUMMYDATA.userData.data)
     if (!loginSuccess) {
       let loginReponse: any = await sendPostRequest(
         {
@@ -90,20 +91,24 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
       setUserId(loginReponse.id);
       setLoginSuccess(true);
     }
+
     let response: AxiosResponse<any, any> = await sendGetRequest(
       "https://main.sabt.shankayi.ir/api/user/2"
     );
     if (response.status == 200) {
       return response.data;
     }
-    // return DUMMYDATA.user
+    return DUMMYDATA.userData.data
   }
 
   useLayoutEffect(() => {
     getUserData().then((response) => {
+      console.log(response)
       setUserData(response as any);
     });
   }, []);
+  
+ 
 
   return (
     <div

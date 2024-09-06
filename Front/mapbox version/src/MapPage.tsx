@@ -85,9 +85,10 @@ let lands: any[] = [],
 interface IProps {
   layersData: any;
   accountZoomCenter: any;
+  nodeData: any;
 }
 
-const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
+const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) => {
   const [mainMap, setMainMap] = useState<maplibregl.Map>(null);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
 
@@ -833,6 +834,10 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter }) => {
       console.log(error);
     }
   }, [layersData, mainMap]);
+
+  useEffect(()=> {
+    console.log(nodeData,"nodeData")
+  },[nodeData])
 
   return (
     <div

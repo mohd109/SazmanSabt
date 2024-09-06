@@ -133,6 +133,7 @@ function MainPage() {
   const [notificationData, setNotificationData] = React.useState([]);
   const [tilesData, setTilesData] = React.useState([]);
   const [jobsData, setJobsData] = React.useState([]);
+  const [nodeData, setNodeData] = React.useState();
   const [datasetsData, setDatasetsData] = React.useState([]);
   const [userData, setUserData] = React.useState(null);
   const [userId, setUserId] = React.useState(-1);
@@ -436,6 +437,7 @@ function MainPage() {
     console.log(node, "test");
     console.log(mapRef, "mapRef");
     console.log(treeRef, "treeRef");
+    setNodeData(node)
     // mapRef.current?.layerSelect("asd");
   };
   const test = () => {
@@ -811,9 +813,7 @@ function MainPage() {
           </div>
         </Sidebar>
       </div>
-      <div ref={mapRef}>
-        <MapPage layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
-      </div>
+        <MapPage nodeData={nodeData} layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
     </div>
   );
 }
