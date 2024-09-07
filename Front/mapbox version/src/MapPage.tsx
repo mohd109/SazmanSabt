@@ -38,7 +38,7 @@ var utmObj = require("utm-latlng");
 var utm = new utmObj();
 var opacityAdded = false;
 
-// const TIFF_URL = "http://10.1.47.63:30001/sample.tif";
+// const TIFF_URL = "https://main.sabt.shankayi.ir/sample.tif";
 // const bitmapLayer = new BitmapLayer({
 //   id: 'BitmapLayer',
 //   bounds: [-122.519, 37.7045, -122.355, 37.829],
@@ -146,15 +146,15 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) =
     );
     if (response.status == 200) {
       let response2: any = await sendGetRequest(
-        response.data.url.replace("10.1.47.63:30012", "10.1.47.63:30001/martin")
+        response.data.url.replace("http://localhost:30012", "https://main.sabt.shankayi.ir/martin")
       );
       response2.data.tiles[0] = response2.data.tiles[0].replace(
-        "localhost:30012",
-        "10.1.47.63:30001/martin"
+        "http://localhost:30012",
+        "https://main.sabt.shankayi.ir/martin"
       );
       response2.data.tiles[0] = response2.data.tiles[0].replace(
-        "10.1.47.63:30012",
-        "10.1.47.63:30001/martin"
+        "http://localhost:30012",
+        "https://main.sabt.shankayi.ir/martin"
       );
       return response2.data;
     }
@@ -309,17 +309,17 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) =
 
     async function loadMap(map) {
       let response: any = await sendGetRequest(
-        "http://10.1.47.63:30001/martin/IranBing"
+        "https://main.sabt.shankayi.ir/martin/IranBing"
       );
       response.data.tiles[0] = response.data.tiles[0].replace(
-        "localhost:30012",
-        "10.1.47.63:30001/martin"
+        "http://localhost:30012",
+        "https://main.sabt.shankayi.ir/martin"
       );
       let tempObject = response.data;
       tempObject["type"] = "raster";
 
       var style = {
-        glyphs: "http://10.1.47.63:30001/glyphs/{fontstack}/{range}.pbf",
+        glyphs: "https://main.sabt.shankayi.ir/glyphs/{fontstack}/{range}.pbf",
         version: 8,
         sources: {
           orthofootprints: {
@@ -400,7 +400,7 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) =
           bingsat: tempObject,
           terrainSource: {
             type: "raster-dem",
-            url: "http://10.1.47.63:30001/martin/TehranDEM",
+            url: "https://main.sabt.shankayi.ir/martin/TehranDEM",
             tileSize: 256,
             encoding: "mapbox",
           },
