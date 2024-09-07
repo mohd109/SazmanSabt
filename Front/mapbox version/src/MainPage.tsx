@@ -139,39 +139,107 @@ function MainPage() {
   const [userId, setUserId] = React.useState(-1);
   const { i18n, t } = useTranslation();
   const [sideBarRenderControl, setSideBarRenderControl] = React.useState(0);
-  const [metadataColumns, setMetadataColumns] = React.useState([
-    {
-      name: t("id"),
-      selector: (row) => row.id,
-      sortable: true,
-      sortField: "id",
-      maxWidth: "20",
-    },
-    {
-      name: t("name"),
-      selector: (row) => row.name,
-    },
-    {
-      name: t("creation_date_time"),
-      selector: (row) => row.creation_date_time,
-    },
-    {
-      name: t("decription"),
-      selector: (row) => row.decription,
-    },
-    {
-      name: t("company"),
-      selector: (row) => row.company,
-    },
-    {
-      name: t("owner_id"),
-      selector: (row) => row.owner_id,
-    },
-    {
-      name: t("area"),
-      selector: (row) => row.area,
-    },
-  ]);
+  const [metadataColumns, setMetadataColumns] = React.useState({
+    attributeTable: [
+      {
+        name: "attributeTable",
+        selector: (row) => row.id,
+        sortable: true,
+        sortField: "id",
+        maxWidth: "20",
+      },
+      {
+        name: t("name"),
+        selector: (row) => row.name,
+      },
+      {
+        name: t("creation_date_time"),
+        selector: (row) => row.creation_date_time,
+      },
+      {
+        name: t("decription"),
+        selector: (row) => row.decription,
+      },
+      {
+        name: t("company"),
+        selector: (row) => row.company,
+      },
+      {
+        name: t("owner_id"),
+        selector: (row) => row.owner_id,
+      },
+      {
+        name: t("area"),
+        selector: (row) => row.area,
+      },
+    ],
+    properties: [
+      {
+        name: "properties",
+        selector: (row) => row.id,
+        sortable: true,
+        sortField: "id",
+        maxWidth: "20",
+      },
+      {
+        name: t("name"),
+        selector: (row) => row.name,
+      },
+      {
+        name: t("creation_date_time"),
+        selector: (row) => row.creation_date_time,
+      },
+      {
+        name: t("decription"),
+        selector: (row) => row.decription,
+      },
+      {
+        name: t("company"),
+        selector: (row) => row.company,
+      },
+      {
+        name: t("owner_id"),
+        selector: (row) => row.owner_id,
+      },
+      {
+        name: t("area"),
+        selector: (row) => row.area,
+      },
+    ],
+    statistics: [
+      {
+        name: "statistics",
+        selector: (row) => row.id,
+        sortable: true,
+        sortField: "id",
+        maxWidth: "20",
+      },
+      {
+        name: t("name"),
+        selector: (row) => row.name,
+      },
+      {
+        name: t("creation_date_time"),
+        selector: (row) => row.creation_date_time,
+      },
+      {
+        name: t("decription"),
+        selector: (row) => row.decription,
+      },
+      {
+        name: t("company"),
+        selector: (row) => row.company,
+      },
+      {
+        name: t("owner_id"),
+        selector: (row) => row.owner_id,
+      },
+      {
+        name: t("area"),
+        selector: (row) => row.area,
+      },
+    ],
+  });
 
   const createFileFolder = (
     <>
@@ -303,6 +371,20 @@ function MainPage() {
     }
   }
 
+  const test = () => {
+    console.log(metadataColumns.attributeTable, "attributeTable");
+    console.log(
+      metadataColumns[detailTitle[statusDetail]],
+      "metadataColumns[detailTitle[statusDetail]]"
+    );
+    console.log(detailTitle, "detailTitle");
+    console.log(statusDetail, "statusDetail");
+  };
+
+  // useEffect(() => {
+  //   console
+  // },[statusDetail])
+
   useEffect(() => {
     getUserData().then((response) => {
       setUserData(response as any);
@@ -387,7 +469,10 @@ function MainPage() {
       setLayersData(response as any);
       setData((response as any).userRasterLayers);
       getLayerMetadata().then((response) => {
-        let tempLayersMetadata = { layers: response, columns: metadataColumns };
+        let tempLayersMetadata = {
+          layers: response,
+          columns: metadataColumns.attributeTable,
+        };
         setLayersMetadata(tempLayersMetadata as any);
         setLoadFinished(true);
       });
@@ -434,57 +519,14 @@ function MainPage() {
     setTheme(e.target.checked ? "dark" : "light");
   };
   const nodeClick = (node) => {
-    console.log(node, "test");
-    console.log(mapRef, "mapRef");
-    console.log(treeRef, "treeRef");
-    setNodeData(node)
+    // console.log(node, "test");
+    // console.log(mapRef, "mapRef");
+    // console.log(treeRef, "treeRef");
+    setNodeData(node);
     // mapRef.current?.layerSelect("asd");
-  };
-  const test = () => {
-    setMetadataColumns([
-      {
-        name: t("id"),
-        selector: (row) => row.id,
-        sortable: true,
-        sortField: "id",
-        maxWidth: "20",
-      },
-      {
-        name: t("name"),
-        selector: (row) => row.name,
-      },
-      {
-        name: t("creation_date_time"),
-        selector: (row) => row.creation_date_time,
-      },
-      {
-        name: t("decription"),
-        selector: (row) => row.decription,
-      },
-      {
-        name: t("company"),
-        selector: (row) => row.company,
-      },
-      {
-        name: t("owner_id"),
-        selector: (row) => row.owner_id,
-      },
-      {
-        name: t("area"),
-        selector: (row) => row.area,
-      },
-    ]);
-    getLayerMetadata().then((response) => {
-      let tempLayersMetadata = { layers: response, columns: metadataColumns };
-      setLayersMetadata(tempLayersMetadata as any);
-      setLoadFinished(true);
-    });
-    console.log(metadataColumns, "metadataColumns");
   };
   // handle on theme change event
   const handleVisibilityOfDetail = (statusDetailInput) => {
-    console.log(statusDetailInput, "statusDetailInput");
-    console.log(statusDetail, "statusDetail");
     if (statusDetailInput !== 0) {
       if (statusDetailInput === statusDetail) {
         setVisibilityOfDetail(visibilityOfDetail === "hidden" ? "" : "hidden");
@@ -751,6 +793,7 @@ function MainPage() {
                   variant="body2"
                   fontWeight={600}
                   style={{ letterSpacing: "0.5px" }}
+                  onClick={test}
                 >
                   {t(detailTitle[statusDetail])}
                 </Typography>
@@ -789,22 +832,49 @@ function MainPage() {
                   {Node}
                 </Tree>
               </div>
-              <DataTable
-                direction={rtl ? Direction.RTL : Direction.LTR}
-                dense={true}
-                highlightOnHover={true}
-                theme={theme === "dark" ? "dark" : "default"}
-                className={
-                  "w-full p-2 " +
-                  (statusDetail >= 20 && statusDetail < 30 ? "" : "hidden")
-                }
-                columns={
-                  loadFinished
-                    ? (layersMetadata as any).columns
-                    : metadataColumns
-                }
-                data={loadFinished ? (layersMetadata as any).layers : []}
-              />
+              {statusDetail == 20 && (
+                <DataTable
+                  direction={rtl ? Direction.RTL : Direction.LTR}
+                  dense={true}
+                  highlightOnHover={true}
+                  theme={theme === "dark" ? "dark" : "default"}
+                  className={
+                    "w-full p-2 " +
+                    (statusDetail >= 20 && statusDetail < 30 ? "" : "hidden")
+                  }
+                  columns={metadataColumns.attributeTable}
+                  data={loadFinished ? (layersMetadata as any).layers : []}
+                />
+              )}
+              {statusDetail == 21 && (
+                <DataTable
+                  direction={rtl ? Direction.RTL : Direction.LTR}
+                  dense={true}
+                  highlightOnHover={true}
+                  theme={theme === "dark" ? "dark" : "default"}
+                  className={
+                    "w-full p-2 " +
+                    (statusDetail >= 20 && statusDetail < 30 ? "" : "hidden")
+                  }
+                  columns={metadataColumns.properties}
+                  data={loadFinished ? (layersMetadata as any).layers : []}
+                />
+              )}
+              {statusDetail == 22 && (
+                <DataTable
+                  direction={rtl ? Direction.RTL : Direction.LTR}
+                  dense={true}
+                  highlightOnHover={true}
+                  theme={theme === "dark" ? "dark" : "default"}
+                  className={
+                    "w-full p-2 " +
+                    (statusDetail >= 20 && statusDetail < 30 ? "" : "hidden")
+                  }
+                  columns={metadataColumns.statistics}
+                  data={loadFinished ? (layersMetadata as any).layers : []}
+                />
+              )}
+
               {/* <button onClick={() => test()}>
                 <TbFolderPlus />
               </button> */}
@@ -813,7 +883,11 @@ function MainPage() {
           </div>
         </Sidebar>
       </div>
-        <MapPage nodeData={nodeData} layersData={layersData} accountZoomCenter={[51.32, 35.5219]} />
+      <MapPage
+        nodeData={nodeData}
+        layersData={layersData}
+        accountZoomCenter={[51.32, 35.5219]}
+      />
     </div>
   );
 }
