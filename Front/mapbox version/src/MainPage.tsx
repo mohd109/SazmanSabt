@@ -54,9 +54,12 @@ async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
   return response;
 }
 
+const handleChange = (event) => {
+  console.log(event, "event");
+};
+
 type Theme = "light" | "dark";
 type VisibilityOfDetail = "" | "hidden";
-
 const detailTitle = {
   10: "rasterLayers",
   11: "vectorLayers",
@@ -128,6 +131,7 @@ function MainPage() {
   const [loginSuccess, setLoginSuccess] = React.useState(false);
   const [term, setTerm] = useState("");
   const treeRef = useRef(null);
+  const fileInputRef = useRef(null);
   const mapRef = useRef(null);
   const { data, setData, controllers } = useDynamicTree();
   const [notificationData, setNotificationData] = React.useState([]);
@@ -139,6 +143,7 @@ function MainPage() {
   const [userId, setUserId] = React.useState(-1);
   const { i18n, t } = useTranslation();
   const [sideBarRenderControl, setSideBarRenderControl] = React.useState(0);
+  const [spatialCheck, setSpatialCheck] = React.useState(0);
   const [metadataColumns, setMetadataColumns] = React.useState({
     attributeTable: [
       {
@@ -479,10 +484,6 @@ function MainPage() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   test();
-  // }, [i18n.language]);
-
   const hideSidebar = (e) => {
     if (autoHide) {
       setTimeout(() => {
@@ -638,7 +639,17 @@ function MainPage() {
                 }
               >
                 {/* <MenuItem> Job Progress</MenuItem> */}
-                <MenuItem> {t("import")}</MenuItem>
+                <input
+                  onChange={handleChange}
+                  multiple={false}
+                  ref={fileInputRef}
+                  type="file"
+                  hidden
+                />
+                <MenuItem onClick={() => fileInputRef?.current.click()}>
+                  {" "}
+                  {t("import")}
+                </MenuItem>
                 <MenuItem> {t("export")}</MenuItem>
               </SubMenu>
               <SubMenu label={t("layers")} icon={<Layers />}>
@@ -663,7 +674,14 @@ function MainPage() {
                 </MenuItem>
               </SubMenu>
               <SubMenu label={t("search")} icon={<Search />}>
-                <MenuItem> {t("spatial")}</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setSpatialCheck(spatialCheck + 1);
+                  }}
+                >
+                  {" "}
+                  {t("spatial")}
+                </MenuItem>
                 <MenuItem> {t("tables")}</MenuItem>
               </SubMenu>
               {/* <SubMenu label="History" icon={<History />}>
@@ -885,6 +903,7 @@ function MainPage() {
       </div>
       <MapPage
         nodeData={nodeData}
+        spatialCheck={spatialCheck}
         layersData={layersData}
         accountZoomCenter={[51.32, 35.5219]}
       />

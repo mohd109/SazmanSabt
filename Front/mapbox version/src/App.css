@@ -163,3 +163,18 @@ body {
   color: white;
   font-weight: bold;
 }
+.maplibregl-popup-content{
+  background: #4dac90c4 !important;
+  border-radius: 12px !important;
+  padding: 15px 25px !important;
+  color: #fff !important;
+  font-weight: bold !important;
+}
+.maplibregl-popup-anchor-bottom .maplibregl-popup-tip{
+  border-top-color: #4dac90c4 !important;
+}
+.maplibregl-popup-close-button{
+  right: 7px !important;
+  top: 2px !important;
+  transform: scale(1.5) !important;
+}

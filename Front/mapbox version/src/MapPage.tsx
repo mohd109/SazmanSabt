@@ -86,9 +86,15 @@ interface IProps {
   layersData: any;
   accountZoomCenter: any;
   nodeData: any;
+  spatialCheck: any;
 }
 
-const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) => {
+const MapPage: React.FC<IProps> = ({
+  layersData,
+  spatialCheck,
+  accountZoomCenter,
+  nodeData,
+}) => {
   const [mainMap, setMainMap] = useState<maplibregl.Map>(null);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
 
@@ -146,7 +152,10 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) =
     );
     if (response.status == 200) {
       let response2: any = await sendGetRequest(
-        response.data.url.replace("http://localhost:30012", "https://main.sabt.shankayi.ir/martin")
+        response.data.url.replace(
+          "http://localhost:30012",
+          "https://main.sabt.shankayi.ir/martin"
+        )
       );
       response2.data.tiles[0] = response2.data.tiles[0].replace(
         "http://localhost:30012",
@@ -674,7 +683,6 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) =
       });
       map.on("click", "orthofootprints", (e) => {
         console.log(e.features.length);
-
         let description = "";
         e.features.forEach((feature) => {
           description = description + JSON.stringify(feature.properties) + "\n";
@@ -835,9 +843,15 @@ const MapPage: React.FC<IProps> = ({ layersData, accountZoomCenter,nodeData }) =
     }
   }, [layersData, mainMap]);
 
-  useEffect(()=> {
-    console.log(nodeData,"nodeData")
-  },[nodeData])
+  useEffect(() => {
+    console.log(nodeData, "nodeData");
+  }, [nodeData]);
+
+  useEffect(() => {
+    if (spatialCheck != 0) {
+      console.log("spatial map function triggered");
+    }
+  }, [spatialCheck]);
 
   return (
     <div
