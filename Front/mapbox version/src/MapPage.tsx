@@ -152,17 +152,14 @@ const MapPage: React.FC<IProps> = ({
     );
     if (response.status == 200) {
       let response2: any = await sendGetRequest(
-        response.data.url.replace(
-          "http://localhost:30012",
-          "https://main.sabt.shankayi.ir/martin"
-        )
+        response.data.url.replace("http://localhost:3000", "https://main.sabt.shankayi.ir/martin")
       );
       response2.data.tiles[0] = response2.data.tiles[0].replace(
-        "http://localhost:30012",
+        "http://localhost:3000",
         "https://main.sabt.shankayi.ir/martin"
       );
       response2.data.tiles[0] = response2.data.tiles[0].replace(
-        "http://localhost:30012",
+        "http://localhost:3000",
         "https://main.sabt.shankayi.ir/martin"
       );
       return response2.data;
@@ -321,7 +318,7 @@ const MapPage: React.FC<IProps> = ({
         "https://main.sabt.shankayi.ir/martin/IranBing"
       );
       response.data.tiles[0] = response.data.tiles[0].replace(
-        "http://localhost:30012",
+        "http://localhost:3000",
         "https://main.sabt.shankayi.ir/martin"
       );
       let tempObject = response.data;
@@ -421,6 +418,7 @@ const MapPage: React.FC<IProps> = ({
             source: "bingsat",
             minzoom: 0,
             maxzoom: 23,
+            
           },
           {
             id: "orthofootprints",
