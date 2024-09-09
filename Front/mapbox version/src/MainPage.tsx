@@ -385,7 +385,19 @@ function MainPage() {
     console.log(detailTitle, "detailTitle");
     console.log(statusDetail, "statusDetail");
   };
-
+  const obj = { test: "test file data" };
+  const blob = new Blob([JSON.stringify(obj, null, 2)], {
+    type: "application/json",
+  });
+  const saveFile = async (blob) => {
+    const a = document.createElement("a");
+    a.download = "my-file.txt";
+    a.href = URL.createObjectURL(blob);
+    a.addEventListener("click", (e) => {
+      setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+    });
+    a.click();
+  };
   // useEffect(() => {
   //   console
   // },[statusDetail])
@@ -644,13 +656,17 @@ function MainPage() {
                   multiple={false}
                   ref={fileInputRef}
                   type="file"
+                  accept=".dwg,.dgn,.dxf,.Json,.Shp"
                   hidden
                 />
                 <MenuItem onClick={() => fileInputRef?.current.click()}>
                   {" "}
                   {t("import")}
                 </MenuItem>
-                <MenuItem> {t("export")}</MenuItem>
+                <MenuItem onClick={() => saveFile(blob)}>
+                  {" "}
+                  {t("export")}
+                </MenuItem>
               </SubMenu>
               <SubMenu label={t("layers")} icon={<Layers />}>
                 {/* <Tree initialData={data} /> */}
