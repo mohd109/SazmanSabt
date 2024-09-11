@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import { KTIcon } from '../../../../lib/helpers'
+import { KTIcon } from '../../../../_metronic/helpers'
 import { Step1 } from './steps/Step1'
 import { Step2 } from './steps/Step2'
 import { Step3 } from './steps/Step3'
 import { Step4 } from './steps/Step4'
 import { Step5 } from './steps/Step5'
-import { StepperComponent } from '../../../../lib/assets/ts/components'
+import { StepperComponent } from '../../../../_metronic/assets/ts/components'
 import { Form, Formik, FormikValues } from 'formik'
 import { createAccountSchemas, ICreateAccount, inits } from './CreateAccountWizardHelper'
-import { ToolbarWrapper } from '../../../../lib/layout/components/toolbar'
-import { Content } from '../../../../lib/layout/components/content'
+import { ToolbarWrapper } from '../../../../_metronic/layout/components/toolbar'
+import { Content } from '../../../../_metronic/layout/components/content'
 import { AxiosResponse } from 'axios'
 import { login, sendPostRequest } from '../../auth/core/_requests'
 import { useAuth } from '../../auth/core/Auth'
@@ -42,7 +42,7 @@ const Vertical = () => {
     }
     console.log(tempBody);
 
-    let response: AxiosResponse<any, any> = await sendPostRequest(tempBody as any,"http://panel.sabt.shankayi.ir/api/add_dataset");
+    let response: AxiosResponse<any, any> = await sendPostRequest(tempBody as any,"https://panel.sabt.shankayi.ir/api/add_dataset");
 
     if (response.status == 200) {
       return response.data;

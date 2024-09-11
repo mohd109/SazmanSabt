@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
-import {KTIcon} from '../../../../lib/helpers'
-import { Content } from '../../../../lib/layout/components/content'
-import {DatasetCard} from '../../../../lib/partials/content/cards/DatasetCard'
+import {KTIcon} from '../../../../_metronic/helpers'
+import { Content } from '../../../../_metronic/layout/components/content'
+import {DatasetCard} from '../../../../_metronic/partials/content/cards/DatasetCard'
 import { User } from '../../apps/user-management/users-list/core/_models';
 import { useAuth } from '../../auth';
 import React from 'react';

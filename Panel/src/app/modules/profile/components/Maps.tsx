@@ -1,7 +1,7 @@
 
 import { FC, useEffect } from 'react';
-import { Content } from '../../../../lib/layout/components/content'
-import { TileCard} from '../../../../lib/partials/content/cards/TileCard'
+import { Content } from '../../../../_metronic/layout/components/content'
+import { TileCard} from '../../../../_metronic/partials/content/cards/TileCard'
 import { User } from '../../apps/user-management/users-list/core/_models';
 import { useAuth } from '../../auth';
 import React from 'react';

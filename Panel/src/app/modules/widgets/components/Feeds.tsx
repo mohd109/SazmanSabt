@@ -5,9 +5,9 @@ import {
   FeedsWidget4,
   FeedsWidget5,
   FeedsWidget6,
-} from '../../../../lib/partials/widgets'
-import { ToolbarWrapper } from '../../../../lib/layout/components/toolbar'
-import { Content } from '../../../../lib/layout/components/content'
+} from '../../../../_metronic/partials/widgets'
+import { ToolbarWrapper } from '../../../../_metronic/layout/components/toolbar'
+import { Content } from '../../../../_metronic/layout/components/content'
 
 const Feeds: FC = () => {
   return (

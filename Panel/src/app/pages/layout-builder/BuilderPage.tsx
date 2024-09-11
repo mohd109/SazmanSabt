@@ -1,9 +1,9 @@
 import clsx from 'clsx'
 import {useState} from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../lib/helpers'
-import {getLayoutFromLocalStorage, ILayout, LayoutSetup} from '../../../lib/layout/core'
-import { ToolbarWrapper } from '../../../lib/layout/components/toolbar'
-import { Content } from '../../../lib/layout/components/content'
+import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
+import {getLayoutFromLocalStorage, ILayout, LayoutSetup} from '../../../_metronic/layout/core'
+import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
+import { Content } from '../../../_metronic/layout/components/content'
 
 const BuilderPage: React.FC = () => {
   const [tab, setTab] = useState('Sidebar')

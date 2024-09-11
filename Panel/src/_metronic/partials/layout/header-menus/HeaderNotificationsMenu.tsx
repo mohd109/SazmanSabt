@@ -25,7 +25,7 @@ export function HeaderNotificationsMenu() {
       let loginResponse: any = await login(currentUser?.email as any,currentUser?.password as any,currentUser?.user_name as any);
       setLoginSuccess(true);
     }
-    let response: AxiosResponse<any, any> = await sendGetRequest("http://panel.sabt.shankayi.ir/api/notifications");
+    let response: AxiosResponse<any, any> = await sendGetRequest("https://panel.sabt.shankayi.ir/api/notifications");
     if (response.status == 200) {
       return response.data;
     }

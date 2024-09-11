@@ -1,10 +1,10 @@
 
 import { FC, useState } from 'react'
-import {KTIcon, toAbsoluteUrl} from '../../../lib/helpers'
+import {KTIcon, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {Link, useLocation} from 'react-router-dom'
-import {Dropdown1} from '../../../lib/partials'
-import { ToolbarWrapper } from '../../../lib/layout/components/toolbar'
-import { Content } from '../../../lib/layout/components/content'
+import {Dropdown1} from '../../../_metronic/partials'
+import { ToolbarWrapper } from '../../../_metronic/layout/components/toolbar'
+import { Content } from '../../../_metronic/layout/components/content'
 import { User } from '../apps/user-management/users-list/core/_models'
 
 interface IProps {

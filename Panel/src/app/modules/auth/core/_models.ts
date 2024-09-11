@@ -1,4 +1,4 @@
-import { ID } from "../../../../lib/helpers"
+import { ID } from "../../../../_metronic/helpers"
 
 export interface AuthModel {
   api_token: string

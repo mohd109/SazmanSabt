@@ -1,8 +1,8 @@
 
 import {FC} from 'react'
-import {Card1} from '../../../../../lib/partials/content/cards/Card1'
-import { ToolbarWrapper } from '../../../../../lib/layout/components/toolbar'
-import { Content } from '../../../../../lib/layout/components/content'
+import {Card1} from '../../../../../_metronic/partials/content/cards/Card1'
+import { ToolbarWrapper } from '../../../../../_metronic/layout/components/toolbar'
+import { Content } from '../../../../../_metronic/layout/components/content'
 
 const Drawer: FC = () => {
   return (

@@ -5,7 +5,7 @@ import {
   QueryRequestContextProps,
   initialQueryRequest,
   WithChildren,
-} from '../../../../../../lib/helpers'
+} from '../../../../../../_metronic/helpers'
 
 const QueryRequestContext = createContext<QueryRequestContextProps>(initialQueryRequest)
 

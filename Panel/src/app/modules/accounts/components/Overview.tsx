@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom'
-import {KTIcon} from '../../../../lib/helpers'
+import {KTIcon} from '../../../../_metronic/helpers'
 import {
   ChartsWidget1,
   ListsWidget5,
   TablesWidget1,
   TablesWidget5,
-} from '../../../../lib/partials/widgets'
-import { Content } from '../../../../lib/layout/components/content'
+} from '../../../../_metronic/partials/widgets'
+import { Content } from '../../../../_metronic/layout/components/content'
 import axios, { AxiosResponse } from 'axios';
 import React, { FC, useEffect } from 'react';
 import { User } from '../../apps/user-management/users-list/core/_models';

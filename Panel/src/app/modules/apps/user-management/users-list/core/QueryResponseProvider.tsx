@@ -10,7 +10,7 @@ import {
   QUERIES,
   stringifyRequestQuery,
   WithChildren,
-} from '../../../../../../lib/helpers'
+} from '../../../../../../_metronic/helpers'
 import {getUsers} from './_requests'
 import {User} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'

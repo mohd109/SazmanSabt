@@ -1,4 +1,4 @@
-import {KTIcon} from '../../../../../../lib/helpers'
+import {KTIcon} from '../../../../../../_metronic/helpers'
 import {useListView} from '../core/ListViewProvider'
 
 const UserEditModalHeader = () => {

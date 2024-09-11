@@ -4,9 +4,9 @@ import {QueryResponseProvider} from './core/QueryResponseProvider'
 import {UsersListHeader} from './components/header/UsersListHeader'
 import {UsersTable} from './table/UsersTable'
 import {UserEditModal} from './user-edit-modal/UserEditModal'
-import {KTCard} from '../../../../../lib/helpers'
-import { ToolbarWrapper } from '../../../../../lib/layout/components/toolbar'
-import { Content } from '../../../../../lib/layout/components/content'
+import {KTCard} from '../../../../../_metronic/helpers'
+import { ToolbarWrapper } from '../../../../../_metronic/layout/components/toolbar'
+import { Content } from '../../../../../_metronic/layout/components/content'
 
 const UsersList = () => {
   const {itemIdForUpdate} = useListView()

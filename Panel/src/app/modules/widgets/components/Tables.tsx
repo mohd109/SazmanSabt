@@ -13,9 +13,9 @@ import {
   TablesWidget11,
   TablesWidget12,
   TablesWidget13,
-} from '../../../../lib/partials/widgets'
-import { ToolbarWrapper } from '../../../../lib/layout/components/toolbar'
-import { Content } from '../../../../lib/layout/components/content'
+} from '../../../../_metronic/partials/widgets'
+import { ToolbarWrapper } from '../../../../_metronic/layout/components/toolbar'
+import { Content } from '../../../../_metronic/layout/components/content'
 
 const Tables: FC = () => {
   return (
