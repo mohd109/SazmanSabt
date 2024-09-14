@@ -40,7 +40,7 @@ export function HeaderWrapper() {
                 >
                   <KTIcon iconName='abstract-14' className=' fs-1' />
                 </div>
-                <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
+                {/* <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
                   <Link to='/dashboard' className='d-lg-none'>
                       <img
                         alt='Logo'
@@ -48,7 +48,7 @@ export function HeaderWrapper() {
                         className='h-30px'
                       />
                   </Link>
-                </div>
+                </div> */}
               </div>
             ) : null}
           </>
