@@ -165,9 +165,9 @@ const MapPage: React.FC<IProps> = ({
       return response2.data;
     }
   }
-  async function layerSelect(layer) {
-    console.log(layer, "layer");
-  }
+  // async function layerSelect(layer) {
+  //   console.log(layer, "layer");
+  // }
   function highlightFeatures(features: any, map: any) {
     let candidateHexagons: any[] = [];
     let candidateHexagonCoords: any[] = [];

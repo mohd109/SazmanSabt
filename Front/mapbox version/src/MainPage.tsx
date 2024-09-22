@@ -861,6 +861,7 @@ function MainPage() {
                       .includes(term.toLowerCase())
                   }
                   {...controllers}
+                  
                   onSelect={nodeClick}
                 >
                   {Node}
