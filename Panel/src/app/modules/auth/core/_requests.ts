@@ -20,6 +20,7 @@ export function login(email: string, password: string, user_name: string) {
 const DEFAULT_OPTION = {
   headers: {
     'Content-Type': 'application/json',
+    'Cookie': "id=t99ioLNL5IadjrclKua4uAhYkci6wcTY2jdyF07cJuDn7tJzhENxjCogm%2F2tQ45KLxO5uomVTxXmOLdAfweo3TwAnwkTz0VfLnfXeBg1QVp5GXvkz5PcTxBZ1u4%3D;"
   },
   withCredentials: true
 };

@@ -117,7 +117,7 @@ function MainPage() {
   const [autoHide, setAutoHide] = React.useState(false);
   const [toggled, setToggled] = React.useState(true);
   const [broken, setBroken] = React.useState(false);
-  const [rtl, setRtl] = React.useState(false);
+  const [rtl, setRtl] = React.useState(true);
   const [hasImage, setHasImage] = React.useState(false);
   const [theme, setTheme] = React.useState<Theme>("dark");
   const [visibilityOfDetail, setVisibilityOfDetail] = React.useState("hidden");

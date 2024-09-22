@@ -404,6 +404,13 @@ const MapPage: React.FC<IProps> = ({
             },
           },
           bingsat: tempObject,
+          osm: {
+            type: "raster",
+            tiles: ["https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"],
+            tileSize: 256,
+            attribution: "&copy; OpenStreetMap Contributors",
+            maxzoom: 19
+          },    
           terrainSource: {
             type: "raster-dem",
             url: "https://main.sabt.shankayi.ir/martin/TehranDEM",
@@ -413,13 +420,18 @@ const MapPage: React.FC<IProps> = ({
         },
         layers: [
           {
-            id: "bingsat-tiles",
+            id: "osm",
             type: "raster",
-            source: "bingsat",
-            minzoom: 0,
-            maxzoom: 23,
-            
+            source: "osm" 
           },
+          // {
+          //   id: "bingsat-tiles",
+          //   type: "raster",
+          //   source: "bingsat",
+          //   minzoom: 0,
+          //   maxzoom: 23,
+            
+          // },
           {
             id: "orthofootprints",
             type: "fill",
@@ -579,15 +591,17 @@ const MapPage: React.FC<IProps> = ({
 
       // Pass in or define a geocoding API that matches the above
       const geocoder = new MaplibreGeocoder(geocoderApi, { maplibregl });
-      map.addControl(geocoder, "top-right");
-      map.addControl(new MeasuresControl(options), "bottom-right");
+
+      var side = "left";
+      map.addControl(geocoder, "top-"+side);
+      map.addControl(new MeasuresControl(options), "bottom-"+side);
       map.addControl(
         new maplibregl.NavigationControl({
           visualizePitch: true,
           showZoom: true,
           showCompass: true,
         }),
-        "bottom-right"
+        "bottom-"+side
       );
       // map.addControl(new InspectControl(), 'bottom-right');
       // BaseLayer
@@ -597,7 +611,7 @@ const MapPage: React.FC<IProps> = ({
           source: "terrainSource",
           exaggeration: 1,
         }),
-        "bottom-right"
+        "bottom-"+side
       );
       map.on("data", () => {
         let result = map
@@ -630,7 +644,7 @@ const MapPage: React.FC<IProps> = ({
               opacityControl: true,
             });
 
-            map.addControl(Opacity, "top-right");
+            map.addControl(Opacity, "top-"+side);
             opacityAdded = true;
           }
         }

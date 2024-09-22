@@ -52,7 +52,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({ children, rtl, ...
       <div style={{ display: 'flex', alignItems: 'center' }}>
         {/* <StyledLogo rtl={rtl}>P</StyledLogo> */}
         <Typography variant="subtitle1" fontWeight={700} color="#26A17B">
-          Raster Manager
+          سامانه مدیریت و نمایش داده های رستری
         </Typography>
       </div>
     </StyledSidebarHeader>
