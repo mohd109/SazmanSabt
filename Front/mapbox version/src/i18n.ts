@@ -45,8 +45,8 @@ i18n.use(initReactI18next).init({
       fa: {
         translation: {
             general:"امکانات",
-            import: "دانلود",
-            export: "آپلود",
+            import: "آپلود",
+            export: "دانلود",
             layers: "لایه ها",
             raster: "تصویری",
             vector: "برداری",

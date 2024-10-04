@@ -292,17 +292,22 @@ function MainPage() {
   }
 
   async function getUserData() {
+    let tempUserId = await login();
+
     try {
-      login().then(async (r) => {
-        let response: AxiosResponse<any, any> = await sendGetRequest(
-          "https://main.sabt.shankayi.ir/api/user/2"
-        );
-        if (response.status == 200) {
-          return response.data;
-        }
-      });
-    } catch (error) {
-      return DUMMYDATA.userData;
+      console.log("main page");
+
+      let response: AxiosResponse<any, any> = await sendGetRequest(
+        "https://main.sabt.shankayi.ir/api/user/" + tempUserId.toString()
+      );
+      console.log(response.status, "response.status");
+
+      if (response.status == 200) {
+        return response.data;
+      }
+      alert("1");
+    } catch {
+      return DUMMYDATA.userData.data;
     }
   }
   async function getDatasets() {
@@ -406,7 +411,7 @@ function MainPage() {
     getUserData().then((response) => {
       setUserData(response as any);
     });
-  }, []);
+  }, [userId]);
   useEffect(() => {
     getNotifications().then((response) => {
       setNotificationData(response as any);
@@ -532,11 +537,7 @@ function MainPage() {
     setTheme(e.target.checked ? "dark" : "light");
   };
   const nodeClick = (node) => {
-    // console.log(node, "test");
-    // console.log(mapRef, "mapRef");
-    // console.log(treeRef, "treeRef");
     setNodeData(node);
-    // mapRef.current?.layerSelect("asd");
   };
   // handle on theme change event
   const handleVisibilityOfDetail = (statusDetailInput) => {

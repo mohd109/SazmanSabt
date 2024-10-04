@@ -77,7 +77,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
   const [userId, setUserId] = React.useState(-1);
   const [loginSuccess, setLoginSuccess] = React.useState(false);
 
-  async function getUserData() {
+  async function login() {
     if (!loginSuccess) {
       let loginReponse: any = await sendPostRequest(
         {
@@ -89,12 +89,22 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
       );
       setUserId(loginReponse.id);
       setLoginSuccess(true);
+      return loginReponse.id;
     }
+    return userId;
+  }
+
+  async function getUserData() {
+    let tempUserId = await login();
+
     try {
+      console.log("sidebar");
+
       let response: AxiosResponse<any, any> = await sendGetRequest(
-        "https://main.sabt.shankayi.ir/api/user/2"
+        "https://main.sabt.shankayi.ir/api/user/" + tempUserId.toString()
       );
       console.log(response.status, "response.status");
+
       if (response.status == 200) {
         return response.data;
       }
@@ -109,7 +119,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
       console.log(response);
       setUserData(response as any);
     });
-  }, []);
+  }, [userId]);
 
   return (
     <div

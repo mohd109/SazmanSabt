@@ -410,7 +410,7 @@ const MapPage: React.FC<IProps> = ({
             tileSize: 256,
             attribution: "&copy; OpenStreetMap Contributors",
             maxzoom: 19
-          },    
+          },
           terrainSource: {
             type: "raster-dem",
             url: "https://main.sabt.shankayi.ir/martin/TehranDEM",
@@ -422,7 +422,7 @@ const MapPage: React.FC<IProps> = ({
           {
             id: "osm",
             type: "raster",
-            source: "osm" 
+            source: "osm"
           },
           // {
           //   id: "bingsat-tiles",
@@ -430,7 +430,7 @@ const MapPage: React.FC<IProps> = ({
           //   source: "bingsat",
           //   minzoom: 0,
           //   maxzoom: 23,
-            
+
           // },
           {
             id: "orthofootprints",
@@ -593,15 +593,15 @@ const MapPage: React.FC<IProps> = ({
       const geocoder = new MaplibreGeocoder(geocoderApi, { maplibregl });
 
       var side = "left";
-      map.addControl(geocoder, "top-"+side);
-      map.addControl(new MeasuresControl(options), "bottom-"+side);
+      map.addControl(geocoder, "top-" + side);
+      map.addControl(new MeasuresControl(options), "bottom-" + side);
       map.addControl(
         new maplibregl.NavigationControl({
           visualizePitch: true,
           showZoom: true,
           showCompass: true,
         }),
-        "bottom-"+side
+        "bottom-" + side
       );
       // map.addControl(new InspectControl(), 'bottom-right');
       // BaseLayer
@@ -611,7 +611,7 @@ const MapPage: React.FC<IProps> = ({
           source: "terrainSource",
           exaggeration: 1,
         }),
-        "bottom-"+side
+        "bottom-" + side
       );
       map.on("data", () => {
         let result = map
@@ -621,7 +621,7 @@ const MapPage: React.FC<IProps> = ({
               row["id"].length <= 2 || row["id"].includes("orthofootprints")
           );
 
-        if (true) {
+        if (false) {
           // console.log("result.length: %d", result.length)
           // console.log("opacityAdded: ", opacityAdded.toString())
           if (result.length === 7 && !opacityAdded) {
@@ -644,7 +644,7 @@ const MapPage: React.FC<IProps> = ({
               opacityControl: true,
             });
 
-            map.addControl(Opacity, "top-"+side);
+            map.addControl(Opacity, "" + side);
             opacityAdded = true;
           }
         }
@@ -856,7 +856,29 @@ const MapPage: React.FC<IProps> = ({
   }, [layersData, mainMap]);
 
   useEffect(() => {
-    console.log(nodeData, "nodeData");
+    if (nodeData !== undefined) {
+      if (nodeData.length > 0) {
+        console.log(nodeData, "nodeData");
+        const visibility = map.getLayoutProperty(
+          nodeData[0].data.id,
+          'visibility'
+        );
+
+        if (visibility === 'visible') {
+          var map = mainMap as any;
+          map.setLayoutProperty(nodeData[0].data.id, 'visibility', 'none');
+        } else {
+          map.setLayoutProperty(
+            nodeData[0].data.id,
+            'visibility',
+            'visible'
+          );
+        }
+        setMainMap(map);
+      }
+
+    }
+
   }, [nodeData]);
 
   useEffect(() => {
