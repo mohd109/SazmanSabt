@@ -490,16 +490,21 @@ function MainPage() {
 
       setLayersData(response as any);
       setData((response as any).userRasterLayers);
-      getLayerMetadata().then((response) => {
+      getLayerMetadata().then((response2) => {
         let tempLayersMetadata = {
-          layers: response,
+          layers: response2,
           columns: metadataColumns.attributeTable,
         };
         setLayersMetadata(tempLayersMetadata as any);
-        setLoadFinished(true);
       });
     });
   }, []);
+  useEffect(() => {
+    if(layersMetadata!==undefined)
+    {
+      setLoadFinished(true);
+    }
+  }, [layersMetadata]);
 
   const hideSidebar = (e) => {
     if (autoHide) {
@@ -923,6 +928,7 @@ function MainPage() {
         nodeData={nodeData}
         spatialCheck={spatialCheck}
         layersData={layersData}
+        layersMetaData={loadFinished ? (layersMetadata as any).layers : []}
         accountZoomCenter={[51.32, 35.5219]}
       />
     </div>

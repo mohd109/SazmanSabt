@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import maplibregl, { MapMouseEvent } from "maplibre-gl";
+import maplibregl, { LngLat, MapMouseEvent } from "maplibre-gl";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
@@ -34,6 +34,8 @@ import MaplibreGeocoder from "@maplibre/maplibre-gl-geocoder";
 import "@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css";
 import OpacityControl from "maplibre-gl-opacity";
 import { DUMMYDATA } from "./constants/dummyData";
+import "./popup.scss"
+
 var utmObj = require("utm-latlng");
 var utm = new utmObj();
 var opacityAdded = false;
@@ -66,13 +68,6 @@ async function sendGetRequest(endPoint: string): Promise<AxiosResponse> {
   return response;
 }
 
-let draw = new MapboxDraw({
-  displayControlsDefault: false,
-  controls: {
-    polygon: false,
-    trash: false,
-  },
-});
 
 let notLoaded = true;
 
@@ -83,6 +78,7 @@ let lands: any[] = [],
   errorMessage;
 
 interface IProps {
+  layersMetaData: any,
   layersData: any;
   accountZoomCenter: any;
   nodeData: any;
@@ -91,6 +87,7 @@ interface IProps {
 
 const MapPage: React.FC<IProps> = ({
   layersData,
+  layersMetaData,
   spatialCheck,
   accountZoomCenter,
   nodeData,
@@ -168,161 +165,83 @@ const MapPage: React.FC<IProps> = ({
   // async function layerSelect(layer) {
   //   console.log(layer, "layer");
   // }
-  function highlightFeatures(features: any, map: any) {
-    let candidateHexagons: any[] = [];
-    let candidateHexagonCoords: any[] = [];
+  // function highlightFeatures(features: any, map: any) {
+  //   let candidateHexagons: any[] = [];
+  //   let candidateHexagonCoords: any[] = [];
 
-    for (let index = 0; index < features.length; index++) {
-      const hexagon = features[index];
-      const hname = hexagon.properties["title"];
-      const geom = hexagon.geometry;
-      const coords = geom.coordinates.slice();
+  //   for (let index = 0; index < features.length; index++) {
+  //     const hexagon = features[index];
+  //     const hname = hexagon.properties["title"];
+  //     const geom = hexagon.geometry;
+  //     const coords = geom.coordinates.slice();
 
-      selectedType = lands[0].status;
-      current_owner = lands[0].current_owner;
+  //     selectedType = lands[0].status;
+  //     current_owner = lands[0].current_owner;
 
-      if (
-        selectedType != hexagon.properties["status"] ||
-        current_owner != hexagon.properties["current_owner"]
-      ) {
-        errorMessage = "Please clear current selection";
-        break;
-      }
-      if (geom.type === "Polygon" || geom.type === "MultiPolygon") {
-        let existence = lands.find((land) => land.title == hname);
-        if (existence != undefined) {
-          candidateHexagons.push(existence);
-          candidateHexagonCoords.push(coords[0]);
-        }
-      }
-    }
+  //     if (
+  //       selectedType != hexagon.properties["status"] ||
+  //       current_owner != hexagon.properties["current_owner"]
+  //     ) {
+  //       errorMessage = "Please clear current selection";
+  //       break;
+  //     }
+  //     if (geom.type === "Polygon" || geom.type === "MultiPolygon") {
+  //       let existence = lands.find((land) => land.title == hname);
+  //       if (existence != undefined) {
+  //         candidateHexagons.push(existence);
+  //         candidateHexagonCoords.push(coords[0]);
+  //       }
+  //     }
+  //   }
 
-    for (let index = 0; index < candidateHexagons.length; index++) {
-      let selectedHexagonCoords: any[] = [];
+  //   for (let index = 0; index < candidateHexagons.length; index++) {
+  //     let selectedHexagonCoords: any[] = [];
 
-      selectedHexagonCoords.push(candidateHexagonCoords[index]);
-      map.addSource(candidateHexagons[index].title, {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          geometry: {
-            type: "Polygon",
-            coordinates: [candidateHexagonCoords[index]],
-          },
-        },
-      });
+  //     selectedHexagonCoords.push(candidateHexagonCoords[index]);
+  //     map.addSource(candidateHexagons[index].title, {
+  //       type: "geojson",
+  //       data: {
+  //         type: "Feature",
+  //         geometry: {
+  //           type: "Polygon",
+  //           coordinates: [candidateHexagonCoords[index]],
+  //         },
+  //       },
+  //     });
 
-      map.addLayer({
-        id: candidateHexagons[index].title,
-        type: "fill",
-        source: candidateHexagons[index].title,
-        layout: {},
-        paint: {
-          "fill-color": "#FFFF00",
-          "fill-opacity": 0.5,
-        },
-      });
-    }
+  //     map.addLayer({
+  //       id: candidateHexagons[index].title,
+  //       type: "fill",
+  //       source: candidateHexagons[index].title,
+  //       layout: {},
+  //       paint: {
+  //         "fill-color": "#FFFF00",
+  //         "fill-opacity": 0.5,
+  //       },
+  //     });
+  //   }
 
-    //show sidebar only in desktop
-    if (!isMobile) {
-    }
+  //   //show sidebar only in desktop
+  //   if (!isMobile) {
+  //   }
 
-    //series of get requests for land
-  }
+  //   //series of get requests for land
+  // }
 
-  async function updateArea(e: { type: string }, map: any) {
-    clickOnLayer = true;
-    const data = draw.getAll();
-    let tempSelections: any[] = [];
-    if (data.features.length > 0) {
-      const canvas = map.getCanvasContainer();
-      const rect = canvas.getBoundingClientRect();
-
-      let queryLayers = [] as any[];
-      queryLayers.push("hexagons");
-
-      const selectedFeatures = map.queryRenderedFeatures(
-        data.features[0].bbox,
-        {
-          layers: queryLayers,
-        }
-      );
-
-      let uniqueFeatures = getUniqueFeatures(selectedFeatures, "title");
-      let uniqueFeaturesLength = uniqueFeatures.length;
-      for (let index1 = 0; index1 < data.features.length; index1++) {
-        const element1 = data.features[index1];
-        for (let index = uniqueFeaturesLength - 1; index >= 0; index--) {
-          const element = uniqueFeatures[index];
-          if (!booleanIntersects(element, element1)) {
-            uniqueFeatures.splice(index, 1);
-          }
-        }
-      }
-
-      let uniqueFeatures2 = [] as any[];
-      for (let index = 0; index < uniqueFeatures.length; index++) {
-        const element = uniqueFeatures[index];
-        const hname = element.properties["title"];
-        const price1 = element.properties["price"];
-        const district1 = element.properties["district"];
-        const current_owner1 = element.properties["current_owner"];
-        const group_id1 = element.properties["group_id"];
-        const status1 = element.properties["status"];
-        const token_id1 = element.properties["token_id"];
-
-        if (landLayers.indexOf(hname) == -1) {
-          lands.push({
-            title: hname,
-            price: price1,
-            district: district1,
-            current_owner: current_owner1,
-            group_id: group_id1,
-            status: status1,
-            token_id: token_id1,
-          });
-          landLayers.push(hname);
-          uniqueFeatures2.push(element);
-        }
-      }
-
-      uniqueFeatures = uniqueFeatures2;
-      highlightFeatures(uniqueFeatures, map);
-      clickOnLayer = false;
-    } else {
-      if (e.type !== "draw.delete") {
-        draw.deleteAll();
-      }
-    }
-    // draw.deleteAll();
-  }
-  function getUniqueFeatures(features: any, comparatorProperty: string) {
-    let uniqueIds = new Set();
-    let uniqueFeatures: any[] = [];
-    for (const feature of features) {
-      const id = feature.properties[comparatorProperty];
-      if (!uniqueIds.has(id)) {
-        uniqueIds.add(id);
-        uniqueFeatures.push(feature);
-      }
-    }
-    return uniqueFeatures;
-  }
 
   useEffect(() => {
     let map = null;
 
     async function loadMap(map) {
-      let response: any = await sendGetRequest(
-        "https://main.sabt.shankayi.ir/martin/IranBing"
-      );
-      response.data.tiles[0] = response.data.tiles[0].replace(
-        "http://localhost:3000",
-        "https://main.sabt.shankayi.ir/martin"
-      );
-      let tempObject = response.data;
-      tempObject["type"] = "raster";
+      // let response: any = await sendGetRequest(
+      //   "https://main.sabt.shankayi.ir/martin/IranBing"
+      // );
+      // response.data.tiles[0] = response.data.tiles[0].replace(
+      //   "http://localhost:3000",
+      //   "https://main.sabt.shankayi.ir/martin"
+      // );
+      // let tempObject = response.data;
+      // tempObject["type"] = "raster";
 
       var style = {
         glyphs: "https://main.sabt.shankayi.ir/glyphs/{fontstack}/{range}.pbf",
@@ -341,9 +260,7 @@ const MapPage: React.FC<IProps> = ({
                 {
                   type: "Feature",
                   properties: {
-                    title: "KarajBig",
-                    perimeter: "143.7 km",
-                    area: "1236.7 sq km",
+                    id: 6,
                   },
                   geometry: {
                     type: "Polygon",
@@ -361,11 +278,7 @@ const MapPage: React.FC<IProps> = ({
                 {
                   type: "Feature",
                   properties: {
-                    title: "TehranNorthWestBig",
-                    perimeter: "50.563 km",
-                    area: "153.59 sq km",
-                    LENGTH: "15.09 km",
-                    WIDTH: "10.056 km",
+                    id: 4,
                   },
                   geometry: {
                     type: "Polygon",
@@ -383,9 +296,7 @@ const MapPage: React.FC<IProps> = ({
                 {
                   type: "Feature",
                   properties: {
-                    title: "TehranNorthBig",
-                    perimeter: "34.592 km",
-                    area: "67.455 sq km",
+                    id: 5,
                   },
                   geometry: {
                     type: "Polygon",
@@ -403,13 +314,13 @@ const MapPage: React.FC<IProps> = ({
               ],
             },
           },
-          bingsat: tempObject,
+          // bingsat: tempObject,
           osm: {
             type: "raster",
             tiles: ["https://a.tile.openstreetmap.org/{z}/{x}/{y}.png"],
             tileSize: 256,
             attribution: "&copy; OpenStreetMap Contributors",
-            maxzoom: 19
+            maxzoom: 22
           },
           terrainSource: {
             type: "raster-dem",
@@ -424,14 +335,6 @@ const MapPage: React.FC<IProps> = ({
             type: "raster",
             source: "osm"
           },
-          // {
-          //   id: "bingsat-tiles",
-          //   type: "raster",
-          //   source: "bingsat",
-          //   minzoom: 0,
-          //   maxzoom: 23,
-
-          // },
           {
             id: "orthofootprints",
             type: "fill",
@@ -459,44 +362,9 @@ const MapPage: React.FC<IProps> = ({
         maxZoom: 22,
         minZoom: 5,
         style: style as any,
-        // maxBounds:[[48.988211,34.502381],[49.276238,35.004091]]
       });
 
-      let options = {
-        lang: {
-          areaMeasurementButtonTitle: "Measure area",
-          lengthMeasurementButtonTitle: "Measure length",
-          clearMeasurementsButtonTitle: "Clear measurements",
-        },
-        units: "metric", //or metric, the default
-        unitsGroupingSeparator: " ", // optional. use a space instead of ',' for separating thousands (3 digits group). Do not send this to use the browser default
-        style: {
-          text: {
-            radialOffset: 0.9,
-            letterSpacing: 0.05,
-            color: "#D20C0C",
-            haloColor: "#fff",
-            haloWidth: 2,
-            font: "Klokantech Noto Sans Bold",
-          },
-          common: {
-            midPointRadius: 3,
-            midPointColor: "#D20C0C",
-            midPointHaloRadius: 5,
-            midPointHaloColor: "#FFF",
-          },
-          areaMeasurement: {
-            fillColor: "#D20C0C",
-            fillOutlineColor: "#D20C0C",
-            fillOpacity: 0.5,
-            lineWidth: 2,
-          },
-          lengthMeasurement: {
-            lineWidth: 2,
-            lineColor: "#D20C0C",
-          },
-        },
-      };
+
       // map.addControl(new MaplibreExportControl.MaplibreExportControl({
       //   PageSize: MaplibreExportControl.Size.A4 as any,
       //   PageOrientation: MaplibreExportControl.PageOrientation.Landscape,
@@ -506,17 +374,10 @@ const MapPage: React.FC<IProps> = ({
       //   PrintableArea: true,
       //   Local: 'en'
       // }), 'bottom-right');
-      // map.on('draw.create', updateArea);
-      // map.on('draw.delete', updateArea);
-      // map.on('draw.update', updateArea);
-      // map.addControl(new TooltipControl({
-      //   getContent: (event) => `${event.lngLat.lng.toFixed(6)}, ${event.lngLat.lat.toFixed(6)}`,
-      // }));
+
       // map.addControl(draw, 'bottom-right');
 
-      // map.addControl(new CompassControl(), 'bottom-right');
-      // const imageControl = new ImageControl();
-      // map.addControl(imageControl, 'bottom-right');
+
 
       const geocoderApi = {
         forwardGeocode: async (config) => {
@@ -592,9 +453,19 @@ const MapPage: React.FC<IProps> = ({
       // Pass in or define a geocoding API that matches the above
       const geocoder = new MaplibreGeocoder(geocoderApi, { maplibregl });
 
+
+
       var side = "left";
       map.addControl(geocoder, "top-" + side);
-      map.addControl(new MeasuresControl(options), "bottom-" + side);
+
+      // let draw = new MapboxDraw({
+      //   displayControlsDefault: true,
+      // });
+
+      map.addControl(new CompassControl(), "bottom-" + side);
+      // const imageControl = new ImageControl();
+      // map.addControl(imageControl, "bottom-" + side);
+
       map.addControl(
         new maplibregl.NavigationControl({
           visualizePitch: true,
@@ -603,7 +474,7 @@ const MapPage: React.FC<IProps> = ({
         }),
         "bottom-" + side
       );
-      // map.addControl(new InspectControl(), 'bottom-right');
+      //  map.addControl(new InspectControl(), "bottom-" + side);
       // BaseLayer
 
       map.addControl(
@@ -613,41 +484,43 @@ const MapPage: React.FC<IProps> = ({
         }),
         "bottom-" + side
       );
+
+
       map.on("data", () => {
-        let result = map
-          .getStyle()
-          .layers.filter(
-            (row) =>
-              row["id"].length <= 2 || row["id"].includes("orthofootprints")
-          );
+        // let result = map
+        //   .getStyle()
+        //   .layers.filter(
+        //     (row) =>
+        //       row["id"].length <= 2 || row["id"].includes("orthofootprints")
+        //   );
 
-        if (false) {
-          // console.log("result.length: %d", result.length)
-          // console.log("opacityAdded: ", opacityAdded.toString())
-          if (result.length === 7 && !opacityAdded) {
-            const mapBaseLayer = {
-              "bingsat-tiles": "bingsat-tiles",
-            };
-            var mapOverLayer: Record<string, string> = {
-              "1": "1",
-              "2": "2",
-              "3": "3",
-              "4": "4",
-              "5": "5",
-              "6": "6",
-              orthofootprints: "orthofootprints",
-            };
+        // if (false) {
+        //   // console.log("result.length: %d", result.length)
+        //   // console.log("opacityAdded: ", opacityAdded.toString())
+        //   if (result.length === 7 && !opacityAdded) {
+        //     const mapBaseLayer = {
+        //       "bingsat-tiles": "bingsat-tiles",
+        //     };
+        //     var mapOverLayer: Record<string, string> = {
+        //       "1": "1",
+        //       "2": "2",
+        //       "3": "3",
+        //       "4": "4",
+        //       "5": "5",
+        //       "6": "6",
+        //       orthofootprints: "orthofootprints",
+        //     };
 
-            let Opacity = new OpacityControl({
-              baseLayers: mapBaseLayer,
-              overLayers: mapOverLayer,
-              opacityControl: true,
-            });
+        //     let Opacity = new OpacityControl({
+        //       baseLayers: mapBaseLayer,
+        //       overLayers: mapOverLayer,
+        //       opacityControl: true,
+        //     });
 
-            map.addControl(Opacity, "" + side);
-            opacityAdded = true;
-          }
-        }
+        //     map.addControl(Opacity, "bottom-" + side);
+        //     opacityAdded = true;
+        //   }
+        // }
       });
 
       map.on("mousemove", (e) => {
@@ -693,42 +566,12 @@ const MapPage: React.FC<IProps> = ({
           }
         }
       });
-      map.on("click", "orthofootprints", (e) => {
-        console.log(e.features.length);
-        let description = "";
-        e.features.forEach((feature) => {
-          description = description + JSON.stringify(feature.properties) + "\n";
-        });
 
-        new maplibregl.Popup()
-          .setLngLat(e.lngLat)
-          .setHTML(description)
-          .setMaxWidth("600px")
-          .addTo(map);
-        setMainMap(map);
-
-        // const hexagon = e?.features;
-        // // && draw.getMode() === 'simple_select'
-        // if (hexagon && hexagon.length > 0 && !clickOnLayer) {
-        //   const title1 = hexagon[0].properties["title"];
-        //   const perimeter1 = hexagon[0].properties["perimeter"];
-        //   const area1 = hexagon[0].properties["area"];
-
-        //   if (landLayers.indexOf(title1) == -1) {
-        //     landLayers.push(title1);
-        //     lands.push({ title: title1, perimeter: perimeter1, area: area1 });
-        //     // highlightFeatures(hexagon, map);
-
-        //   }
-        //   else {
-        //     removeFeatures([title1], map);
-        //   }
-        // }
-      });
       setMainMap(map);
 
       // });
     }
+    // Function to convert JSON data to HTML table
 
     loadMap(map).then((_) => {
       if (notLoaded) {
@@ -746,6 +589,62 @@ const MapPage: React.FC<IProps> = ({
       bottomBar.style.left = bottomBarLeft + "px";
     }
   }, []);
+  function convert(jsonData) {
+
+
+    // Get the container element where the table will be inserted
+    // let container = document.getElementById("container");
+
+    // Create the table element
+    let table = document.createElement("table");
+    table.className = "rwd-table";
+    // Get the keys (column names) of the first object in the JSON data
+    let cols = Object.keys(jsonData[0]);
+
+    // Create the header element
+    let thead = document.createElement("thead");
+    let tr = document.createElement("tr");
+
+    // Loop through the column names and create header cells
+    cols.forEach((item) => {
+      let th = document.createElement("th");
+      th.innerText = item; // Set the column name as the text of the header cell
+      tr.appendChild(th); // Append the header cell to the header row
+    });
+    thead.appendChild(tr); // Append the header row to the header
+    table.append(tr) // Append the header to the table
+
+    // Loop through the JSON data and create table rows
+    jsonData.forEach((item) => {
+      let tr = document.createElement("tr");
+
+      // Get the values of the current object in the JSON data
+      let vals = Object.values(item);
+
+      // Loop through the values and create table cells
+      vals.forEach((elem) => {
+        let td = document.createElement("td");
+        td.innerText = elem.toString(); // Set the value as the text of the table cell
+        tr.appendChild(td); // Append the table cell to the table row
+      });
+      table.appendChild(tr); // Append the table row to the table
+    });
+    // container.appendChild(table) // Append the table to the container element
+    return table;
+  }
+  async function getLayerMetadata() {
+    try {
+      await login();
+      let response: any = await sendGetRequest(
+        "https://main.sabt.shankayi.ir/api/get_layer_metadata"
+      );
+      if (response.status == 200) {
+        return response.data;
+      }
+    } catch (error) {
+      return DUMMYDATA.layerMetaData;
+    }
+  }
 
   useEffect(() => {
     try {
@@ -759,6 +658,7 @@ const MapPage: React.FC<IProps> = ({
         if (layersData != undefined) {
           var map = mainMap as any;
           if (rasterLayers != null) {
+
             for (let i = 0; i < rasterLayers.length; i++) {
               login().then((_) => {
                 getTile(rasterLayers[i].id).then((response) => {
@@ -769,6 +669,8 @@ const MapPage: React.FC<IProps> = ({
                     type: "raster",
                     source: tempObject,
                     paint: {},
+                    visibility: 'none',
+
                   });
                 });
               });
@@ -784,6 +686,8 @@ const MapPage: React.FC<IProps> = ({
                         type: "raster",
                         source: tempObject,
                         paint: {},
+                        visibility: 'none',
+
                       });
                     });
                   });
@@ -804,6 +708,7 @@ const MapPage: React.FC<IProps> = ({
                     type: "line",
                     source: vectorLayers[i].id.toString(),
                     "source-layer": tempObject.vector_layers[0].id,
+                    visibility: 'none',
                     // 'paint': {
                     // 'fill-color': 'transparent',
                     // 'fill-opacity': 0.15
@@ -827,6 +732,7 @@ const MapPage: React.FC<IProps> = ({
                         type: "line",
                         source: vectorLayers[i].children[j].id.toString(),
                         "source-layer": tempObject.vector_layers[0].id,
+                        visibility: 'none',
                         // 'paint': {
                         // 'fill-color': 'transparent',
                         // 'fill-opacity': 0.15
@@ -838,6 +744,122 @@ const MapPage: React.FC<IProps> = ({
               }
             }
           }
+          let options = {
+            lang: {
+              areaMeasurementButtonTitle: "اندازه گیری مساحت",
+              lengthMeasurementButtonTitle: "اندازه گیری طول",
+              clearMeasurementsButtonTitle: "پاک کردن",
+            },
+            units: "metric", //or metric, the default
+            unitsGroupingSeparator: " ", // optional. use a space instead of ',' for separating thousands (3 digits group). Do not send this to use the browser default
+            style: {
+              text: {
+                radialOffset: 0.9,
+                letterSpacing: 0.05,
+                color: "#D20C0C",
+                haloColor: "#fff",
+                haloWidth: 2,
+                font: 'Klokantech Noto Sans Bold',
+              },
+              common: {
+                midPointRadius: 3,
+                midPointColor: "#D20C0C",
+                midPointHaloRadius: 5,
+                midPointHaloColor: "#FFF",
+              },
+              areaMeasurement: {
+                fillColor: "#D20C0C",
+                fillOutlineColor: "#D20C0C",
+                fillOpacity: 0.5,
+                lineWidth: 2,
+              },
+              lengthMeasurement: {
+                lineWidth: 2,
+                lineColor: "#D20C0C",
+              },
+            },
+            onRender: featureRenderCallback,
+            onCreate: featureCreateCallback
+          };
+          function featureRenderCallback(feature) {
+            console.log("Feature rendered:", feature);
+          }
+
+          function featureCreateCallback(feature) {
+            console.log("Feature created:", feature);
+          }
+          let measure = new MeasuresControl(options);
+          // map.addControl(draw, "bottom-" + side);
+          var side = "left";
+
+          map.addControl(measure, "bottom-" + side);
+          async function updateArea(e: { type: string }, map1: any) {
+            map1 = mainMap;
+            clickOnLayer = true;
+            const data = measure._drawCtrl.getAll();
+            let tempSelections: any[] = [];
+            if (data.features.length > 0) {
+
+              let queryLayers = [] as any[];
+              queryLayers.push("orthofootprints");
+
+              const selectedFeatures = map1.queryRenderedFeatures(
+                data.features[0].bbox,
+                {
+                  layers: queryLayers,
+                }
+              );
+
+              let uniqueFeatures = getUniqueFeatures(selectedFeatures, "id");
+              let uniqueFeaturesLength = uniqueFeatures.length;
+              for (let index1 = 0; index1 < data.features.length; index1++) {
+                const element1 = data.features[index1];
+                for (let index = uniqueFeaturesLength - 1; index >= 0; index--) {
+                  const element = uniqueFeatures[index];
+                  if (!booleanIntersects(element, element1)) {
+                    uniqueFeatures.splice(index, 1);
+                  }
+                }
+              }
+              let completeFeatures = [];
+
+              uniqueFeatures.forEach((feature) => {
+                const result = layersMetaData.find(({ id }) => id === feature.properties.id);
+                completeFeatures.push(result);
+              });
+              let description = convert(completeFeatures).outerHTML;
+              
+              new maplibregl.Popup()
+                .setLngLat(new LngLat(data.features.bbox[0] + (data.features.bbox[2] - data.features.bbox[0]) / 2, data.features.bbox[1] + (data.features.bbox[3] - data.features.bbox[1]) / 2))
+                .setHTML(description)
+                .setMaxWidth("800px")
+                .addTo(map1);
+              setMainMap(map1);
+
+              clickOnLayer = false;
+            } else {
+              if (e.type !== "draw.delete") {
+                measure._drawCtrl.deleteAll();
+              }
+            }
+            setMainMap(map1);
+          }
+          function getUniqueFeatures(features: any, comparatorProperty: string) {
+            let uniqueIds = new Set();
+            let uniqueFeatures: any[] = [];
+            for (const feature of features) {
+              const id = feature.properties[comparatorProperty];
+              if (!uniqueIds.has(id)) {
+                uniqueIds.add(id);
+                uniqueFeatures.push(feature);
+              }
+            }
+            return uniqueFeatures;
+          }
+
+          map.on('draw.create', updateArea);
+          map.on('draw.delete', updateArea);
+          map.on('draw.update', updateArea);
 
           // let overlay = new MapboxOverlay({
           //   layers: [bitmapLayer],
@@ -847,6 +869,45 @@ const MapPage: React.FC<IProps> = ({
           // map.flyTo({
           //   center: [-122.4, 37.74]
           // });
+          getLayerMetadata().then((response2) => {
+            layersMetaData = response2;
+          });
+          map.on("click", "orthofootprints", (e) => {
+            console.log(e.features.length);
+            let completeFeatures = [];
+
+            e.features.forEach((feature) => {
+              const result = layersMetaData.find(({ id }) => id === feature.properties.id);
+              completeFeatures.push(result);
+            });
+            let description = convert(completeFeatures).outerHTML;
+
+            new maplibregl.Popup()
+              .setLngLat(e.lngLat)
+              .setHTML(description)
+              .setMaxWidth("800px")
+              .addTo(map);
+            setMainMap(map);
+
+            // const hexagon = e?.features;
+            // // && draw.getMode() === 'simple_select'
+            // if (hexagon && hexagon.length > 0 && !clickOnLayer) {
+            //   const title1 = hexagon[0].properties["title"];
+            //   const perimeter1 = hexagon[0].properties["perimeter"];
+            //   const area1 = hexagon[0].properties["area"];
+
+            //   if (landLayers.indexOf(title1) == -1) {
+            //     landLayers.push(title1);
+            //     lands.push({ title: title1, perimeter: perimeter1, area: area1 });
+            //     // highlightFeatures(hexagon, map);
+
+            //   }
+            //   else {
+            //     removeFeatures([title1], map);
+            //   }
+            // }
+          });
+
           setMainMap(map);
         }
       }
@@ -858,6 +919,8 @@ const MapPage: React.FC<IProps> = ({
   useEffect(() => {
     if (nodeData !== undefined) {
       if (nodeData.length > 0) {
+        var map = mainMap as any;
+
         console.log(nodeData, "nodeData");
         const visibility = map.getLayoutProperty(
           nodeData[0].data.id,
@@ -865,7 +928,6 @@ const MapPage: React.FC<IProps> = ({
         );
 
         if (visibility === 'visible') {
-          var map = mainMap as any;
           map.setLayoutProperty(nodeData[0].data.id, 'visibility', 'none');
         } else {
           map.setLayoutProperty(

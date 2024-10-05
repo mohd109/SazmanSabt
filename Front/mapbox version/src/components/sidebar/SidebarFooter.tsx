@@ -108,7 +108,6 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
       if (response.status == 200) {
         return response.data;
       }
-      alert("1");
     } catch {
       return DUMMYDATA.userData.data;
     }
@@ -130,7 +129,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
       }}
     >
       {collapsed ? (
-        <StyledCollapsedSidebarFooter href="/profile" target="_blank">
+        <StyledCollapsedSidebarFooter href="https://panel.sabt.shankayi.ir" target="_blank">
           <Github size={28} url={userData == null ? "" : userData.image} />
         </StyledCollapsedSidebarFooter>
       ) : (
@@ -148,7 +147,7 @@ export const SidebarFooter: React.FC<SidebarFooterProps> = ({
             Level {userData == null ? "" : userData.access_level}
           </Typography>
           <div style={{ marginTop: "16px" }}>
-            <StyledButton href="/profile" target="_blank">
+            <StyledButton href="https://panel.sabt.shankayi.ir" target="_blank">
               <Typography variant="caption" color="#26A17B" fontWeight={600}>
                 {t("viewProfile")}
               </Typography>
