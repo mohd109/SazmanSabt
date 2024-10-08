@@ -828,9 +828,12 @@ const MapPage: React.FC<IProps> = ({
                 completeFeatures.push(result);
               });
               let description = convert(completeFeatures).outerHTML;
-              
+              console.log(uniqueFeatures);     
+              let popupPost = new LngLat(data.features[0].geometry.coordinates[0][0][0],data.features[0].geometry.coordinates[0][0][1] );
+              console.log(popupPost);     
+
               new maplibregl.Popup()
-                .setLngLat(new LngLat(data.features.bbox[0] + (data.features.bbox[2] - data.features.bbox[0]) / 2, data.features.bbox[1] + (data.features.bbox[3] - data.features.bbox[1]) / 2))
+                .setLngLat(popupPost)
                 .setHTML(description)
                 .setMaxWidth("800px")
                 .addTo(map1);
@@ -842,7 +845,6 @@ const MapPage: React.FC<IProps> = ({
                 measure._drawCtrl.deleteAll();
               }
             }
-            setMainMap(map1);
           }
           function getUniqueFeatures(features: any, comparatorProperty: string) {
             let uniqueIds = new Set();
