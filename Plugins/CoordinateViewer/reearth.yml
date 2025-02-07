@@ -1,0 +1,14 @@
+id: ui-coordinate-viewer-plugin
+name: Coordinate Viewer
+version: 1.0.0
+extensions:
+  - id: coordinate-viewer
+    type: widget
+    name: Coordinate Viewer
+    description: A status bar that shows coordinates on mouse move
+    widgetLayout:
+      defaultLocation:
+        zone: inner
+        section: center
+        area: bottom
+  

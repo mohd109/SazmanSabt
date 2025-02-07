@@ -1,0 +1,14 @@
+id: hide-flyto-delete-layer-plugin
+name: Hide Flyto Delete Layer
+version: 1.0.0
+extensions:
+  - id: hide-flyto-delete-layer
+    type: widget
+    name: Hide Flyto Delete Layer Widget
+    description: Hide Flyto Delete Layer Widget
+    widgetLayout:
+      defaultLocation:
+        zone: outer
+        section: center
+        area: top
+  
