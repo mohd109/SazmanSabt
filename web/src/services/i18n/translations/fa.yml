@@ -1,0 +1,491 @@
+Auto: خودکار
+Account: حساب کاربری
+Name: نام
+Email address: آدرس ایمیل
+Password: رمز عبور
+Language: زبان
+No whitespace is allowed.: فاصله مجاز نیست.
+Too short.: خیلی کوتاه است.
+That is terribly long.: خیلی طولانی است.
+That password is great!: رمز عبور عالی است!
+That password need more security.: این رمز عبور نیاز به امنیت بیشتری دارد.
+That password is low security.: این رمز عبور امنیت پایینی دارد.
+That password confuses me, but might be okay.: این رمز عبور گیج‌کننده است، اما ممکن است قابل قبول باشد.
+Change password: تغییر رمز عبور
+In order to protect your account, make sure your password is unique and strong.: برای محافظت از حساب خود، مطمئن شوید که رمز عبور شما منحصر به فرد و قوی است.
+New password: رمز عبور جدید
+New password (for confirmation): رمز عبور جدید (برای تأیید)
+'"repeatPassword" Passwords need to match': رمزهای عبور باید مطابقت داشته باشند
+Select Asset: انتخاب دارایی
+Cancel: لغو
+Last Uploaded: آخرین آپلود
+First Uploaded: اولین آپلود
+A To Z: از A تا Z
+Z To A: از Z تا A
+Size Small to Large: اندازه (از کوچک به بزرگ)
+Size Large to Small: اندازه (از بزرگ به کوچک)
+Assets: دارایی‌ها
+Upload File: آپلود فایل
+Search in all assets library: جستجو در تمام کتابخانه دارایی‌ها
+Assets selected: دارایی‌های انتخاب شده
+Asset selected: دارایی انتخاب شد
+Uploaded At: تاریخ آپلود
+Size: اندازه
+Path: URL دارایی
+No asset has been uploaded yet: هنوز هیچ دارایی آپلود نشده است
+Asset URL copied to clipboard: URL دارایی در کلیپ‌بورد کپی شد
+Create new workspace: ایجاد فضای کاری جدید
+create: ایجاد
+Your workspace Name*: نام فضای کاری شما*
+your workspace name: نام فضای کاری شما
+The name is already in use by another workspace. Please choose a different name.: این نام قبلاً توسط فضای کاری دیگری استفاده شده است. لطفاً نام دیگری انتخاب کنید.
+Use Name or Email: استفاده از نام یا ایمیل
+Find Member: پیدا کردن عضو
+No Member match your search.: هیچ عضوی با جستجوی شما مطابقت ندارد.
+Last Created: آخرین ایجاد
+First Created: اولین ایجاد
+Last Updated: آخرین به‌روزرسانی
+New Project: پروژه جدید
+Import: وارد کردن
+Search project: جستجوی پروژه
+All projects: تمام پروژه‌ها
+Search Result for: نتیجه جستجو برای
+Project Name: نام پروژه
+Updated At: تاریخ به‌روزرسانی
+Created At: تاریخ ایجاد
+No Project has been created yet: هنوز هیچ پروژه‌ای ایجاد نشده است
+Rename: تغییر نام
+Project Setting: تنظیمات پروژه
+Export: صادر کردن
+Move to Recycle Bin: انتقال به سطل بازیافت
+Create new project: ایجاد پروژه جدید
+Apply: اعمال
+Project Name *: نام پروژه *
+Text: متن
+Description: توضیحات
+Write down your content: محتوای خود را بنویسید
+Cover Image: تصویر جلد
+Remove: حذف
+Your project will be moved to Recycle Bin.: پروژه شما به سطل بازیافت منتقل خواهد شد.
+This means the project will no longer be published. But you can still see and recover your project from the Recycle bin.: این به معنای آن است که پروژه دیگر منتشر نخواهد شد. اما شما همچنان می‌توانید پروژه خود را از سطل بازیافت مشاهده و بازیابی کنید.
+Starred: ستاره‌دار
+No Project in Recycle bin.: هیچ پروژه‌ای در سطل بازیافت وجود ندارد.
+Recover: بازیابی
+Delete: حذف
+Delete project: حذف پروژه
+I am sure I want to delete this project: مطمئنم که می‌خواهم این پروژه را حذف کنم
+This action cannot be undone. This will permanently delete the project totally. You will lose all your project data: این عمل قابل بازگشت نیست. این پروژه به طور کامل حذف خواهد شد و تمام داده‌های پروژه شما از بین خواهد رفت.
+Please type your project name to continue.: لطفاً نام پروژه خود را برای ادامه تایپ کنید.
+Projects: پروژه‌ها
+Members: اعضا
+Recycle bin: سطل بازیافت
+Plugin Playground: محیط آزمایشی پلاگین
+Documentation: مستندات
+Community: جامعه
+Help & Support: راهنمایی و پشتیبانی
+Switch workspace: تغییر فضای کاری
+Personal: شخصی
+Team Workspace: فضای کاری تیمی
+Log out: خروج
+Page: صفحه
+From Assets: از دارایی‌ها
+From Web: از وب
+Source Type: نوع منبع
+Asset: دارایی
+Resource URL: URL منبع
+Visualizer currently only supports CSV point data. Please specify the column names for latitude and longitude in your data below.: ویژوالایزر در حال حاضر فقط از داده‌های نقطه‌ای CSV پشتیبانی می‌کند. لطفاً نام ستون‌های عرض و طول جغرافیایی را در داده‌های خود مشخص کنید.
+Latitude Column Name: نام ستون عرض جغرافیایی
+Column Name: نام ستون
+Longitude Column Name: نام ستون طول جغرافیایی
+Add to Layer: اضافه به لایه
+From Value: از مقدار
+Support for the CZML format is currently experimental and remains somewhat unstable, with certain features not yet fully supported. We advise using it with caution.: پشتیبانی از فرمت CZML در حال حاضر آزمایشی است و تا حدودی ناپایدار است و برخی ویژگی‌ها هنوز به طور کامل پشتیبانی نمی‌شوند. توصیه می‌کنیم با احتیاط از آن استفاده کنید.
+Input Text: وارد کردن متن
+Value: مقدار
+Input data here: داده‌ها را اینجا وارد کنید
+Invalid GeoJSON format: فرمت GeoJSON نامعتبر است
+Please enter valid GeoJSON: لطفاً GeoJSON معتبر وارد کنید
+Prioritize Performance: اولویت به عملکرد
+If Prioritize Performance is set to True, the Visualizer will prioritize performance. This layer will not use the Layer Style but instead will apply its own predefined style, which cannot be modified.: اگر اولویت به عملکرد روی True تنظیم شود، ویژوالایزر عملکرد را در اولویت قرار می‌دهد. این لایه از سبک لایه استفاده نمی‌کند و در عوض سبک از پیش تعریف شده خود را اعمال می‌کند که قابل تغییر نیست.
+Vector Tile: وکتور تایل
+3D Tiles: 3D تایل‌ها
+Data Source Manager: مدیر منبع داده
+Support for the KML format is currently experimental and remains somewhat unstable, with certain features not yet fully supported. We advise using it with caution.: پشتیبانی از فرمت KML در حال حاضر آزمایشی است و تا حدودی ناپایدار است و برخی ویژگی‌ها هنوز به طور کامل پشتیبانی نمی‌شوند. توصیه می‌کنیم با احتیاط از آن استفاده کنید.
+'Google Maps API Key ': کلید API گوگل مپس
+'You can apply a key ': می‌توانید یک کلید درخواست دهید
+here: اینجا
+Cesium OSM 3D Tiles: Cesium OSM 3D تایل‌ها
+Google Photorealistic 3D Tiles: Google Photorealistic 3D تایل‌ها
+URL: URL
+Choose layer to add: انتخاب لایه برای اضافه کردن
+layer name: نام لایه
+Layer name: نام لایه
+Inspector: بازرس
+Layer Name: نام لایه
+Format: فرمت
+Unsupported custom field: فیلد سفارشی پشتیبانی نشده
+Custom Properties: ویژگی‌های سفارشی
+Save & Apply: ذخیره و اعمال
+No custom properties: هیچ ویژگی سفارشی وجود ندارد
+Geometry: هندسه
+Properties: ویژگی‌ها
+Enable Infobox: فعال‌سازی جعبه اطلاعات
+Show infobox when the user clicks on a layer: نمایش جعبه اطلاعات هنگام کلیک کاربر روی یک لایه
+NO STYLE: بدون سبک
+Layer Style: سبک لایه
+Settings: تنظیمات
+Add Layer from Resource: اضافه کردن لایه از منبع
+Add Sketch Layer: اضافه کردن لایه طرح
+Layers: لایه‌ها
+New Layer: لایه جدید
+Property Schema: طرح ویژگی
+Interface: رابط
+Code: کد
+Invalid style: سبک نامعتبر
+Save: ذخیره
+No style selected: هیچ سبکی انتخاب نشده است
+Condition is incompatible with the current system for this node or value.: شرط با سیستم فعلی برای این گره یا مقدار ناسازگار است.
+Expression is incompatible with the current system for this node or value.: عبارت با سیستم فعلی برای این گره یا مقدار ناسازگار است.
+${your property name}: ${نام ویژگی شما}
+font family: خانواده فونت
+font size: اندازه فونت
+font weight: وزن فونت
+font color: رنگ فونت
+italic: ایتالیک
+New node: گره جدید
+Main: اصلی
+Tiles: تایل‌ها
+Terrain: زمین
+Globe: کره زمین
+Sky: آسمان
+Camera: دوربین
+Unknown scene setting: تنظیم صحنه ناشناخته
+Scene: صحنه
+Type Title here: عنوان را اینجا تایپ کنید
+Please select one type: لطفاً یک نوع انتخاب کنید
+Title: عنوان
+Type: نوع
+The keyword you want to use as the custom property title has been used in the system, please choose any other keyword: کلمه‌کلیدی که می‌خواهید به عنوان عنوان ویژگی سفارشی استفاده کنید در سیستم استفاده شده است، لطفاً کلمه‌کلیدی دیگری انتخاب کنید
+New Property: ویژگی جدید
+' Text': ' متن'
+General: عمومی
+New Sketch Layer: لایه طرح جدید
+Create: ایجاد
+Custom properties Schema Setting: تنظیم طرح ویژگی‌های سفارشی
+Story: داستان
+Publish: انتشار
+Unpublish: لغو انتشار
+Update: به‌روزرسانی
+Congratulations!: تبریک می‌گوییم!
+Publish your story: داستان خود را منتشر کنید
+Publish your scene: صحنه خود را منتشر کنید
+Update your story: داستان خود را به‌روزرسانی کنید
+Update your scene: صحنه خود را به‌روزرسانی کنید
+Ok: تایید
+Your story has been published!: داستان شما منتشر شد!
+Your scene has been published!: صحنه شما منتشر شد!
+Public URL: URL عمومی
+'* Anyone can see your story with this URL': '* هر کسی می‌تواند با این URL داستان شما را ببیند'
+'* Anyone can see your scene with this URL': '* هر کسی می‌تواند با این URL صحنه شما را ببیند'
+Copy: کپی
+Embed Code: کد嵌入
+'* Please use this code if you want to embed your story into a webpage': '* لطفاً از این کد استفاده کنید اگر می‌خواهید داستان خود را در یک صفحه وب嵌入 کنید'
+'* Please use this code if you want to embed your scene into a webpage': '* لطفاً از این کد استفاده کنید اگر می‌خواهید صحنه خود را در یک صفحه وب嵌入 کنید'
+Your published story will be updated. This means all current changes will overwrite the current published story.: داستان منتشر شده شما به‌روزرسانی خواهد شد. این به معنای آن است که تمام تغییرات فعلی روی داستان منتشر شده فعلی اعمال می‌شوند.
+Your published scene will be updated. This means all current changes will overwrite the current published scene.: صحنه منتشر شده شما به‌روزرسانی خواهد شد. این به معنای آن است که تمام تغییرات فعلی روی صحنه منتشر شده فعلی اعمال می‌شوند.
+Your story will be published. This means anybody with the below URL will be able to view this story.: داستان شما منتشر خواهد شد. این به معنای آن است که هر کسی با URL زیر می‌تواند این داستان را مشاهده کند.
+Your scene will be published. This means anybody with the below URL will be able to view this scene.: صحنه شما منتشر خواهد شد. این به معنای آن است که هر کسی با URL زیر می‌تواند این صحنه را مشاهده کند.
+Publish domain: دامنه انتشار
+Need to change domain related settings?: نیاز به تغییر تنظیمات مربوط به دامنه دارید؟
+Go to settings: به تنظیمات بروید
+Search engine indexing: نمایه‌سازی موتور جستجو
+Page will be available as result on search engines: صفحه به عنوان نتیجه در موتورهای جستجو در دسترس خواهد بود
+Your story will be unpublished.: داستان شما لغو انتشار خواهد شد.
+Your scene will be unpublished.: صحنه شما لغو انتشار خواهد شد.
+This means that anybody with the URL will become unable to view this story. This includes websites where this story is embedded.: این به معنای آن است که هر کسی با URL دیگر نمی‌تواند این داستان را مشاهده کند. این شامل وب‌سایت‌هایی می‌شود که این داستان در آن‌ها嵌入 شده است.
+This means that anybody with the URL will become unable to view this scene. This includes websites where this scene is embedded.: این به معنای آن است که هر کسی با URL دیگر نمی‌تواند این صحنه را مشاهده کند. این شامل وب‌سایت‌هایی می‌شود که این صحنه در آن‌ها嵌入 شده است.
+Page Settings: تنظیمات صفحه
+All Layers: تمام لایه‌ها
+Pages: صفحات
+New Page: صفحه جدید
+Untitled: بدون عنوان
+Container Settings: تنظیمات کانتینر
+Padding top: فاصله بالا
+Padding right: فاصله راست
+Padding bottom: فاصله پایین
+Padding left: فاصله چپ
+Gap spacing: فاصله بین
+Align centered: تراز وسط
+Background color: رنگ پس‌زمینه
+Align System: سیستم تراز
+Add Widget: افزودن ویجت
+Widget Manager: مدیر ویجت‌ها
+Project settings: تنظیمات پروژه
+Plugin: پلاگین
+Unknown: ناشناخته
+Asset management: مدیریت دارایی‌ها
+Map: نقشه
+Widgets: ویجت‌ها
+Re:Earth Visualizer: Re:Earth ویژوالایزر
+Oops, Page Not Found!: اوه، صفحه پیدا نشد!
+Go to Dashboard: به داشبورد بروید
+Error: خطا
+Warning: هشدار
+Notice: اطلاعیه
+You have reached a policy limit. Please contact an administrator of your Re:Earth system.: شما به حد مجاز سیاست رسیده‌اید. لطفاً با مدیر سیستم Re:Earth خود تماس بگیرید.
+Public: عمومی
+Most project settings are hidden when the project is archived. Please unarchive the project to view and edit these settings.: بیشتر تنظیمات پروژه زمانی که پروژه بایگانی می‌شود مخفی می‌شوند. لطفاً پروژه را از حالت بایگانی خارج کنید تا این تنظیمات را مشاهده و ویرایش کنید.
+Project Info: اطلاعات پروژه
+Thumbnail: تصویر کوچک
+Submit: ارسال
+Danger Zone: منطقه خطر
+Remove this project: حذف این پروژه
+This process will move this project to Recycle bin.: این فرآیند پروژه را به سطل بازیافت منتقل می‌کند.
+Plugin Marketplace: بازار پلاگین‌ها
+Public Installed: نصب‌شده عمومی
+Personal Installed: نصب‌شده شخصی
+Zip file from PC: فایل زیپ از کامپیوتر
+Public GitHub repository: مخزن عمومی GitHub
+Installed Plugins: پلاگین‌های نصب‌شده
+Uninstall: حذف نصب
+Installed: نصب‌شده
+Install: نصب
+You are uninstalling the selected plugin. The data used by this plugin may also be deleted.: شما در حال حذف نصب پلاگین انتخاب شده هستید. داده‌های استفاده شده توسط این پلاگین نیز ممکن است حذف شوند.
+Please be sure before uninstalling.: لطفاً قبل از حذف نصب مطمئن شوید.
+No description.: بدون توضیحات
+Import GitHub repository: وارد کردن مخزن GitHub
+Continue: ادامه
+'Repository url:': 'URL مخزن:'
+Public Info: اطلاعات عمومی
+Basic Authorization: احراز هویت پایه
+Enable Basic Authorization: فعال‌سازی احراز هویت پایه
+Username: نام کاربری
+Site Setting: تنظیمات سایت
+Site name: نام سایت
+You are about to change the site name for your project. Only alphanumeric characters and hyphens are allows.: شما در حال تغییر نام سایت برای پروژه خود هستید. فقط کاراکترهای الفبایی و خط تیره مجاز هستند.
+Google Analytics: Google Analytics
+Enable Google Analytics: فعال‌سازی Google Analytics
+Tracking ID: شناسه رهگیری
+Custom Domain: دامنه سفارشی
+Left: چپ
+Right: راست
+Story Panel: پنل داستان
+Panel Position: موقعیت پنل
+Background Color: رنگ پس‌زمینه
+Your account has been successfully verified! Feel free to login now.: حساب شما با موفقیت تأیید شد! حالا می‌توانید وارد شوید.
+Could not verify your signup. Please start the process over.: تأیید ثبت‌نام شما انجام نشد. لطفاً فرآیند را دوباره شروع کنید.
+New Field: فیلد جدید
+Display title: نمایش عنوان
+New Camera: دوربین جدید
+New Camera Button: دکمه دوربین جدید
+Buttons List: لیست دکمه‌ها
+New Layers Button: دکمه لایه‌های جدید
+New Link Button: دکمه لینک جدید
+Add markdown text here: متن markdown را اینجا اضافه کنید
+Color: رنگ
+Data Attribution: انتساب داده
+'Data Provided by:': 'داده ارائه شده توسط:'
+aria-label-compass: قطب‌نما
+aria-label-adjust-angle: تنظیم زاویه
+aria-label-zoom-in: زوم‌کردن
+aria-label-Go-to-the-home-position: رفتن به موقعیت خانه
+aria-label-zoom-out: زوم‌کردن خارج
+Spacing settings: تنظیمات فاصله
+Block: بلوک
+Unsupported field type: نوع فیلد پشتیبانی نشده
+Add a team member: اضافه کردن عضو تیم
+Add: اضافه کردن
+Search by email address or user name: جستجو با آدرس ایمیل یا نام کاربری
+Can't find the user: کاربر پیدا نشد
+User already joined this workspace.: کاربر قبلاً به این فضای کاری پیوسته است.
+MAINTAINER: نگهدارنده
+OWNER: مالک
+READER: خواننده
+WRITER: نویسنده
+New member: عضو جدید
+User Name: نام کاربری
+Email: ایمیل
+Role: نقش
+Change Role: تغییر نقش
+Reader: خواننده
+Writer: نویسنده
+Maintainer: نگهدارنده
+Owner: مالک
+Update Member Role: به‌روزرسانی نقش عضو
+Delete workspace: حذف فضای کاری
+I am sure I want to delete this workspace.: مطمئنم که می‌خواهم این فضای کاری را حذف کنم
+This action is permanent and cannot be reversed.: این عمل دائمی است و قابل بازگشت نیست.
+This will permanently delete the workspace and all related projects, assets and datasets for all team members.: این کار فضای کاری و تمام پروژه‌ها، دارایی‌ها و مجموعه‌داده‌های مرتبط را برای تمام اعضای تیم به طور دائمی حذف می‌کند.
+Please type your workspace name to continue.: لطفاً نام فضای کاری خود را برای ادامه تایپ کنید.
+You are going to delete a workspace.: شما در حال حذف یک فضای کاری هستید.
+Please make sure you don't have any projects in the workspace before continuing.: لطفاً قبل از ادامه مطمئن شوید که هیچ پروژه‌ای در فضای کاری ندارید.
+Workspace: فضای کاری
+Workspace Name: نام فضای کاری
+This process will delete this workspace: این فرآیند این فضای کاری را حذف می‌کند
+Workspace settings: تنظیمات فضای کاری
+New workspace: فضای کاری جدید
+Account settings: تنظیمات حساب
+Write your story :): داستان خود را بنویسید :)
+Normal: معمولی
+Heading 1: عنوان 1
+Heading 2: عنوان 2
+Heading 3: عنوان 3
+Bullet List: لیست گلوله‌ای
+Numbered List: لیست شماره‌دار
+Quote: نقل قول
+Formatting options for font family: گزینه‌های قالب‌بندی برای خانواده فونت
+Formatting options for font size: گزینه‌های قالب‌بندی برای اندازه فونت
+Formatting options for line height: گزینه‌های قالب‌بندی برای ارتفاع خط
+Center Align: تراز وسط
+Justify Align: تراز چپ و راست
+Left Align: تراز چپ
+Right Align: تراز راست
+Outdent: کاهش تورفتگی
+Indent: افزایش تورفتگی
+Bulleted List: لیست گلوله‌ای
+Insert Code Block: درج بلوک کد
+Insert Link: درج لینک
+Text Color: رنگ متن
+Strikethrough: خط‌خورده
+Subscript: زیرنویس
+Superscript: بالانویس
+Clear Formatting: پاک‌کردن قالب‌بندی
+Loading...: در حال بارگذاری...
+Please select: لطفاً انتخاب کنید
+'Sort:': 'مرتب‌سازی:'
+Version: نسخه
+This function is currently experimental and remains somewhat unstable.: این عملکرد در حال حاضر آزمایشی است و تا حدودی ناپایدار است.
+Wrong file format: فرمت فایل اشتباه
+Not set: تنظیم نشده
+Choose: انتخاب
+Upload: آپلود
+Position Capture: ثبت موقعیت
+Latitude: عرض جغرافیایی
+Longitude: طول جغرافیایی
+Height: ارتفاع
+Current Position: موقعیت فعلی
+Current Rotation: چرخش فعلی
+Heading: جهت
+Pitch: شیب
+Roll: چرخش
+Camera Position Editor: ویرایشگر موقعیت دوربین
+Location: موقعیت
+value: مقدار
+Rotation: چرخش
+Position Set: تنظیم موقعیت
+Edit: ویرایش
+Capture: ثبت
+New Item: آیتم جدید
+New Credit: اعتبار جدید
+min: حداقل
+max: حداکثر
+Time Period Settings: تنظیمات دوره زمانی
+'* Start Time': '* زمان شروع'
+Start time for the timeline: زمان شروع برای خط زمانی
+'* Current Time': '* زمان فعلی'
+Current time should be between start and end time: زمان فعلی باید بین زمان شروع و پایان باشد
+'* End Time': '* زمان پایان'
+End time for the timeline: زمان پایان برای خط زمانی
+Please make sure the Current time must between the Start time and End Time.: لطفاً مطمئن شوید که زمان فعلی باید بین زمان شروع و پایان باشد.
+set: تنظیم
+Set Time: تنظیم زمان
+Date: تاریخ
+Time: زمان
+Time Zone: منطقه زمانی
+Failed to add one or more assets.: افزودن یک یا چند دارایی ناموفق بود.
+Successfully added one or more assets.: یک یا چند دارایی با موفقیت اضافه شدند.
+Failed to delete one or more assets.: حذف یک یا چند دارایی ناموفق بود.
+One or more assets were successfully deleted.: یک یا چند دارایی با موفقیت حذف شدند.
+Failed to add layer.: افزودن لایه ناموفق بود.
+Successfully added a new layer: یک لایه جدید با موفقیت اضافه شد
+Failed to update the layer.: به‌روزرسانی لایه ناموفق بود.
+Successfully updated the layer!: لایه با موفقیت به‌روزرسانی شد!
+Failed to delete the feature.: حذف عارضه ناموفق بود.
+Successfully deleted the feature!: عارضه با موفقیت حذف شد!
+Failed to create block.: ایجاد بلوک ناموفق بود.
+Successfully created a block!: یک بلوک با موفقیت ایجاد شد!
+Failed to delete block.: حذف بلوک ناموفق بود.
+Block was successfully deleted.: بلوک با موفقیت حذف شد.
+Failed to move block.: انتقال بلوک ناموفق بود.
+Block was successfully moved.: بلوک با موفقیت انتقال یافت.
+Failed to remove the layer.: حذف لایه ناموفق بود.
+Successfully removed the layer!: لایه با موفقیت حذف شد!
+Failed to update the custom property schema.: به‌روزرسانی طرح ویژگی سفارشی ناموفق بود.
+Successfully updated the custom property schema!: طرح ویژگی سفارشی با موفقیت به‌روزرسانی شد!
+Failed to add layer style.: افزودن سبک لایه ناموفق بود.
+Successfully added a new layer style!: یک سبک لایه جدید با موفقیت اضافه شد!
+Failed to update the layerStyle.: به‌روزرسانی سبک لایه ناموفق بود.
+Successfully updated a the layerStyle!: سبک لایه با موفقیت به‌روزرسانی شد!
+Failed to delete the layer style.: حذف سبک لایه ناموفق بود.
+Successfully deleted the layer style!: سبک لایه با موفقیت حذف شد!
+Failed to update user password.: به‌روزرسانی رمز عبور کاربر ناموفق بود.
+Successfully updated user password!: رمز عبور کاربر با موفقیت به‌روزرسانی شد!
+Failed to delete user.: حذف کاربر ناموفق بود.
+Successfully delete user!: کاربر با موفقیت حذف شد!
+Failed to change language.: تغییر زبان ناموفق بود.
+Successfully updated user language!: زبان کاربر با موفقیت به‌روزرسانی شد!
+Failed to install plugin.: نصب پلاگین ناموفق بود.
+Successfully installed plugin!: پلاگین با موفقیت نصب شد!
+Failed to upgrade plugin.: ارتقاء پلاگین ناموفق بود.
+Successfully upgraded plugin!: پلاگین با موفقیت ارتقاء یافت!
+Failed to uninstall plugin.: حذف نصب پلاگین ناموفق بود.
+Successfully uninstalled plugin.: پلاگین با موفقیت حذف نصب شد.
+Failed to create project.: ایجاد پروژه ناموفق بود.
+Default: پیش‌فرض
+Failed to create story page on project creation.: ایجاد صفحه داستان در هنگام ایجاد پروژه ناموفق بود.
+Successfully created project!: پروژه با موفقیت ایجاد شد!
+Failed to publish project.: انتشار پروژه ناموفق بود.
+Successfully published your scene!: صحنه شما با موفقیت منتشر شد!
+Successfully published your project with search engine indexing!: پروژه شما با نمایه‌سازی موتور جستجو با موفقیت منتشر شد!
+Successfully unpublished your scene. Now nobody can access your scene.: صحنه شما با موفقیت لغو انتشار شد. اکنون هیچ کس نمی‌تواند به صحنه شما دسترسی داشته باشد.
+Failed to update project.: به‌روزرسانی پروژه ناموفق بود.
+Successfully updated project!: پروژه با موفقیت به‌روزرسانی شد!
+Failed to move to the Recycle bin.: انتقال به سطل بازیافت ناموفق بود.
+Failed to recover the project!: بازیابی پروژه ناموفق بود.
+Successfully moved to Recycle bin!: با موفقیت به سطل بازیافت منتقل شد!
+Successfully recovered the project!: پروژه با موفقیت بازیابی شد!
+Failed to archive project.: بایگانی پروژه ناموفق بود.
+Failed to unarchive project.: خارج کردن پروژه از بایگانی ناموفق بود.
+Successfully archive project!: پروژه با موفقیت بایگانی شد!
+Successfully unarchived the project. You can now edit this project.: پروژه با موفقیت از بایگانی خارج شد. اکنون می‌توانید این پروژه را ویرایش کنید.
+Failed to delete project.: حذف پروژه ناموفق بود.
+Successfully delete project!: پروژه با موفقیت حذف شد!
+Failed to export project.: صادر کردن پروژه ناموفق بود.
+Successfully exported project!: پروژه با موفقیت صادر شد!
+Failed to import project.: وارد کردن پروژه ناموفق بود.
+Successfully imported project!: پروژه با موفقیت وارد شد!
+Failed to update property.: به‌روزرسانی ویژگی ناموفق بود.
+Successfully updated the property value!: مقدار ویژگی با موفقیت به‌روزرسانی شد!
+Failed to create story.: ایجاد داستان ناموفق بود.
+Successfully created a story!: داستان با موفقیت ایجاد شد!
+Failed to update story.: به‌روزرسانی داستان ناموفق بود.
+Successfully updated a story!: داستان با موفقیت به‌روزرسانی شد!
+Failed to publish story.: انتشار داستان ناموفق بود.
+Successfully published your story!: داستان شما با موفقیت منتشر شد!
+Successfully published your story with search engine indexing!: داستان شما با نمایه‌سازی موتور جستجو با موفقیت منتشر شد!
+Successfully unpublished your story. Now nobody can access your story.: داستان شما با موفقیت لغو انتشار شد. اکنون هیچ کس نمی‌تواند به داستان شما دسترسی داشته باشد.
+Failed to create page.: ایجاد صفحه ناموفق بود.
+Successfully created a page!: صفحه با موفقیت ایجاد شد!
+Failed to delete page.: حذف صفحه ناموفق بود.
+Page was successfully deleted.: صفحه با موفقیت حذف شد.
+Failed to move page.: انتقال صفحه ناموفق بود.
+Page was successfully moved.: صفحه با موفقیت انتقال یافت.
+Failed to update page.: به‌روزرسانی صفحه ناموفق بود.
+Successfully updated a page!: صفحه با موفقیت به‌روزرسانی شد!
+Failed to add widget.: افزودن ویجت ناموفق بود.
+Failed to update widget.: به‌روزرسانی ویجت ناموفق بود.
+Failed to remove widget.: حذف ویجت ناموفق بود.
+Failed to update widget alignment.: به‌روزرسانی تراز ویجت ناموفق بود.
+Failed to update the widget align system.: به‌روزرسانی سیستم تراز ویجت ناموفق بود.
+Failed to create workspace.: ایجاد فضای کاری ناموفق بود.
+Successfully created workspace!: فضای کاری با موفقیت ایجاد شد!
+Failed to delete workspace.: حذف فضای کاری ناموفق بود.
+Successfully deleted workspace!: فضای کاری با موفقیت حذف شد!
+Failed to update workspace.: به‌روزرسانی فضای کاری ناموفق بود.
+Successfully updated workspace!: فضای کاری با موفقیت به‌روزرسانی شد!
+Failed to add member to workspace.: افزودن عضو به فضای کاری ناموفق بود.
+Successfully added member to workspace!: عضو با موفقیت به فضای کاری اضافه شد!
+Failed to remove member from workspace.: حذف عضو از فضای کاری ناموفق بود.
+Successfully removed member from workspace!: عضو با موفقیت از فضای کاری حذف شد!
+Failed to update member in workspace.: به‌روزرسانی عضو در فضای کاری ناموفق بود.
+Successfully updated member in workspace!: عضو در فضای کاری با موفقیت به‌روزرسانی شد!

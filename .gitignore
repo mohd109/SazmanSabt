@@ -1,4 +1,9 @@
-
-Panel/package-lock.json
-Panel/yarn.lock
-Front/mapbox version/build.rar
+.DS_Store
+node_modules
+/mongo
+/data
+/.env
+/.env.*
+/.idea
+.github
+.vscode

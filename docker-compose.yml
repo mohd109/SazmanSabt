@@ -1,0 +1,37 @@
+version: "3"
+services:
+  reearth:
+    image: reearth/reearth-visualizer:latest
+    environment:
+      REEARTH_DB: mongodb://reearth-mongo
+    ports:
+      - 8080:8080
+    env_file:
+      - server/.env
+    links:
+      - reearth-mongo
+    depends_on:
+      - reearth-mongo
+    volumes:
+      - ./data:/reearth/data
+  reearth-mongo:
+    image: mongo:7
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo:/data/db
+  reearth-web:
+    image: reearth/reearth-visualizer-web:latest
+    environment:
+      REEARTH_DB: mongodb://reearth-mongo
+    ports:
+      - 3000:3000
+    env_file:
+      - web/.env
+    #    links:
+    #      - reearth-mongo
+    #    depends_on:
+    #      - reearth-mongo
+    volumes:
+      #       - ./data:/reearth/data
+      - ./web/.:/app
