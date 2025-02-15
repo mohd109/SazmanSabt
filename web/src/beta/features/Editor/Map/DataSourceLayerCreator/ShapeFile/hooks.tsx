@@ -3,7 +3,19 @@ import { useState, useMemo, useCallback } from "react";
 
 import { DataProps, DataSourceOptType, SourceType } from "..";
 import { generateTitle } from "../util";
+
+import workerUrl from 'gdal3.js/dist/package/gdal3.js?url'
+import dataUrl from 'gdal3.js/dist/package/gdal3WebAssembly.data?url'
+import wasmUrl from 'gdal3.js/dist/package/gdal3WebAssembly.wasm?url'
 import initGdalJs from 'gdal3.js';
+
+const paths = {
+  wasm: wasmUrl,
+  data: dataUrl,
+  js: workerUrl,
+};
+
+
 
 export default ({ sceneId, onClose, onSubmit }: DataProps) => {
   const t = useT();
@@ -31,7 +43,7 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
   const handleSubmit = useCallback(() => {
     // convert shp to geojson value
 
-    initGdalJs({ path: 'static' }).then((Gdal: any) => {
+    initGdalJs({paths}).then((Gdal: any) => {
 
       const options = [ 
         '-f', 'GeoJSON',

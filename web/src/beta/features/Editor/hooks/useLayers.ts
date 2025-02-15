@@ -14,7 +14,18 @@ import {
   UpdateCustomPropertySchemaInput
 } from "@reearth/services/gql";
 import { useT } from "@reearth/services/i18n";
-import initGdalJs from "gdal3.js";
+import workerUrl from 'gdal3.js/dist/package/gdal3.js?url'
+import dataUrl from 'gdal3.js/dist/package/gdal3WebAssembly.data?url'
+import wasmUrl from 'gdal3.js/dist/package/gdal3WebAssembly.wasm?url'
+import initGdalJs from 'gdal3.js';
+
+const paths = {
+  wasm: wasmUrl,
+  data: dataUrl,
+  js: workerUrl,
+};
+
+
 import {
   MutableRefObject,
   useCallback,
@@ -210,7 +221,7 @@ export default function ({
           exportLayer.sketch
             .featureCollection as SketchInfo["featureCollection"]
         );
-        initGdalJs({ path: "static" }).then((Gdal: any) => {
+        initGdalJs({paths}).then((Gdal: any) => {
           const options = ["-f", "shp", "-t_srs", "EPSG:4326"];
           const jsonString = JSON.stringify(geom);
           const blob = new Blob([jsonString], { type: "application/json" });
