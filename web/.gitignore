@@ -9,7 +9,6 @@ node_modules
 __screenshots__
 /playwright-report
 /test-results
-/.env
 /reearth-config.json
 /cesium_ion_token.txt
 .idea/*
