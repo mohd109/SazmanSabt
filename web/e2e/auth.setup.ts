@@ -21,7 +21,7 @@ export default async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage();
   await page.goto(
-    process.env.REEARTH_WEB_E2E_BASEURL || "http://localhost:3000/"
+    process.env.REEARTH_WEB_E2E_BASEURL || "https://man.sabt.shankayi.ir/"
   );
   await page
     .getByPlaceholder("username/email")
@@ -32,7 +32,7 @@ export default async () => {
   await page.getByText("LOG IN").click();
   await page.waitForTimeout(10 * 1000);
   await page.goto(
-    process.env.REEARTH_WEB_E2E_BASEURL || "http://localhost:3000/"
+    process.env.REEARTH_WEB_E2E_BASEURL || "https://man.sabt.shankayi.ir/"
   );
   await expect(page.getByRole("button", { name: "New Project" })).toBeVisible();
   await page.context().storageState({ path: authFile });

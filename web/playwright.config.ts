@@ -6,7 +6,7 @@ dotenv.config();
 const config: PlaywrightTestConfig = {
   timeout: 0,
   use: {
-    baseURL: process.env.REEARTH_WEB_E2E_BASEURL || "http://localhost:3000/",
+    baseURL: process.env.REEARTH_WEB_E2E_BASEURL || "https://man.sabt.shankayi.ir/",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
     headless: false

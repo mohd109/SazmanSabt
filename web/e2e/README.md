@@ -52,7 +52,7 @@ To set required .env for frontend. Recording following variable.
 
 ```bash
 # Local backend with Auth0 OSS tenant
-REEARTH_WEB_E2E_BASEURL=http://localhost:3000
+REEARTH_WEB_E2E_BASEURL=https://man.sabt.shankayi.ir
 REEARTH_WEB_E2E_ACCOUNT // your visualizer accounnt
 REEARTH_WEB_E2E_ACCOUNT_PASSWORD // your visualizer password
 ```

@@ -14,7 +14,7 @@ test.use({ storageState: authFile });
 
 //test
 test("create project and add layer", async ({ page }) => {
-  const url = process.env.REEARTH_WEB_E2E_BASEURL || "http://localhost:3000/";
+  const url = process.env.REEARTH_WEB_E2E_BASEURL || "https://man.sabt.shankayi.ir/";
 
   await page.goto(url);
   await page.waitForSelector("button:text('New Project')");

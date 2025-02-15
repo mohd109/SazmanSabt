@@ -9,7 +9,7 @@ Web interface for Re:Earth GIS software built with React 18 and Vite.
 Add environment variables to .env. A template of the required variables are in `env.local`.
 Consult the development team for the correct environment variables.
 
-`yarn start` to start the local server. The interface will open on [http://localhost:3000](http://localhost:3000)
+`yarn start` to start the local server. The interface will open on [https://man.sabt.shankayi.ir](https://man.sabt.shankayi.ir)
 
 `yarn build` TBC
 
