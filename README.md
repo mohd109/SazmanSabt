@@ -82,8 +82,8 @@ Make sure Docker is properly installed and running on your machine.
 
    ```plaintext
    // .env
-   REEARTH_WEB_API=http://localhost:8080/api
-   REEARTH_WEB_PLUGINS=http://localhost:8080/plugins
+   REEARTH_WEB_API=https://main.sabt.shankayi.ir/back/api
+   REEARTH_WEB_PLUGINS=https://main.sabt.shankayi.ir/back/plugins
    REEARTH_WEB_CESIUM_ION_ACCESS_TOKEN=your_cesium_ion_access_token_here
    REEARTH_WEB_AUTH_PROVIDER=mock
    ```
@@ -98,7 +98,7 @@ Make sure Docker is properly installed and running on your machine.
 
 ### Done!
 
-You should now be able to access the Re:Earth Visualizer locally at <a href="http://localhost:3000" target="_blank">`http://localhost:3000`</a>.
+You should now be able to access the Re:Earth Visualizer locally at <a href="https://main.sabt.shankayi.ir" target="_blank">`https://main.sabt.shankayi.ir`</a>.
 
 For more information, refer to the [Documentation](https://visualizer-developer-reearth-io.netlify.app/).
 

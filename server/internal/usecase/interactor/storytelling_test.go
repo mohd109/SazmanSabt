@@ -93,7 +93,7 @@ func TestImportStory(t *testing.T) {
                 "default": {
                   "src": {
                     "type": "url",
-                    "value": "http://localhost:8080/assets/01j7g9nwtq1zqc7ex5gfvd1mbe.jpeg"
+                    "value": "https://main.sabt.shankayi.ir/back/assets/01j7g9nwtq1zqc7ex5gfvd1mbe.jpeg"
                   }
                 }
               },

@@ -41,8 +41,8 @@ func TestCallExportProject(t *testing.T) {
 	propID2 := blocks[1].Object().Value("propertyId").Raw().(string)
 	propID3 := blocks[2].Object().Value("propertyId").Raw().(string)
 
-	_, res = updatePropertyValue(e, propID1, "default", "", "src", "http://localhost:8080/assets/01jbbhhtq2jq7mx39dhyq1cfr2.png", "URL")
-	res.Path("$.data.updatePropertyValue.propertyField.value").IsEqual("http://localhost:8080/assets/01jbbhhtq2jq7mx39dhyq1cfr2.png")
+	_, res = updatePropertyValue(e, propID1, "default", "", "src", "https://main.sabt.shankayi.ir/back/assets/01jbbhhtq2jq7mx39dhyq1cfr2.png", "URL")
+	res.Path("$.data.updatePropertyValue.propertyField.value").IsEqual("https://main.sabt.shankayi.ir/back/assets/01jbbhhtq2jq7mx39dhyq1cfr2.png")
 
 	_, res = updatePropertyValue(e, propID2, "default", wID.String(), "src", "https://test.com/project.jpg", "URL")
 	res.Path("$.data.updatePropertyValue.propertyField.value").IsEqual("https://test.com/project.jpg")
@@ -98,7 +98,7 @@ func exporProject(t *testing.T, e *httpexpect.Expect, p string) string {
 		Value("data").Object().
 		Value("exportProject").Object().
 		Value("projectDataPath").String().Raw()
-	downloadResponse := e.GET(fmt.Sprintf("http://localhost:8080%s", downloadPath)).
+	downloadResponse := e.GET(fmt.Sprintf("https://main.sabt.shankayi.ir/back%s", downloadPath)).
 		Expect().
 		Status(http.StatusOK).
 		Body().Raw()

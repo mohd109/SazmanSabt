@@ -95,7 +95,7 @@ down-gcs:
 	docker compose -f ../docker-compose.yml down gcs
 
 mockuser:
-	curl -H 'Content-Type: application/json' -d '{"email": "mock@example.com", "username": "Mock User"}' http://localhost:8080/api/signup
+	curl -H 'Content-Type: application/json' -d '{"email": "mock@example.com", "username": "Mock User"}' https://main.sabt.shankayi.ir/back/api/signup
 
 schematyper:
 	go run $(SCHEMATYPER) -o $(MANIFEST_DIR)/schema_translation.go --package manifest --prefix Translation ./schemas/plugin_manifest_translation.json

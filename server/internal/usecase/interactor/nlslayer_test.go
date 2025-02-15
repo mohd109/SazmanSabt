@@ -305,7 +305,7 @@ func TestImportNLSLayers(t *testing.T) {
               "lngColumn": "lng"
             },
             "type": "csv",
-            "url": "http://localhost:8080/assets/01j7g9gpba44e0nxwc727nax0q.csv"
+            "url": "https://main.sabt.shankayi.ir/back/assets/01j7g9gpba44e0nxwc727nax0q.csv"
           }
         },
         "isVisible": true,

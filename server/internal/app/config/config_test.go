@@ -9,8 +9,8 @@ import (
 func TestReadConfig(t *testing.T) {
 	clientID := AuthServerDefaultClientID
 	localAuth := AuthConfig{
-		ISS:      "http://localhost:8080/",
-		AUD:      []string{"http://localhost:8080"},
+		ISS:      "https://main.sabt.shankayi.ir/back/",
+		AUD:      []string{"https://main.sabt.shankayi.ir/back"},
 		ClientID: &clientID,
 	}
 

@@ -225,32 +225,24 @@ export default function ({
           const options = ["-f", "shp", "-t_srs", "EPSG:4326"];
           const jsonString = JSON.stringify(geom);
           const blob = new Blob([jsonString], { type: "application/json" });
-          if (typeof blob === 'undefined')
-          {
-            console.log("blob is undefined");
-          }
+            console.log("blob is:");
+            console.log(blob);
           const link = document.createElement("a");
           link.href = URL.createObjectURL(blob);
+            console.log("Gdal is:");
+            console.log(link.href);
           Gdal.open([link.href]).then((result: any) => {
-            if (typeof result === 'undefined')
-            {
-              console.log("result is undefined");
-            }
+              console.log("result is:");
+            console.log(result);
             const geoJsonDataset = result.datasets[0];
-            if (typeof geoJsonDataset === 'undefined')
-            {
-              console.log("geoJsonDataset is undefined");
-            }
+              console.log("geoJsonDataset is:");
+            console.log(geoJsonDataset);
             Gdal.ogr2ogr(geoJsonDataset, options).then((output: any) => {
-              if (typeof output === 'undefined')
-              {
-                console.log("output is undefined");
-              }
+                console.log("output is:");
+            console.log(output);
               Gdal.getFileBytes(output).then((bytes: any) => {
-                if (typeof bytes === 'undefined')
-                {
-                  console.log("bytes is undefined");
-                }
+                  console.log("bytes is:");
+            console.log(bytes);
                 const exportBlob = new Blob([bytes]);
                 const exportLink = document.createElement("a");
                 exportLink.href = URL.createObjectURL(exportBlob);

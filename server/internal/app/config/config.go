@@ -25,7 +25,7 @@ type Config struct {
 	mailer.Config
 	Port             string            `default:"8080" envconfig:"PORT"`
 	ServerHost       string            `pp:",omitempty"`
-	Host             string            `default:"http://localhost:8080"`
+	Host             string            `default:"https://main.sabt.shankayi.ir/back"`
 	Host_Web         string            `pp:",omitempty"`
 	Dev              bool              `pp:",omitempty"`
 	DB               string            `default:"mongodb://localhost"`
@@ -39,7 +39,7 @@ type Config struct {
 	Tracer           string            `pp:",omitempty"`
 	TracerSample     float64           `pp:",omitempty"`
 	Marketplace      MarketplaceConfig `pp:",omitempty"`
-	AssetBaseURL     string            `default:"http://localhost:8080/assets"`
+	AssetBaseURL     string            `default:"https://main.sabt.shankayi.ir/back/assets"`
 	Origins          []string          `pp:",omitempty"`
 	Policy           PolicyConfig      `pp:",omitempty"`
 	Web_Disabled     bool              `pp:",omitempty"`
