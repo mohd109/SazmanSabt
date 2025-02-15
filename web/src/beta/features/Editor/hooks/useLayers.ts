@@ -222,26 +222,18 @@ export default function ({
             .featureCollection as SketchInfo["featureCollection"]
         );
         initGdalJs({paths}).then((Gdal: any) => {
-          const options = ["-f", "shp", "-t_srs", "EPSG:4326"];
+          const options = ["-f", "DXF", "-t_srs", "EPSG:4326"];
           const jsonString = JSON.stringify(geom);
           const blob = new Blob([jsonString], { type: "application/json" });
           const file = new File([blob], "temp_layer.geojson");
           Gdal.open(file).then((result: any) => {
-            console.log("result is:");
-            console.log(result);
             const geoJsonDataset = result.datasets[0];
-            console.log("geoJsonDataset is:");
-            console.log(geoJsonDataset);
             Gdal.ogr2ogr(geoJsonDataset, options).then((output: any) => {
-            console.log("output is:");
-            console.log(output);
              Gdal.getFileBytes(output).then((bytes: any) => {
-                console.log("bytes is:");
-                console.log(bytes);
                 const exportBlob = new Blob([bytes]);
                 const exportLink = document.createElement("a");
                 exportLink.href = URL.createObjectURL(exportBlob);
-                exportLink.download = "output.shp";
+                exportLink.download = "output.dxf";
                 exportLink.click();
               });
             });
