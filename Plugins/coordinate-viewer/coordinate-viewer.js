@@ -1,23 +1,22 @@
-@ -0,0 +1,5691 @@
 reearth.ui.show(`
-  <style>
-    /* Dark Theme Status Bar with Labels */
+<style>
+    /* Compact Dark Coordinate Display */
     body {
       margin: 0;
       overflow: hidden;
       background: transparent !important;
-      text-align:center;
+      text-align: center;
     }
 
     #wrapper {
-      width: auto; /* Wrap content width */
-      max-width: 90%; /* Prevent overflow */
-      padding: 10px 20px;
+      width: auto;
+      max-width: 98%;
+      padding: 8px 12px;
       background: rgba(30, 30, 30, 0.95);
       backdrop-filter: blur(8px);
-      border-radius: 8px; /* Rounded corners */
-      display: inline-flex; /* Shrink-wrap content */
-      gap: 25px;
+      border-radius: 8px;
+      display: inline-flex;
+      gap: 12px;
       align-items: center;
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -26,47 +25,46 @@ reearth.ui.show(`
     .coordinates-container {
       display: flex;
       flex-direction: row;
-      gap: 15px;
+      gap: 10px;
       overflow-x: auto;
       flex-grow: 1;
+      width: auto;
     }
 
     .coordinate-group {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      white-space: nowrap;
+      width: auto;
     }
 
     .coordinate-label {
       color: rgba(255, 255, 255, 0.7);
       font-family: 'Roboto', sans-serif;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.3px;
-      margin-left: 2px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
     }
 
     .coordinate-value {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 4px;
-      padding: 6px 10px;
+      padding: 4px 8px;
       color: #ffffff;
       font-family: 'Roboto Mono', monospace;
-      font-size: 12px;
-      width: 140px;
-      min-width: 140px;
-      transition: all 0.2s ease;
+      font-size: 11px;
+      min-width: 0;
     }
 
-    .coordinate-value:focus {
-      outline: none;
-      border-color: rgba(255, 255, 255, 0.3);
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-    }
+    /* Content-specific sizing */
+    #lat, #lng { min-width: 12ch; }
+    #latdms, #lngdms { min-width: 14ch; }
+    #utmx, #utmy { min-width: 10ch; }
+    #zone { min-width: 4ch; }
 
-    /* Scrollbar styling remains same */
+    /* Scrollbar styling */
     ::-webkit-scrollbar {
       height: 4px;
     }
@@ -82,12 +80,12 @@ reearth.ui.show(`
       <div class="coordinates-container">
         <div class="coordinate-group">
           <label class="coordinate-label">Latitude (Decimal)</label>
-          <label id="lat" class="coordinate-value">
+          <input id="lat" class="coordinate-value">
         </div>
         
         <div class="coordinate-group">
           <label class="coordinate-label">Longitude (Decimal)</label>
-          <label id="lng" class="coordinate-value">
+          <input id="lng" class="coordinate-value">
         </div>
         
         <div class="coordinate-group">
@@ -102,17 +100,17 @@ reearth.ui.show(`
         
         <div class="coordinate-group">
           <label class="coordinate-label">UTM Easting</label>
-          <label id="utmx" class="coordinate-value">
+          <input id="utmx" class="coordinate-value">
         </div>
         
         <div class="coordinate-group">
           <label class="coordinate-label">UTM Northing</label>
-          <label id="utmy" class="coordinate-value">
+          <input id="utmy" class="coordinate-value">
         </div>
         
         <div class="coordinate-group">
           <label class="coordinate-label">UTM Zone</label>
-          <label id="zone" class="coordinate-value">
+          <input id="zone" class="coordinate-value">
         </div>
       </div>
     </div>
