@@ -4,8 +4,8 @@ export const defaultConfig: Config = {
   api: "/api",
   plugins: "/plugins",
   published: window.origin + "/p/{}/",
-  auth0Audience: "https://man.sabt.shankayi.ir/back",
-  auth0Domain: "https://man.sabt.shankayi.ir/back",
+  auth0Audience: "https://main.sabt.shankayi.ir/back",
+  auth0Domain: "https://main.sabt.shankayi.ir/back",
   auth0ClientId: "reearth-authsrv-client-default",
   authProvider: "auth0",
   policy: {

@@ -140,7 +140,7 @@ function config(): Plugin {
       const configRes = JSON.stringify(
         {
           ...remoteReearthConfig,
-          api: "https://man.sabt.shankayi.ir/back/api",
+          api: "https://main.sabt.shankayi.ir/back/api",
           published: "/published.html?alias={}",
           ...(remoteCesiumIonToken
             ? { cesiumIonAccessToken: remoteCesiumIonToken }

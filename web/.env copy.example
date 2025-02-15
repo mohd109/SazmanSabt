@@ -1,6 +1,6 @@
 # Required
-REEARTH_WEB_API=https://man.sabt.shankayi.ir/back/api
-REEARTH_WEB_PLUGINS=https://man.sabt.shankayi.ir/back/plugins
+REEARTH_WEB_API=https://main.sabt.shankayi.ir/back/api
+REEARTH_WEB_PLUGINS=https://main.sabt.shankayi.ir/back/plugins
 REEARTH_WEB_CESIUM_ION_ACCESS_TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJlZTcyN2ZjMC1iYjdkLTQ5NWEtOGUyZC02MTY0NjUzYzVjNzUiLCJpZCI6MTkxMTg3LCJpYXQiOjE3MzYwNjMwOTV9.Ij7P-BxcSgFemJaVJaAetF_V7VuvNKUVhjftypUhwkg
 REEARTH_WEB_AUTH_PROVIDER=mock
 PORT=3000

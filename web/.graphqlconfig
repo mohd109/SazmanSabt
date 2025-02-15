@@ -7,7 +7,7 @@
   ],
   "extensions": {
     "endpoints": {
-      "dev": "https://man.sabt.shankayi.ir/back/api/graphql"
+      "dev": "https://main.sabt.shankayi.ir/back/api/graphql"
     }
   }
 }
