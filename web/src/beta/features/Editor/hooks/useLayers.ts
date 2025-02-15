@@ -234,7 +234,7 @@ export default function ({
                 const exportBlob = new Blob([bytes]);
                 const exportLink = document.createElement("a");
                 exportLink.href = URL.createObjectURL(exportBlob);
-                exportLink.download = "output.geojson";
+                exportLink.download = "output.shp";
                 exportLink.click();
               });
             });
@@ -242,7 +242,7 @@ export default function ({
         });
       }
     },
-    []
+    [nlsLayers]
   );
 
   const handleLayerAdd = useCallback(
