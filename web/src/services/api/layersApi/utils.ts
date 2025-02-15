@@ -78,17 +78,22 @@ const convertGeometry = (geometry: Geometry) => {
 export const convertSketchFeatureCollection = (
   featureCollection: SketchInfo["featureCollection"]
 ) => {
-  return featureCollection
+  console.log(featureCollection);
+  let correcteFeatureCollection = 
+  featureCollection
     ? {
-        type: featureCollection.type,
-        features: featureCollection.features.map((f) => ({
-          id: f.id,
-          type: f.type,
-          properties: f.properties,
-          geometry: convertGeometry(f.geometry)
-        }))
-      }
-    : undefined;
+      type: featureCollection.type,
+      features: featureCollection.features.map((f) => ({
+        id: f.id,
+        type: f.type,
+        properties: f.properties,
+        geometry: convertGeometry(Array.isArray(f.geometry)?f.geometry[0]:f.geometry)
+      }))
+    }
+    : undefined ;
+  console.log(correcteFeatureCollection);
+
+  return correcteFeatureCollection;
 };
 
 export const getLayers = (rawScene?: GetSceneQuery) => {
