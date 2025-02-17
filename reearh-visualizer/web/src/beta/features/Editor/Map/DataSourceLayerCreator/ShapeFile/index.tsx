@@ -8,10 +8,7 @@ import {
 import {
   RadioGroup,
   Switcher,
-  Button,
-  TextInput,
-  TextArea
-} from "@reearth/beta/lib/reearth-ui";
+  Button} from "@reearth/beta/lib/reearth-ui";
 import { AssetField } from "@reearth/beta/ui/fields";
 import { useT } from "@reearth/services/i18n";
 import { FC } from "react";
@@ -20,7 +17,7 @@ import { DataProps } from "..";
 
 import useHooks from "./hooks";
 
-const GeoJSON: FC<DataProps> = ({ sceneId, onSubmit, onClose }) => {
+const ShapeFile: FC<DataProps> = ({ sceneId, onSubmit, onClose }) => {
   const t = useT();
 
   const {
@@ -81,4 +78,4 @@ const GeoJSON: FC<DataProps> = ({ sceneId, onSubmit, onClose }) => {
   );
 };
 
-export default GeoJSON;
+export default ShapeFile;
