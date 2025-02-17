@@ -44,8 +44,8 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
 
       fetch(value).then((fileData) => {
         fileData.blob().then((fileDataBlob) => {
-          const file = new File([fileDataBlob], "polygon.geojson");
-          Gdal.open(file).then((result: any) => {
+          const file = new File([fileDataBlob], "polygon.zip");
+          Gdal.open(file, [], ['vsizip']).then((result: any) => {
             const shpDataset = result.datasets[0];
             Gdal.ogr2ogr(shpDataset, options).then((output: any) => {
               Gdal.getFileBytes(output)
