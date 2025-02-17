@@ -45,14 +45,13 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
 
       fetch(value).then((fileData) => {
         fileData.blob().then((fileDataBlob) => {
-          const file = new File([fileDataBlob], "polygon.geojson");
+          const file = new File([fileDataBlob], "polygon.dgn");
           Gdal.open(file).then((result: any) => {
             const shpDataset = result.datasets[0];
             Gdal.ogr2ogr(shpDataset, options).then((output: any) => {
               Gdal.getFileBytes(output)
                 .then((bytes: any) => {
                   const blob = new Blob([bytes]);
-                 
                   const fr = new FileReader();
 
                   fr.onload = function () {
