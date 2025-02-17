@@ -75,20 +75,41 @@ const convertGeometry = (geometry: Geometry) => {
       ];
 };
 
-export const convertSketchFeatureCollection = (
-  featureCollection: SketchInfo["featureCollection"]
+export const convertSketchFeatureCollection1 = (
+  featureCollection1: SketchInfo["featureCollection"]
 ) => {
-  console.log(featureCollection);
-  const correcteFeatureCollection = featureCollection
+  console.log(featureCollection1);
+  const correcteFeatureCollection = featureCollection1
     ? {
-        type: featureCollection.type,
-        features: featureCollection.features.map((f) => ({
+        type: featureCollection1.type,
+        features: featureCollection1.features.map((f) => ({
           id: f.id,
           type: f.type,
           properties: f.properties,
           geometry: convertGeometry(
             Array.isArray(f.geometry) ? f.geometry[0] : f.geometry
           )
+        }))
+      }
+    : undefined;
+  console.log(correcteFeatureCollection);
+
+  return correcteFeatureCollection;
+};
+
+export const convertSketchFeatureCollection = (
+  featureCollection1: SketchInfo["featureCollection"]
+) => {
+  console.log(featureCollection1);
+  const correcteFeatureCollection = featureCollection1
+    ? {
+        type: featureCollection1.type,
+        features: featureCollection1.features.map((f) => ({
+          id: f.id,
+          type: f.type,
+          properties: f.properties,
+          geometry: 
+            Array.isArray(f.geometry) ? f.geometry[0] : f.geometry
         }))
       }
     : undefined;
@@ -113,7 +134,7 @@ export const getLayers = (rawScene?: GetSceneQuery) => {
       sketch: l.sketch
         ? {
             customPropertySchema: l.sketch.customPropertySchema,
-            featureCollection: convertSketchFeatureCollection(
+            featureCollection: convertSketchFeatureCollection1(
               l.sketch.featureCollection as SketchInfo["featureCollection"]
             )
           }

@@ -51,12 +51,16 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
         "-s_srs",
         sourceCRS
       ];
-
+        console.log("1");
       Gdal.open([value]).then((result: any) => {
+        console.log("2");
         const shpDataset = result.datasets[0];
         Gdal.ogr2ogr(shpDataset, options).then((output: any) => {
+        console.log("3");
           Gdal.getFileBytes(output)
             .then((bytes: any) => {
+                console.log("4");
+
               const blob = new Blob([bytes]);
               const link = document.createElement("a");
               link.href = URL.createObjectURL(blob);
