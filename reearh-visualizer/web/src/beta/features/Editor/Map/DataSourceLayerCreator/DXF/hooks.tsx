@@ -59,10 +59,7 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
               Gdal.getFileBytes(output)
                 .then((bytes: any) => {
                   const blob = new Blob([bytes]);
-                  const link = document.createElement("a");
-                  link.href = URL.createObjectURL(blob);
-                  link.download = "output.geojson";
-                  link.click();
+
                   const fr = new FileReader();
 
                   fr.onload = function () {
