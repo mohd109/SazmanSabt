@@ -4,18 +4,16 @@ import { useState, useMemo, useCallback } from "react";
 import { DataProps, DataSourceOptType, SourceType } from "..";
 import { generateTitle } from "../util";
 
-import workerUrl from 'gdal3.js/dist/package/gdal3.js?url'
-import dataUrl from 'gdal3.js/dist/package/gdal3WebAssembly.data?url'
-import wasmUrl from 'gdal3.js/dist/package/gdal3WebAssembly.wasm?url'
-import initGdalJs from 'gdal3.js';
+import workerUrl from "gdal3.js/dist/package/gdal3.js?url";
+import dataUrl from "gdal3.js/dist/package/gdal3WebAssembly.data?url";
+import wasmUrl from "gdal3.js/dist/package/gdal3WebAssembly.wasm?url";
+import initGdalJs from "gdal3.js";
 
 const paths = {
   wasm: wasmUrl,
   data: dataUrl,
-  js: workerUrl,
+  js: workerUrl
 };
-
-
 
 export default ({ sceneId, onClose, onSubmit }: DataProps) => {
   const t = useT();
@@ -26,9 +24,7 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
   const [layerName, setLayerName] = useState("");
   const [prioritizePerformance, setPrioritizePerformance] = useState(false);
   const dataSourceTypeOptions: DataSourceOptType = useMemo(
-    () => [
-      { label: t("From Assets"), value: "local" },
-    ],
+    () => [{ label: t("From Assets"), value: "local" }],
     [t]
   );
 
@@ -43,31 +39,24 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
   const handleSubmit = useCallback(() => {
     // convert shp to geojson value
 
-    initGdalJs({paths}).then((Gdal: any) => {
+    initGdalJs({ paths }).then((Gdal: any) => {
+      const options = ["-f", "GeoJSON", "-t_srs", "EPSG:4326"];
 
-      const options = [ 
-        '-f', 'GeoJSON',
-        '-t_srs', 'EPSG:4326',
-      ];
-
-      fetch(value).then(fileData=>{
-
-        fileData.blob().then(fileDataBlob=>{
-
+      fetch(value).then((fileData) => {
+        fileData.blob().then((fileDataBlob) => {
           const file = new File([fileDataBlob], "polygon.geojson");
           Gdal.open(file).then((result: any) => {
             const shpDataset = result.datasets[0];
             Gdal.ogr2ogr(shpDataset, options).then((output: any) => {
               Gdal.getFileBytes(output)
                 .then((bytes: any) => {
-    
                   const blob = new Blob([bytes]);
                   const link = document.createElement("a");
                   link.href = URL.createObjectURL(blob);
                   link.download = "output.geojson";
                   link.click();
                   const fr = new FileReader();
-    
+
                   fr.onload = function () {
                     try {
                       const parsedValue = JSON.parse(this.result as any);
@@ -100,21 +89,10 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
                 .catch((e: any) => console.error(e));
             });
           });
-        }
-
-        )
+        });
       });
     });
-  }, [
-    layerName,
-    onClose,
-    onSubmit,
-    prioritizePerformance,
-    sceneId,
-    sourceType,
-    t,
-    value
-  ]);
+  }, [layerName, onClose, onSubmit, prioritizePerformance, sceneId, t, value]);
 
   const handleValueChange = useCallback((value?: string, name?: string) => {
     setValue(value || "");
