@@ -15,7 +15,7 @@ import { supportedCRS } from "../projGoodList.js";
 
 import useHooks from "./hooks";
 
-const DXF: FC<DataProps> = ({ sceneId, onSubmit, onClose }) => {
+const GeoJSON: FC<DataProps> = ({ sceneId, onSubmit, onClose }) => {
   const t = useT();
 
   const {
@@ -85,4 +85,4 @@ const DXF: FC<DataProps> = ({ sceneId, onSubmit, onClose }) => {
   );
 };
 
-export default DXF;
+export default GeoJSON;

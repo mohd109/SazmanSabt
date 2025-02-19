@@ -50,7 +50,9 @@ export default ({ sceneId, projectId, tab }: Props) => {
     handleLayerConfigUpdate,
     handleLayerMove,
     handleCustomPropertySchemaClick,
-    handleCustomPropertySchemaUpdate
+    handleCustomPropertySchemaUpdate,
+    handleChangeCustomPropertyTitle,
+    handleRemoveCustomProperty
   } = useLayers({
     sceneId,
     isVisualizerReady,
@@ -125,9 +127,6 @@ export default ({ sceneId, projectId, tab }: Props) => {
     sketchLayerCreatorShown,
     openSketchLayerCreator,
     closeSketchLayerCreator,
-    customPropertySchemaShown,
-    openCustomPropertySchema,
-    closeCustomPropertySchema,
     selectedDevice,
     handleDeviceChange
   } = useUI({
@@ -167,8 +166,6 @@ export default ({ sceneId, projectId, tab }: Props) => {
       handleLayerSelect: handleLayerSelectFromUI,
       openDataSourceLayerCreator,
       openSketchLayerCreator,
-      openCustomPropertySchema,
-      closeCustomPropertySchema,
       handleLayerVisibilityUpdate,
       handleFlyTo,
       sketchEnabled: !!selectedLayer?.layer?.isSketch,
@@ -193,7 +190,9 @@ export default ({ sceneId, projectId, tab }: Props) => {
       handleLayerStyleSelect,
       layerId,
       handleCustomPropertySchemaClick,
-      handleCustomPropertySchemaUpdate
+      handleCustomPropertySchemaUpdate,
+      handleChangeCustomPropertyTitle,
+      handleRemoveCustomProperty
     }),
     [
       handleVisualizerResize,
@@ -209,8 +208,6 @@ export default ({ sceneId, projectId, tab }: Props) => {
       handleLayerSelectFromUI,
       openDataSourceLayerCreator,
       openSketchLayerCreator,
-      openCustomPropertySchema,
-      closeCustomPropertySchema,
       handleLayerVisibilityUpdate,
       handleFlyTo,
       sketchType,
@@ -233,7 +230,9 @@ export default ({ sceneId, projectId, tab }: Props) => {
       handleLayerStyleSelect,
       layerId,
       handleCustomPropertySchemaClick,
-      handleCustomPropertySchemaUpdate
+      handleCustomPropertySchemaUpdate,
+      handleChangeCustomPropertyTitle,
+      handleRemoveCustomProperty
     ]
   );
 
@@ -347,9 +346,7 @@ export default ({ sceneId, projectId, tab }: Props) => {
     closeDataSourceLayerCreator,
     handleLayerAdd,
     sketchLayerCreatorShown,
-    customPropertySchemaShown,
     closeSketchLayerCreator,
-    closeCustomPropertySchema,
     layerStyles,
     layers: nlsLayers,
     layerId,

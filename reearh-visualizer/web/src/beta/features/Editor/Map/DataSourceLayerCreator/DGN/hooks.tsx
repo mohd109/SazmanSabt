@@ -1,15 +1,16 @@
 import { useT } from "@reearth/services/i18n";
 
-import workerUrl from "gdal3.js/dist/package/gdal3.js?url";
-import dataUrl from "gdal3.js/dist/package/gdal3WebAssembly.data?url";
-import wasmUrl from "gdal3.js/dist/package/gdal3WebAssembly.wasm?url";
-import initGdalJs from "gdal3.js";
+import workerUrl from 'gdal3.js/dist/package/gdal3.js?url'
+import dataUrl from 'gdal3.js/dist/package/gdal3WebAssembly.data?url'
+import wasmUrl from 'gdal3.js/dist/package/gdal3WebAssembly.wasm?url'
+import initGdalJs from 'gdal3.js';
 
 const paths = {
   wasm: wasmUrl,
   data: dataUrl,
-  js: workerUrl
+  js: workerUrl,
 };
+
 
 import { useState, useMemo, useCallback } from "react";
 
@@ -40,56 +41,64 @@ export default ({ sceneId, onClose, onSubmit }: DataProps) => {
   const handleSubmit = useCallback(() => {
     // convert dgn to geojson value
 
-    initGdalJs({ paths }).then((Gdal: any) => {
+    initGdalJs({paths}).then((Gdal: any) => {
       const options = ["-f", "GeoJSON", "-t_srs", "EPSG:4326"];
 
-      fetch(value).then((fileData) => {
-        fileData.blob().then((fileDataBlob) => {
-          const file = new File([fileDataBlob], "polygon.dgn");
-          Gdal.open(file).then((result: any) => {
-            const shpDataset = result.datasets[0];
-            Gdal.ogr2ogr(shpDataset, options).then((output: any) => {
-              Gdal.getFileBytes(output)
-                .then((bytes: any) => {
-                  const blob = new Blob([bytes]);
-                  const fr = new FileReader();
+      Gdal.open([value]).then((result: any) => {
+        const shpDataset = result.datasets[0];
+        Gdal.ogr2ogr(shpDataset, options).then((output: any) => {
+          Gdal.getFileBytes(output)
+            .then((bytes: any) => {
+              const blob = new Blob([bytes]);
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(blob);
+              link.download = "output.geojson";
+              link.click();
+              const fr = new FileReader();
 
-                  fr.onload = function () {
-                    try {
-                      const parsedValue = JSON.parse(this.result as any);
-                      if (!isValidGeoJSON(parsedValue)) {
-                        throw new Error(t("Invalid GeoJSON format"));
-                      }
-                      onSubmit({
-                        layerType: "simple",
-                        sceneId,
-                        title: generateTitle(value, layerName),
-                        visible: true,
-                        config: {
-                          data: {
-                            type: "geojson",
-                            value: parsedValue,
-                            geojson: {
-                              useAsResource: prioritizePerformance
-                            }
-                          }
+              fr.onload = function () {
+                try {
+                  const parsedValue = JSON.parse(this.result as any);
+                  if (!isValidGeoJSON(parsedValue)) {
+                    throw new Error(t("Invalid GeoJSON format"));
+                  }
+                  onSubmit({
+                    layerType: "simple",
+                    sceneId,
+                    title: generateTitle(value, layerName),
+                    visible: true,
+                    config: {
+                      data: {
+                        type: "geojson",
+                        value: parsedValue,
+                        geojson: {
+                          useAsResource: prioritizePerformance
                         }
-                      });
-                      onClose();
-                    } catch (error) {
-                      console.error("GeoJSON parsing error:", error);
-                      throw new Error(t("Please enter valid GeoJSON"));
+                      }
                     }
-                  };
-                  fr.readAsText(blob);
-                })
-                .catch((e: any) => console.error(e));
-            });
-          });
+                  });
+                  onClose();
+                } catch (error) {
+                  console.error("GeoJSON parsing error:", error);
+                  throw new Error(t("Please enter valid GeoJSON"));
+                }
+              };
+              fr.readAsText(blob);
+            })
+            .catch((e: any) => console.error(e));
         });
       });
     });
-  }, [layerName, onClose, onSubmit, prioritizePerformance, sceneId, t, value]);
+  }, [
+    layerName,
+    onClose,
+    onSubmit,
+    prioritizePerformance,
+    sceneId,
+    sourceType,
+    t,
+    value
+  ]);
 
   const handleValueChange = useCallback((value?: string, name?: string) => {
     setValue(value || "");

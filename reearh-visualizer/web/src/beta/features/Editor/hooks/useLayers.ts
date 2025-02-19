@@ -10,8 +10,10 @@ import {
   NLSLayer
 } from "@reearth/services/api/layersApi/utils";
 import {
-  SketchInfo,
-  UpdateCustomPropertySchemaInput
+  ChangeCustomPropertyTitleInput,
+  RemoveCustomPropertyInput,
+  UpdateCustomPropertySchemaInput,
+  SketchInfo
 } from "@reearth/services/gql";
 import { useT } from "@reearth/services/i18n";
 import workerUrl from 'gdal3.js/dist/package/gdal3.js?url'
@@ -97,7 +99,9 @@ export default function ({
     useRemoveNLSLayer,
     useUpdateNLSLayer,
     useUpdateNLSLayers,
-    useUpdateCustomProperties
+    useUpdateCustomProperties,
+    useChangeCustomPropertyTitle,
+    useRemoveCustomProperty
   } = useLayersFetcher();
 
   const { nlsLayers: originNlsLayers } = useGetLayersQuery({ sceneId });
@@ -350,6 +354,28 @@ export default function ({
     [useUpdateCustomProperties]
   );
 
+  const handleChangeCustomPropertyTitle = useCallback(
+    async (inp: ChangeCustomPropertyTitleInput) => {
+      await useChangeCustomPropertyTitle({
+        layerId: inp.layerId,
+        oldTitle: inp.oldTitle,
+        newTitle: inp.newTitle,
+        schema: inp.schema
+      });
+    },
+    [useChangeCustomPropertyTitle]
+  );
+
+  const handleRemoveCustomProperty = useCallback(
+    async (inp: RemoveCustomPropertyInput) => {
+      await useRemoveCustomProperty({
+        layerId: inp.layerId,
+        removedTitle: inp.removedTitle,
+        schema: inp.schema
+      });
+    },
+    [useRemoveCustomProperty]
+  );
   return {
     nlsLayers,
     selectedLayer,
@@ -365,6 +391,8 @@ export default function ({
     handleLayerVisibilityUpdate,
     handleLayerMove,
     handleCustomPropertySchemaClick,
-    handleCustomPropertySchemaUpdate
+    handleCustomPropertySchemaUpdate,
+    handleChangeCustomPropertyTitle,
+    handleRemoveCustomProperty
   };
 }

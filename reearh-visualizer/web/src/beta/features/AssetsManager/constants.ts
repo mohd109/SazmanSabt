@@ -23,8 +23,7 @@ export const GIS_FILE_TYPES = [
   "gpx",
   "wms",
   "mvt",
-  "czml",
-  "zip"
+  "czml"
 ] as const;
 
 export type ImageType = (typeof IMAGE_FILE_TYPES)[number];
