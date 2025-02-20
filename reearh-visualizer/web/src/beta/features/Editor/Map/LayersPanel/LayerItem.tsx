@@ -44,7 +44,8 @@ const LayerItem: FC<LayerItemProps> = ({
     handleLayerDelete,
     handleLayerNameUpdate,
     handleLayerVisibilityUpdate,
-    handleFlyTo
+    handleFlyTo,
+    handleLayerExport,
   } = useMapPage();
 
   const [showDeleteLayerConfirmModal, setShowDeleteLayerConfirmModal] =
@@ -78,6 +79,12 @@ const LayerItem: FC<LayerItemProps> = ({
       title: t("Delete"),
       icon: "trash" as const,
       onClick: () => setShowDeleteLayerConfirmModal(true)
+    },
+    {
+      id: "exportLayer",
+      title: t("Export Layer"),
+      icon: "export" as const,
+      onClick: () => handleLayerExport(layer.id)
     }
   ];
 
